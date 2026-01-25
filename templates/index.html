@@ -1,8 +1,29 @@
 {% extends "base.html" %}
 {% block conteudo %}
-<div class="d-grid gap-3 col-6 mx-auto">
-    <a href="/nova_matricula" class="btn btn-success btn-lg">Nova Matrícula</a>
-    <a href="/alunos" class="btn btn-primary btn-lg">Alunos Matriculados</a>
-    <a href="/financeiro" class="btn btn-warning btn-lg">Financeiro</a>
+
+<div class="text-center mb-4">
+    <h2>Sistema de Matrículas Escolares</h2>
+    <p class="text-muted">
+        Escolha uma das opções abaixo para continuar
+    </p>
 </div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6 d-grid gap-3">
+
+        <a href="/nova_matricula" class="btn btn-success btn-lg">
+            📄 Nova Matrícula
+        </a>
+
+        <a href="/alunos" class="btn btn-primary btn-lg">
+            👧🧒 Alunos Matriculados
+        </a>
+
+        <a href="/financeiro" class="btn btn-warning btn-lg">
+            💰 Financeiro
+        </a>
+
+    </div>
+</div>
+
 {% endblock %}

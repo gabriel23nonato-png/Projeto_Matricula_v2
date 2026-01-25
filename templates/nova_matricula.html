@@ -1,31 +1,170 @@
 {% extends "base.html" %}
 {% block conteudo %}
+
 <form method="POST" enctype="multipart/form-data">
-    <h4>Dados do Aluno</h4>
-    <input class="form-control mb-2" name="nome_aluno" placeholder="Nome do aluno" required>
-    <input class="form-control mb-2" type="date" name="data_nascimento">
-    <select class="form-control mb-2" name="sexo">
-        <option>Masculino</option>
-        <option>Feminino</option>
+
+<!-- 1️⃣ IDENTIFICAÇÃO DO ALUNO -->
+<div class="card mb-4">
+  <div class="card-header bg-primary text-white">Identificação do Aluno</div>
+  <div class="card-body">
+
+    <input class="form-control mb-2" name="ra" placeholder="RA">
+
+    <input class="form-control mb-2" name="nome_completo" placeholder="Nome completo *" required>
+
+    <label>Data de nascimento *</label>
+    <input type="date" class="form-control mb-2" name="data_nascimento" required>
+
+    <input class="form-control mb-2" name="rg_aluno" placeholder="RG (somente números)" inputmode="numeric">
+
+    <input class="form-control mb-2" name="cpf_aluno" placeholder="CPF (somente números)" inputmode="numeric">
+
+    <input class="form-control mb-2" name="cartao_sus" placeholder="Cartão SUS (somente números)" inputmode="numeric">
+
+    <input class="form-control mb-2" name="certidao_nascimento" placeholder="Certidão de nascimento (somente números)">
+
+    <label>Sexo *</label>
+    <select class="form-control mb-2" name="sexo" required>
+      <option value="">Selecione</option>
+      <option>Masculino</option>
+      <option>Feminino</option>
     </select>
-    <select class="form-control mb-2" name="turma">
-        <option>IVA</option><option>IVB</option><option>IVC</option>
-        <option>VA</option><option>VB</option><option>VC</option><option>VD</option>
+
+    <input class="form-control mb-2" name="raca_cor" placeholder="Raça/Cor">
+    <input class="form-control mb-2" name="nacionalidade" placeholder="Nacionalidade">
+
+    <label>Documentos</label>
+    <input type="file" class="form-control mb-2" name="doc_cpf_aluno">
+    <input type="file" class="form-control mb-2" name="doc_sus">
+    <input type="file" class="form-control mb-2" name="doc_certidao">
+
+  </div>
+</div>
+
+<!-- 2️⃣ RESPONSÁVEL LEGAL -->
+<div class="card mb-4">
+  <div class="card-header bg-secondary text-white">Responsável Legal</div>
+  <div class="card-body">
+
+    <input class="form-control mb-2" name="nome_mae" placeholder="Nome da mãe *" required>
+    <input class="form-control mb-2" name="cpf_mae" placeholder="CPF da mãe *" inputmode="numeric" required>
+    <input class="form-control mb-2" name="rg_mae" placeholder="RG da mãe *" inputmode="numeric" required>
+
+    <input class="form-control mb-2" name="nome_pai" placeholder="Nome do pai">
+    <input class="form-control mb-2" name="cpf_pai" placeholder="CPF do pai" inputmode="numeric">
+    <input class="form-control mb-2" name="rg_pai" placeholder="RG do pai" inputmode="numeric">
+
+    <input class="form-control mb-2" name="telefone1" placeholder="Telefone 1 *" inputmode="numeric" required>
+    <input class="form-control mb-2" name="telefone2" placeholder="Telefone 2">
+    <input class="form-control mb-2" name="telefone3" placeholder="Telefone 3">
+    <input class="form-control mb-2" name="telefone4" placeholder="Telefone 4">
+
+    <input class="form-control mb-2" name="responsavel_matricula" placeholder="Quem é o responsável pela matrícula">
+
+    <label>Documentos</label>
+    <input type="file" class="form-control mb-2" name="doc_cpf_mae">
+    <input type="file" class="form-control mb-2" name="doc_cpf_pai">
+
+  </div>
+</div>
+
+<!-- 3️⃣ INFORMAÇÕES ESCOLARES -->
+<div class="card mb-4">
+  <div class="card-header bg-info text-white">Informações Escolares</div>
+  <div class="card-body">
+
+    <input class="form-control mb-2" name="retirada_pessoa1" placeholder="Pessoa autorizada 1">
+    <input class="form-control mb-2" name="retirada_numero1" placeholder="Telefone pessoa 1">
+
+    <input class="form-control mb-2" name="retirada_pessoa2" placeholder="Pessoa autorizada 2">
+    <input class="form-control mb-2" name="retirada_numero2" placeholder="Telefone pessoa 2">
+
+    <input class="form-control mb-2" name="retirada_pessoa3" placeholder="Pessoa autorizada 3">
+    <input class="form-control mb-2" name="retirada_numero3" placeholder="Telefone pessoa 3">
+
+    <input class="form-control mb-2" name="escola_anterior" placeholder="Escola anterior">
+
+    <label>Permite tirar fotos?</label><br>
+    <input type="radio" name="permite_fotos" value="Sim"> Sim
+    <input type="radio" name="permite_fotos" value="Não"> Não
+
+    <br><label class="mt-2">Permite postar fotos (LGPD)?</label><br>
+    <input type="radio" name="permite_postar" value="Sim"> Sim
+    <input type="radio" name="permite_postar" value="Não"> Não
+
+  </div>
+</div>
+
+<!-- 4️⃣ ENDEREÇO -->
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">Endereço</div>
+  <div class="card-body">
+
+    <input class="form-control mb-2" name="logradouro" placeholder="Logradouro">
+    <input class="form-control mb-2" name="numero" placeholder="Número">
+    <input class="form-control mb-2" name="bairro" placeholder="Bairro">
+    <input class="form-control mb-2" name="cidade" placeholder="Cidade">
+    <input class="form-control mb-2" name="cep" placeholder="CEP">
+
+    <label>Documento CEP</label>
+    <input type="file" class="form-control mb-2" name="doc_cep">
+
+  </div>
+</div>
+
+<!-- 5️⃣ SAÚDE -->
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">Saúde e Necessidades Especiais</div>
+  <div class="card-body">
+
+    <input class="form-control mb-2" name="peso" placeholder="Peso">
+    <input class="form-control mb-2" name="altura" placeholder="Altura">
+    <input class="form-control mb-2" name="uniforme" placeholder="Tamanho do uniforme">
+    <input class="form-control mb-2" name="calcado" placeholder="Tamanho do calçado">
+
+    <label>Alérgico?</label><br>
+    <input type="radio" name="alergico" value="Sim"> Sim
+    <input type="radio" name="alergico" value="Não"> Não
+
+    <br><label>Diabético?</label><br>
+    <input type="radio" name="diabetico" value="Sim"> Sim
+    <input type="radio" name="diabetico" value="Não"> Não
+
+    <br><label>Intolerante à lactose?</label><br>
+    <input type="radio" name="lactose" value="Sim"> Sim
+    <input type="radio" name="lactose" value="Não"> Não
+
+    <br><label>APLV?</label><br>
+    <input type="radio" name="aplv" value="Sim"> Sim
+    <input type="radio" name="aplv" value="Não"> Não
+
+    <textarea class="form-control mt-2" name="necessidades_especiais" placeholder="Necessidades especiais"></textarea>
+
+    <label class="mt-2">Documentos de Saúde</label>
+    <input type="file" class="form-control mb-2" name="doc_laudo">
+    <input type="file" class="form-control mb-2" name="doc_carteira_vacinacao">
+    <input type="file" class="form-control mb-2" name="doc_comprovante_vacinacao">
+
+  </div>
+</div>
+
+<!-- 6️⃣ FINANCEIRO -->
+<div class="card mb-4">
+  <div class="card-header bg-warning">Financeiro</div>
+  <div class="card-body">
+
+    <input class="form-control mb-2" name="contribuicao" placeholder="Valor da contribuição">
+
+    <select class="form-control mb-2" name="tipo_contribuicao">
+      <option>Dinheiro</option>
+      <option>Pix</option>
     </select>
 
-    <h4>Responsável</h4>
-    <input class="form-control mb-2" name="responsavel_nome" placeholder="Nome do responsável">
-    <input class="form-control mb-2" name="responsavel_cpf" placeholder="CPF">
-    <input class="form-control mb-2" name="responsavel_telefone" placeholder="Telefone">
-    <input class="form-control mb-2" name="endereco" placeholder="Endereço completo">
+  </div>
+</div>
 
-    <h4>Financeiro</h4>
-    <input class="form-control mb-2" name="contribuicao" placeholder="Contribuição (R$)">
+<button class="btn btn-success btn-lg w-100">Salvar Matrícula</button>
 
-    <h4>Documentos</h4>
-    <input type="file" class="form-control mb-2" name="certidao">
-    <input type="file" class="form-control mb-2" name="comprovante">
-
-    <button class="btn btn-success">Salvar Matrícula</button>
 </form>
+
 {% endblock %}
