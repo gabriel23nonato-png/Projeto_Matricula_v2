@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<form method="POST" enctype="multipart/form-data">
+    <h4>Dados do Aluno</h4>
+    <input class="form-control mb-2" name="nome_aluno" placeholder="Nome do aluno" required>
+    <input class="form-control mb-2" type="date" name="data_nascimento">
+    <select class="form-control mb-2" name="sexo">
+        <option>Masculino</option>
+        <option>Feminino</option>
+    </select>
+    <select class="form-control mb-2" name="turma">
+        <option>IVA</option><option>IVB</option><option>IVC</option>
+        <option>VA</option><option>VB</option><option>VC</option><option>VD</option>
+    </select>
+
+    <h4>Responsável</h4>
+    <input class="form-control mb-2" name="responsavel_nome" placeholder="Nome do responsável">
+    <input class="form-control mb-2" name="responsavel_cpf" placeholder="CPF">
+    <input class="form-control mb-2" name="responsavel_telefone" placeholder="Telefone">
+    <input class="form-control mb-2" name="endereco" placeholder="Endereço completo">
+
+    <h4>Financeiro</h4>
+    <input class="form-control mb-2" name="contribuicao" placeholder="Contribuição (R$)">
+
+    <h4>Documentos</h4>
+    <input type="file" class="form-control mb-2" name="certidao">
+    <input type="file" class="form-control mb-2" name="comprovante">
+
+    <button class="btn btn-success">Salvar Matrícula</button>
+</form>
+{% endblock %}

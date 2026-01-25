@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h3>Financeiro por Turma</h3>
+<ul class="list-group">
+    {% for t in totais %}
+    <li class="list-group-item">
+        Turma {{ t[0] }} — Total R$ {{ t[1] }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
