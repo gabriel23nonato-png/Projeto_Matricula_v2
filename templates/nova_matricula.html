@@ -8,19 +8,25 @@
   <div class="card-header bg-primary text-white">Identificação do Aluno</div>
   <div class="card-body">
 
+    <label>RA (Registro Acadêmico)</label>
     <input class="form-control mb-2" name="ra" placeholder="RA">
 
+    <label>Nome completo *</label>
     <input class="form-control mb-2" name="nome_completo" placeholder="Nome completo *" required>
 
     <label>Data de nascimento *</label>
     <input type="date" class="form-control mb-2" name="data_nascimento" required>
 
+    <label>RG do aluno</label>
     <input class="form-control mb-2" name="rg_aluno" placeholder="RG (somente números)" inputmode="numeric">
 
+    <label>CPF do aluno</label>
     <input class="form-control mb-2" name="cpf_aluno" placeholder="CPF (somente números)" inputmode="numeric">
 
+    <label>Cartão SUS do aluno</label>
     <input class="form-control mb-2" name="cartao_sus" placeholder="Cartão SUS (somente números)" inputmode="numeric">
 
+    <label>Certidão de nascimento</label>
     <input class="form-control mb-2" name="certidao_nascimento" placeholder="Certidão de nascimento (somente números)">
 
     <label>Sexo *</label>
@@ -30,7 +36,17 @@
       <option>Feminino</option>
     </select>
 
-    <input class="form-control mb-2" name="raca_cor" placeholder="Raça/Cor">
+    <label>Raça/Cor</label>
+    <select class="form-control mb-2" name="raca_cor" required>
+      <option value="">Selecione</option>
+      <option>Preta</option>
+      <option>Parda</option>
+      <option>Indígena</option>
+      <option>Amarela</option>
+      <option>Branca</option>
+    </select>
+
+    <label>Nacionalidade</label>
     <input class="form-control mb-2" name="nacionalidade" placeholder="Nacionalidade">
 
     <label>Documentos</label>
@@ -43,28 +59,83 @@
 
 <!-- 2️⃣ RESPONSÁVEL LEGAL -->
 <div class="card mb-4">
-  <div class="card-header bg-secondary text-white">Responsável Legal</div>
+  <div class="card-header bg-secondary text-white">Responsável(eis) Legal(ais)</div>
   <div class="card-body">
 
-    <input class="form-control mb-2" name="nome_mae" placeholder="Nome da mãe *" required>
-    <input class="form-control mb-2" name="cpf_mae" placeholder="CPF da mãe *" inputmode="numeric" required>
-    <input class="form-control mb-2" name="rg_mae" placeholder="RG da mãe *" inputmode="numeric" required>
+    <div class="row">
+    <div class="col-md-6">
+        <label class="form-label">Nome do 1º genitor</label>
+        <input 
+            class="form-control mb-2" 
+            name="nome_mae" 
+            placeholder="Nome do 1º genitor *">
+    </div>
 
-    <input class="form-control mb-2" name="nome_pai" placeholder="Nome do pai">
-    <input class="form-control mb-2" name="cpf_pai" placeholder="CPF do pai" inputmode="numeric">
-    <input class="form-control mb-2" name="rg_pai" placeholder="RG do pai" inputmode="numeric">
+    <div class="col-md-6">
+        <label class="form-label">CPF do 1º genitor</label>
+        <input 
+            class="form-control mb-2" 
+            name="cpf_mae" 
+            placeholder="CPF do 1º genitor *" 
+            inputmode="numeric">
+    </div>
+</div>
 
-    <input class="form-control mb-2" name="telefone1" placeholder="Telefone 1 *" inputmode="numeric" required>
-    <input class="form-control mb-2" name="telefone2" placeholder="Telefone 2">
-    <input class="form-control mb-2" name="telefone3" placeholder="Telefone 3">
-    <input class="form-control mb-2" name="telefone4" placeholder="Telefone 4">
+    <label>RG do 1º genitor</label>
+    <input class="form-control mb-2" name="rg_mae" placeholder="RG do 1º genitor *" inputmode="numeric" required>
 
+    <label>Nome do 2º genitor</label>
+    <input class="form-control mb-2" name="nome_pai" placeholder="Nome do 2º genitor">
+    <label>CPF do 2º genitor</label>
+    <input class="form-control mb-2" name="cpf_pai" placeholder="CPF do 2º genitor" inputmode="numeric">
+    <label>RG do 2º genitor</label>
+    <input class="form-control mb-2" name="rg_pai" placeholder="RG do 2º genitor" inputmode="numeric">
+
+    <div class="row">
+    <div class="col-md-6">
+        <label class="form-label">Telefone 1 *</label>
+        <input 
+            class="form-control mb-2" 
+            name="telefone1" 
+            placeholder="Telefone 1 *" 
+            inputmode="numeric" 
+            required>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Telefone 2</label>
+        <input 
+            class="form-control mb-2" 
+            name="telefone2" 
+            placeholder="Telefone 2">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <label class="form-label">Telefone 3</label>
+        <input 
+            class="form-control mb-2" 
+            name="telefone3" 
+            placeholder="Telefone 3">
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Telefone 4</label>
+        <input 
+            class="form-control mb-2" 
+            name="telefone4" 
+            placeholder="Telefone 4">
+    </div>
+</div>
+    <label>Nome do responsável pela matrícula *</label>
     <input class="form-control mb-2" name="responsavel_matricula" placeholder="Quem é o responsável pela matrícula">
 
     <label>Documentos</label>
+    <label>Documento CPF 1º genitor</label>
     <input type="file" class="form-control mb-2" name="doc_cpf_mae">
+    <label>Documento CPF 2º genitor</label>
     <input type="file" class="form-control mb-2" name="doc_cpf_pai">
-
   </div>
 </div>
 
@@ -73,25 +144,36 @@
   <div class="card-header bg-info text-white">Informações Escolares</div>
   <div class="card-body">
 
+    <label>Pessoa autorizada 1</label>
     <input class="form-control mb-2" name="retirada_pessoa1" placeholder="Pessoa autorizada 1">
+    <label>Telefone pessoa 1</label>
     <input class="form-control mb-2" name="retirada_numero1" placeholder="Telefone pessoa 1">
-
+    <label>Pessoa autorizada 2</label>
     <input class="form-control mb-2" name="retirada_pessoa2" placeholder="Pessoa autorizada 2">
+    <label>Telefone pessoa 2</label>
     <input class="form-control mb-2" name="retirada_numero2" placeholder="Telefone pessoa 2">
-
+    <label>Pessoa autorizada 3</label>
     <input class="form-control mb-2" name="retirada_pessoa3" placeholder="Pessoa autorizada 3">
+    <label>Telefone pessoa 3</label>
     <input class="form-control mb-2" name="retirada_numero3" placeholder="Telefone pessoa 3">
-
+    <label>Procedência (escola anterior)</label>
     <input class="form-control mb-2" name="escola_anterior" placeholder="Escola anterior">
+</div>
+</div>
 
-    <label>Permite tirar fotos?</label><br>
-    <input type="radio" name="permite_fotos" value="Sim"> Sim
-    <input type="radio" name="permite_fotos" value="Não"> Não
+<div class="card mb-4">
+  <div class="card-header bg-info text-white">Autorização para atividades</div>
+  <div class="card-body">
 
-    <br><label class="mt-2">Permite postar fotos (LGPD)?</label><br>
-    <input type="radio" name="permite_postar" value="Sim"> Sim
-    <input type="radio" name="permite_postar" value="Não"> Não
-
+    <label>Prática de educação física ou ações esportivas diversas</label><br>
+    <input type="radio" name="permite_fotos" value="Sim"> Sim, autorizo a prática esportiva<br>
+    <input type="radio" name="permite_fotos" value="Não"> Não, não autorizo<br>
+    <label>Uso de imagens e divulgação de depoimentos, em redes sociais e jornais</label><br>
+    <input type="radio" name="permite_fotos" value="Sim"> Sim, autorizo o uso de imagens e depoimentos<br>
+    <input type="radio" name="permite_fotos" value="Não"> Não autorizo<br>
+    <label>Participação de passeios e atividades extraclasses, que serão previamente avisados, durante todo o ano letivo</label><br>
+    <input type="radio" name="permite_fotos" value="Sim"> Sim, autorizo passeios e atividades extraclasses<br>
+    <input type="radio" name="permite_fotos" value="Não"> Não autorizo<br>
   </div>
 </div>
 
@@ -106,11 +188,11 @@
     <input class="form-control mb-2" name="cidade" placeholder="Cidade">
     <input class="form-control mb-2" name="cep" placeholder="CEP">
 
-    <label>Documento CEP</label>
+    <label>Comprovante de residência</label>
     <input type="file" class="form-control mb-2" name="doc_cep">
 
   </div>
-</div>
+</div>  
 
 <!-- 5️⃣ SAÚDE -->
 <div class="card mb-4">
