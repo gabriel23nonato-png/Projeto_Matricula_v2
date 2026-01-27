@@ -8,35 +8,87 @@
   <div class="card-header bg-primary text-white">Identificação do Aluno</div>
   <div class="card-body">
 
-    <label>RA (Registro Acadêmico)</label>
-    <input class="form-control mb-2" name="ra" placeholder="RA">
+    <div class="row">
+    <div class="col-md-3">
+        <label class="form-label">RA (Registro Acadêmico)</label>
+        <input 
+            class="form-control mb-2" 
+            name="ra">
+    </div>
 
-    <label>Nome completo *</label>
-    <input class="form-control mb-2" name="nome_completo" placeholder="Nome completo *" required>
+    <div class="col-md-9">
+        <label class="form-label">Nome do responsável pela matrícula *</label>
+        <input 
+            class="form-control mb-2" 
+            name="responsavel_matricula">
+    </div>
+</div>
+    <div class="row">
+      <div class="col-md-9">
+        <label class="form-label">Nome completo da criança</label>
+        <input 
+            class="form-control mb-2" 
+            name="nome_completo" >
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Data de nascimento</label>
+        <input type="date" class="form-control mb-2" name="data_nascimento" required>
+    </div>   
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <label class="form-label">RG do aluno</label>
+        <input 
+            class="form-control mb-2" 
+            name="rg_aluno"> 
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">CPF do aluno</label>
+        <input 
+            class="form-control mb-2" 
+            name="cpf_aluno">
+    </div>
+    <div>
+      <label class="form-label">Anexar documento digitalizado</label>
+      <input type="file" class="form-control mb-2" name="doc_cpf_aluno">
+    </div>      
+</div>
 
-    <label>Data de nascimento *</label>
-    <input type="date" class="form-control mb-2" name="data_nascimento" required>
+<div class="row">
+    <div class="col-md-6">
+        <label class="form-label">Cartão SUS do aluno</label>
+        <input 
+            class="form-control mb-2" 
+            name="cartao_sus">
+            <div>
+      <label class="form-label">Anexar cartão SUS digitalizado</label>
+      <input type="file" class="form-control mb-2" name="doc_cartao_sus">
+    </div>
+    </div>
 
-    <label>RG do aluno</label>
-    <input class="form-control mb-2" name="rg_aluno" placeholder="RG (somente números)" inputmode="numeric">
+    <div class="col-md-6">
+        <label class="form-label">Certidão de nascimento</label>
+        <input 
+            class="form-control mb-2" 
+            name="certidao_nascimento">
+            <div>
+      <label class="form-label">Anexar certidão de nascimento digitalizada</label>
+      <input type="file" class="form-control mb-2" name="doc_certidao_nascimento">
+    </div>
+    </div>  
+</div>
 
-    <label>CPF do aluno</label>
-    <input class="form-control mb-2" name="cpf_aluno" placeholder="CPF (somente números)" inputmode="numeric">
-
-    <label>Cartão SUS do aluno</label>
-    <input class="form-control mb-2" name="cartao_sus" placeholder="Cartão SUS (somente números)" inputmode="numeric">
-
-    <label>Certidão de nascimento</label>
-    <input class="form-control mb-2" name="certidao_nascimento" placeholder="Certidão de nascimento (somente números)">
-
-    <label>Sexo *</label>
+<div class="row">
+  <div class="col-md-6">
+    <label class="form-label">Sexo *</label>
     <select class="form-control mb-2" name="sexo" required>
       <option value="">Selecione</option>
       <option>Masculino</option>
       <option>Feminino</option>
     </select>
-
-    <label>Raça/Cor</label>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Raça/Cor</label>
     <select class="form-control mb-2" name="raca_cor" required>
       <option value="">Selecione</option>
       <option>Preta</option>
@@ -45,16 +97,25 @@
       <option>Amarela</option>
       <option>Branca</option>
     </select>
-
-    <label>Nacionalidade</label>
-    <input class="form-control mb-2" name="nacionalidade" placeholder="Nacionalidade">
-
-    <label>Documentos</label>
-    <input type="file" class="form-control mb-2" name="doc_cpf_aluno">
-    <input type="file" class="form-control mb-2" name="doc_sus">
-    <input type="file" class="form-control mb-2" name="doc_certidao">
-
   </div>
+</div>
+
+    <!-- adicionado os campos municipio de nascimento, UF e nacionalidade  -->
+    <div class="row">
+        <div class="col-md-4">
+            <label class="form-label">Município de nascimento</label>
+            <input class="form-control mb-2" name="municipio_nascimento">
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">UF</label>
+        <input class="form-control mb-2" name="uf_nascimento">
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Nacionalidade</label>
+        <input class="form-control mb-2" name="nacionalidade">
+    </div>
+  </div>
+</div>
 </div>
 
 <!-- 2️⃣ RESPONSÁVEL LEGAL -->
@@ -128,9 +189,6 @@
             placeholder="Telefone 4">
     </div>
 </div>
-    <label>Nome do responsável pela matrícula *</label>
-    <input class="form-control mb-2" name="responsavel_matricula" placeholder="Quem é o responsável pela matrícula">
-
     <label>Documentos</label>
     <label>Documento CPF 1º genitor</label>
     <input type="file" class="form-control mb-2" name="doc_cpf_mae">
