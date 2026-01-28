@@ -1,5 +1,21 @@
-.row {
-    border: 1px solid rgba(13,110,253,0.5);
-    border-radius: 15px;
-    margin: 15px;
+#ident_aluno {
+  border: 1px solid rgba(13, 110, 253, 0.5);
+  border-radius: 15px;
+  margin: 15px;
+}
+
+#resp_legal {
+  border: 1px solid rgba(108, 117, 125, 0.5);
+  border-radius: 15px;
+  margin: 15px;
+}
+
+#info_escolares {
+  border: 1px solid rgba(13, 202, 240, 0.5);
+  border-radius: 15px;
+  margin: 15px;
+}
+#telefones {
+  display: flex;
+  justify-content: center;
 }
