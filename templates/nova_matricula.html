@@ -39,26 +39,26 @@
         </div>
       </div>
       <div class="row" id="ident_aluno">
-          <div class="col-md-6">
-            <label class="form-label">Sexo *</label>
-            <select class="form-control mb-2" name="sexo" required>
-              <option value="">Selecione</option>
-              <option>Masculino</option>
-              <option>Feminino</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Raça/Cor</label>
-            <select class="form-control mb-2" name="raca_cor" required>
-              <option value="">Selecione</option>
-              <option>Preta</option>
-              <option>Parda</option>
-              <option>Indígena</option>
-              <option>Amarela</option>
-              <option>Branca</option>
-            </select>
-          </div>
+        <div class="col-md-6">
+          <label class="form-label">Sexo *</label>
+          <select class="form-control mb-2" name="sexo" required>
+            <option value="">Selecione</option>
+            <option>Masculino</option>
+            <option>Feminino</option>
+          </select>
         </div>
+        <div class="col-md-6">
+          <label class="form-label">Raça/Cor</label>
+          <select class="form-control mb-2" name="raca_cor" required>
+            <option value="">Selecione</option>
+            <option>Preta</option>
+            <option>Parda</option>
+            <option>Indígena</option>
+            <option>Amarela</option>
+            <option>Branca</option>
+          </select>
+        </div>
+      </div>
       <div class="row" id="ident_aluno">
         <div class="col-md-6">
           <label class="form-label">RG do aluno</label>
@@ -67,6 +67,31 @@
         <div class="col-md-6">
           <label class="form-label">CPF do aluno</label>
           <input class="form-control mb-2" name="cpf_aluno" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">UF</label>
+          <input class="form-control mb-2" name="uf_aluno" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Expedição</label>
+          <input
+            type="date"
+            class="form-control mb-2"
+            name="expedicao_aluno"
+          />
+        </div>
+        <div>
+          <div class="col-md-6">
+          <label class="form-label">RNE (em caso de aluno estrangeiro) </label>
+          <input class="form-control mb-2" name="rne_aluno" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Expedição</label>
+          <input
+            type="date"
+            class="form-control mb-2"
+            name="expedicao_aluno"
+          />
         </div>
         <div>
           <label class="form-label">Anexar documento digitalizado</label>
@@ -219,6 +244,14 @@
           <input class="form-control mb-2" name="nome_mae" />
         </div>
         <div class="col-md-4">
+          <label class="form-label">Profissão e local</label>
+          <input class="form-control mb-2" name="profissao_mae" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">E-mail</label>
+          <input class="form-control mb-2" name="email_mae" />
+        </div>
+        <div class="col-md-4">
           <label class="form-label">CPF do 1º genitor</label>
           <input class="form-control mb-2" name="cpf_mae" />
         </div>
@@ -227,10 +260,28 @@
           <input class="form-control mb-2" name="rg_mae" />
         </div>
         <div class="col-md-4">
-          <label class="form-label">Profissão e local</label>
-          <input class="form-control mb-2" name="profissao_mae" />
+          <label class="form-label">UF do RG do 1º genitor</label>
+          <input class="form-control mb-2" name="uf_rg_mae" />
         </div>
-        <div>
+        <div class="col-md-4">
+          <label class="form-label">Expedição do RG do 1º genitor</label>
+          <input
+            type="date"
+            class="form-control mb-2"
+            name="expedicao_rg_mae"
+          />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Estado civil</label>
+          <select class="form-control mb-2" name="estado_civil_mae">
+            <option value="">Selecione</option>
+            <option>Solteiro(a)</option>
+            <option>Casado(a)</option>
+            <option>Divorciado(a)</option>
+            <option>Viúvo(a)</option>
+          </select>
+        </div>
+        <div class="col-md-4">
           <label class="form-label"
             >Anexar documento de identidade digitalizado</label
           >
@@ -239,6 +290,57 @@
       </div>
 
       <div class="row" id="resp_legal">
+        <div class="col-md-4">
+          <label class="form-label">Nome do 2º genitor</label>
+          <input class="form-control mb-2" name="nome_pai" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Profissão e local</label>
+          <input class="form-control mb-2" name="profissao_pai" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">E-mail</label>
+          <input class="form-control mb-2" name="email_pai" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">CPF do 2º genitor</label>
+          <input class="form-control mb-2" name="cpf_pai" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">RG do 2º genitor</label>
+          <input class="form-control mb-2" name="rg_pai" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">UF do RG do 2º genitor</label>
+          <input class="form-control mb-2" name="uf_rg_pai" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Expedição do RG do 2º genitor</label>
+          <input
+            type="date"
+            class="form-control mb-2"
+            name="expedicao_rg_pai"
+          />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Estado civil</label>
+          <select class="form-control mb-2" name="estado_civil_pai">
+            <option value="">Selecione</option>
+            <option>Solteiro(a)</option>
+            <option>Casado(a)</option>
+            <option>Divorciado(a)</option>
+            <option>Viúvo(a)</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label"
+            >Anexar documento de identidade digitalizado</label
+          >
+          <input type="file" class="form-control mb-2" name="doc_cpf_pai" />
+        </div>
+      </div>
+
+      <!-- <div class="row" id="resp_legal">
         <div class="col-md-4">
           <label class="form-label">Nome do 2º genitor</label>
           <input class="form-control mb-2" name="nome_pai" />
@@ -261,7 +363,7 @@
           >
           <input type="file" class="form-control mb-2" name="doc_cpf_pai" />
         </div>
-      </div>
+      </div> -->
       <div class="row" id="resp_legal">
         <div class="col-md-3">
           <label class="form-label">Telefone 1 *</label>
