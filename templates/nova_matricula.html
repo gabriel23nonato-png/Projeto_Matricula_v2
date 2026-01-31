@@ -39,109 +39,79 @@
         </div>
       </div>
       <div class="row" id="ident_aluno">
-        <div class="col-md-6">
-          <label class="form-label">Sexo *</label>
-          <select class="form-control mb-2" name="sexo" required>
-            <option value="">Selecione</option>
-            <option>Masculino</option>
-            <option>Feminino</option>
-          </select>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Raça/Cor</label>
-          <select class="form-control mb-2" name="raca_cor" required>
-            <option value="">Selecione</option>
-            <option>Preta</option>
-            <option>Parda</option>
-            <option>Indígena</option>
-            <option>Amarela</option>
-            <option>Branca</option>
-          </select>
-        </div>
-      </div>
-      <div class="row" id="ident_aluno">
-        <div class="col-md-6">
+        <div class="col-md-2">
           <label class="form-label">RG do aluno</label>
           <input class="form-control mb-2" name="rg_aluno" />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-2">
           <label class="form-label">CPF do aluno</label>
           <input class="form-control mb-2" name="cpf_aluno" />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-2">
           <label class="form-label">UF</label>
           <input class="form-control mb-2" name="uf_aluno" />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-2">
           <label class="form-label">Expedição</label>
-          <input
-            type="date"
-            class="form-control mb-2"
-            name="expedicao_aluno"
-          />
+          <input type="date" class="form-control mb-2" name="expedicao_aluno" />
         </div>
-        <div>
-          <div class="col-md-6">
-          <label class="form-label">RNE (em caso de aluno estrangeiro) </label>
+        <div class="col-md-2">
+          <label class="form-label">RNE (se estrangeiro) </label>
           <input class="form-control mb-2" name="rne_aluno" />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-2">
           <label class="form-label">Expedição</label>
-          <input
-            type="date"
-            class="form-control mb-2"
-            name="expedicao_aluno"
-          />
+          <input type="date" class="form-control mb-2" name="expedicao_aluno" />
         </div>
         <div>
           <label class="form-label">Anexar documento digitalizado</label>
           <input type="file" class="form-control mb-2" name="doc_cpf_aluno" />
         </div>
       </div>
-
-      <div class="row" id="ident_aluno">
-        <div class="col-md-6">
-          <label class="form-label">Cartão SUS do aluno</label>
-          <input class="form-control mb-2" name="cartao_sus" />
-          <div>
-            <label class="form-label">Anexar cartão SUS digitalizado</label>
-            <input
-              type="file"
-              class="form-control mb-2"
-              name="doc_cartao_sus"
-            />
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label">Certidão de nascimento</label>
-          <input class="form-control mb-2" name="certidao_nascimento" />
-          <div>
-            <label class="form-label"
-              >Anexar certidão de nascimento digitalizada</label
-            >
-            <input
-              type="file"
-              class="form-control mb-2"
-              name="doc_certidao_nascimento"
-            />
-          </div>
-        </div>
+    </div>
+    <div class="row" id="ident_aluno">
+      <div class="col-md-2">
+        <label class="form-label">Cartão SUS do aluno</label>
+        <input class="form-control mb-2" name="cartao_sus" />
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Certidão de nascimento</label>
+        <input class="form-control mb-2" name="certidao_nascimento" />
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Município de nascimento</label>
+        <input class="form-control mb-2" name="municipio_nascimento" />
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Distrito</label>
+        <input class="form-control mb-2" name="distrito" />
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Expedição</label>
+        <input
+          type="date"
+          class="form-control mb-2"
+          name="expedicao_rg_aluno"
+        />
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Nacionalidade</label>
+        <input class="form-control mb-2" name="nacionalidade" />
       </div>
 
-      <div class="row" id="ident_aluno">
-        <div class="col-md-4">
-          <label class="form-label">Município de nascimento</label>
-          <input class="form-control mb-2" name="municipio_nascimento" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">UF</label>
-          <input class="form-control mb-2" name="uf_nascimento" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Nacionalidade</label>
-          <input class="form-control mb-2" name="nacionalidade" />
-        </div>
+      <div>
+        <label class="form-label">Anexar cartão SUS digitalizado</label>
+        <input type="file" class="form-control mb-2" name="doc_cartao_sus" />
+      </div>
+      <div>
+        <label class="form-label"
+          >Anexar certidão de nascimento digitalizada</label
+        >
+        <input
+          type="file"
+          class="form-control mb-2"
+          name="doc_certidao_nascimento"
+        />
       </div>
     </div>
   </div>
@@ -153,19 +123,39 @@
     </div>
     <div class="card-body">
       <div class="row" id="fisico_aluno">
-        <div class="col-md-3">
+        <div class="col-md-2">
+          <label class="form-label">Sexo *</label>
+          <select class="form-control mb-2" name="sexo" required>
+            <option value="">Selecione</option>
+            <option>Masculino</option>
+            <option>Feminino</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Raça/Cor</label>
+          <select class="form-control mb-2" name="raca_cor" required>
+            <option value="">Selecione</option>
+            <option>Preta</option>
+            <option>Parda</option>
+            <option>Indígena</option>
+            <option>Amarela</option>
+            <option>Branca</option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
           <label class="form-label">Peso</label>
           <input class="form-control mb-2" name="peso" />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <label class="form-label">Altura</label>
           <input class="form-control mb-2" name="altura" />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <label class="form-label">Tamanho do uniforme</label>
           <input class="form-control mb-2" name="uniforme" />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <label class="form-label">Tamanho do calçado</label>
           <input class="form-control mb-2" name="calcado" />
         </div>
@@ -229,6 +219,11 @@
           <input type="file" class="form-control mb-2" name="doc_laudo" />
         </div>
       </div>
+      <div class="row" id="saude_aluno">
+        <div class="col-md-12">
+          <label class="form-label">Demais observações</label>
+          <textarea class="form-control mb-2" name="observacoes"></textarea>
+        </div>
     </div>
   </div>
 
@@ -392,42 +387,72 @@
   <div class="card mb-4">
     <div class="card-header bg-info text-white">Informações Escolares</div>
     <div class="card-body">
-      <div class="row" id="telefones">
-        <div class="col-md-3" id="info_escolares">
-          <label class="form-label">Pessoa autorizada 1</label>
-          <input class="form-control mb-2" name="retirada_pessoa1" />
-          <label class="form-label">Telefone pessoa 1</label>
-          <input class="form-control mb-2" name="retirada_numero1" />
+      <div class="row">
+        <label class="form-label"
+          >Nome e telefone da(s) pessoa(s) autorizada(s) a retirar a criança da
+          escola</label
+        >
+        <div class="col-md-3">
+          <label class="form-label">Pessoa e telefone 1</label>
+          <input class="form-control mb-2" name="pessoa1" />
         </div>
 
-        <div class="col-md-3" id="info_escolares">
-          <label class="form-label">Pessoa autorizada 2</label>
-          <input class="form-control mb-2" name="retirada_pessoa2" />
-          <label class="form-label">Telefone pessoa 2</label>
-          <input class="form-control mb-2" name="retirada_numero2" />
+        <div class="col-md-3">
+          <label class="form-label">Pessoa e telefone 2</label>
+          <input class="form-control mb-2" name="pessoa2" />
         </div>
 
-        <div class="col-md-3" id="info_escolares">
-          <label class="form-label">Pessoa autorizada 3</label>
-          <input class="form-control mb-2" name="retirada_pessoa3" />
-          <label class="form-label">Telefone pessoa 3</label>
-          <input class="form-control mb-2" name="retirada_numero3" />
+        <div class="col-md-3">
+          <label class="form-label">Pessoa e telefone 3</label>
+          <input class="form-control mb-2" name="pessoa3" />
         </div>
 
-        <div class="col-md-3" id="info_escolares">
-          <label class="form-label">Pessoa autorizada 4</label>
-          <input class="form-control mb-2" name="retirada_pessoa4" />
-          <label class="form-label">Telefone pessoa 4</label>
-          <input class="form-control mb-2" name="retirada_numero4" />
+        <div class="col-md-3">
+          <label class="form-label">Pessoa e telefone 4</label>
+          <input class="form-control mb-2" name="pessoa4" />
         </div>
       </div>
 
-      <label>Procedência (escola anterior)</label>
-      <input
-        class="form-control mb-2"
-        name="escola_anterior"
-        placeholder="Escola anterior"
-      />
+      <div class="row">
+        <div class="col-md-3">
+          <label class="form-label">Programa Bolsa Família</label>
+          <select class="form-control mb-2" name="bolsa_familia">
+            <option value="">Selecione</option>
+            <option>Sim</option>
+            <option>Não</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">NIS</label>
+          <input class="form-control mb-2" name="nis" />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Plano de saúde</label>
+          <input class="form-control mb-2" name="plano" />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Foto do APP Bolsa Família</label>
+          <input type="file" class="form-control mb-2" name="app_bolsa" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <label class="form-label">Procedência (escola anterior)</label>
+          <input class="form-control mb-2" name="escola_anterior" />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Ano</label>
+          <input class="form-control mb-2" name="ano" />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Cidade</label>
+          <input class="form-control mb-2" name="cidade" />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Estado</label>
+          <input class="form-control mb-2" name="estado" />
+        </div>
+      </div>
     </div>
   </div>
 
@@ -475,6 +500,38 @@
       <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo
       passeios e atividades extraclasses<br />
       <input type="radio" name="permite_fotos" value="Não" /> Não autorizo<br />
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header bg-danger">Matrícula</div>
+    <div class="card-body">
+      <label class="form-label"
+        >Solicito matrícula no nível da Educação Infantil. Declaro acatar as
+        normas regimentais desse estabelecimento de ensino.</label
+      >
+      <select class="form-control mb-4" name="nivel">
+        <option value="">Selecione</option>
+        <option>INFANTIL IV</option>
+        <option>INFANTIL V</option>
+      </select>
+
+      <label class="form-label">Ensino Integral?</label>
+      <select class="form-control mb-2" name="integral">
+        <option value="">Selecione</option>
+        <option>Sim</option>
+        <option>Não</option>
+      </select>
+
+      <label class="form-label">Transferência</label>
+      <select class="form-control mb-2" name="transferencia">
+        <option value="">Selecione</option>
+        <option>Mudança de Residência</option>
+        <option>Transferência Rede Pública</option>
+        <option>Transferência Outro Estado</option>
+        <option>Transferência Outro País</option>
+        <option>Transferência Rede Particular</option>
+      </select>
     </div>
   </div>
 
