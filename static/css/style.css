@@ -19,3 +19,17 @@
   display: flex;
   justify-content: center;
 } */
+@media print {
+    button, .no-print {
+        display: none;
+    }
+
+    body {
+        font-size: 12px;
+    }
+
+    h3 {
+        border-bottom: 1px solid #000;
+        padding-bottom: 4px;
+    }
+}

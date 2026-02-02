@@ -241,6 +241,29 @@ VALUES (
     return render_template("nova_matricula.html")
 
 
+# Backend — rota da Tela Resumo (Flask)
+# Exemplo de rota segura e simples
+# 📌 Por que sqlite3.Row?
+# Porque no HTML você acessa assim:
+# Sem ficar contando índice.
+# não deu certo ainda
+
+# @app.route("/resumo/<int:ra>")
+# def resumo_matricula(aluno_id):
+#     conn = sqlite3.connect("alunosv3.db")
+#     conn.row_factory = sqlite3.Row
+#     cursor = conn.cursor()
+
+#     cursor.execute("SELECT * FROM alunos_v3 WHERE id = ?", (aluno_id,))
+#     aluno = cursor.fetchone()
+#     conn.close()
+
+#     if not aluno:
+#         os.abort(404)
+
+#     return render_template("resumo_matricula.html", aluno=aluno)
+
+
 @app.route("/resumo/<int:aluno_id>")
 def resumo_matricula(aluno_id):
     conn = get_db()
