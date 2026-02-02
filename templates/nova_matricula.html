@@ -34,7 +34,6 @@
             type="date"
             class="form-control mb-2"
             name="data_nascimento"
-            required
           />
         </div>
       </div>
@@ -125,7 +124,7 @@
       <div class="row" id="fisico_aluno">
         <div class="col-md-2">
           <label class="form-label">Sexo *</label>
-          <select class="form-control mb-2" name="sexo" required>
+          <select class="form-control mb-2" name="sexo">
             <option value="">Selecione</option>
             <option>Masculino</option>
             <option>Feminino</option>
@@ -133,7 +132,7 @@
         </div>
         <div class="col-md-2">
           <label class="form-label">Raça/Cor</label>
-          <select class="form-control mb-2" name="raca_cor" required>
+          <select class="form-control mb-2" name="raca_cor">
             <option value="">Selecione</option>
             <option>Preta</option>
             <option>Parda</option>
@@ -163,7 +162,7 @@
       <div class="row" id="saude_aluno">
         <div class="col-md-2">
           <label class="form-label">Tipo sanguíneo</label>
-          <select class="form-control mb-2" name="tipo_sanguineo" required>
+          <select class="form-control mb-2" name="tipo_sanguineo">
             <option value="">Selecione</option>
             <option>A+</option>
             <option>A-</option>
@@ -334,31 +333,6 @@
           <input type="file" class="form-control mb-2" name="doc_cpf_pai" />
         </div>
       </div>
-
-      <!-- <div class="row" id="resp_legal">
-        <div class="col-md-4">
-          <label class="form-label">Nome do 2º genitor</label>
-          <input class="form-control mb-2" name="nome_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">CPF do 2º genitor</label>
-          <input class="form-control mb-2" name="cpf_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">RG do 2º genitor</label>
-          <input class="form-control mb-2" name="rg_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Profissão e local</label>
-          <input class="form-control mb-2" name="profissao_pai" />
-        </div>
-        <div>
-          <label class="form-label"
-            >Anexar documento de identidade digitalizado</label
-          >
-          <input type="file" class="form-control mb-2" name="doc_cpf_pai" />
-        </div>
-      </div> -->
       <div class="row" id="resp_legal">
         <div class="col-md-3">
           <label class="form-label">Telefone 1 *</label>
@@ -482,9 +456,9 @@
     <div class="card-body">
       <label>Prática de educação física ou ações esportivas diversas</label
       ><br />
-      <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo a
+      <input type="radio" name="permite_edfisica" value="Sim" /> Sim, autorizo a
       prática esportiva<br />
-      <input type="radio" name="permite_fotos" value="Não" /> Não, não
+      <input type="radio" name="permite_edfisica" value="Não" /> Não, não
       autorizo<br />
       <label
         >Uso de imagens e divulgação de depoimentos, em redes sociais e
@@ -497,9 +471,9 @@
         >Participação de passeios e atividades extraclasses, que serão
         previamente avisados, durante todo o ano letivo</label
       ><br />
-      <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo
+      <input type="radio" name="permite_passeios" value="Sim" /> Sim, autorizo
       passeios e atividades extraclasses<br />
-      <input type="radio" name="permite_fotos" value="Não" /> Não autorizo<br />
+      <input type="radio" name="permite_passeios" value="Não" /> Não autorizo<br />
     </div>
   </div>
 
