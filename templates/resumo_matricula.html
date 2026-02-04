@@ -1,74 +1,222 @@
-{% extends "base.html" %}
-{% block conteudo %}
-<h3>Resumo da Matrícula</h3>
-<h3>Identificação do Aluno</h3>
-<p><strong>RA:</strong> {{ aluno.ra }}</p>
-<p><strong>RM:</strong> {{ aluno.rm }}</p>
-<p><strong>Responsável:</strong> {{ aluno.responsavel_matricula }}</p>
-<p><strong>Nome completo:</strong> {{ aluno.nome_completo }}</p>
-<p><strong>Data de Nascimento:</strong> {{ aluno.data_nascimento }}</p>
-<p><strong>RG do aluno:</strong> {{ aluno.rg_aluno }}</p>
-<p><strong>CPF do aluno:</strong> {{ aluno.cpf_aluno }}</p>
-<p><strong>UF:</strong> {{ aluno.uf_aluno }}</p>
-<p><strong>Expedição do RG:</strong> {{ aluno.expedicao_rg_aluno }}</p>
-<p><strong>RNE do aluno:</strong> {{ aluno.rne_aluno }}</p>
-<p><strong>CPF do aluno:</strong> {{ "Entregue" if aluno.doc_cpf_aluno else "Não entregue" }}</p>
-<p><strong>Cartão SUS do aluno:</strong> {{ "Entregue" if aluno.doc_cartao_sus else "Não entregue" }}</p>
-<p><strong>Certidão de Nascimento:</strong> {{ aluno.certidao_nascimento }}</p>
-<p><strong>Município de Nascimento:</strong> {{ aluno.municipio_nascimento }}</p>
-<p><strong>Distrito:</strong> {{ aluno.distrito }}</p>
-<p><strong>Expedição do RG:</strong> {{ aluno.expedicao_rg_aluno }}</p>
-<p><strong>Nacionalidade:</strong> {{ aluno.nacionalidade }}</p>
-<p><strong>Documento Cartão SUS:</strong> {{ aluno.doc_cartao_sus }}</p>
-<p><strong>Documento Certidão de Nascimento:</strong> {{ aluno.doc_certidao_nascimento }}</p>
-<p><strong>Sexo:</strong> {{ aluno.sexo }}</p>
-<p><strong>Raça/Cor:</strong> {{ aluno.raca_cor }}</p>
-<p><strong>Peso:</strong> {{ aluno.peso }}</p>
-<p><strong>Altura:</strong> {{ aluno.altura }}</p>
-<p><strong>Uniforme:</strong> {{ aluno.uniforme }}</p>
-<p><strong>Calçado:</strong> {{ aluno.calcado }}</p>
-<p><strong>Tipo Sanguíneo:</strong> {{ aluno.tipo_sanguineo }}</p>
-<p><strong>Alérgico:</strong> {{ aluno.alergico }}</p>
-<p><strong>Diabético:</strong> {{ aluno.diabetico }}</p>
-<p><strong>Intolerante à Lactose:</strong> {{ aluno.lactose }}</p>
-<p><strong>ALPV:</strong> {{ aluno.aplv }}</p>
-<p><strong>CID:</strong> {{ aluno.cid }}</p>
-<p><strong>Documento Carteira de Vacinação:</strong> {{ aluno.doc_carteira_vacinacao }}</p>
-<p><strong>Documento Comprovante de Vacinação:</strong> {{ aluno.doc_comprovante_vacinacao }}</p>
-<p><strong>Documento Laudo:</strong> {{ aluno.doc_laudo }}</p>
+{% extends "base.html" %} {% block conteudo %}
+
+<!-- CABEÇALHO -->
+<style>
+@media print {
+    footer {
+        display: none !important;
+    }
+}
+</style>
+<div class="header-print d-flex align-items-center justify-content-center mb-2">
+    <img src="/static/img/logo_guaruja.png" height="55" class="me-3"> 
+
+    <div class="text-center">
+        <div class="fw-bold">PREFEITURA MUNICIPAL DE GUARUJÁ</div>
+        <div>Estado de São Paulo</div>
+        <div class="fw-bold">SECRETARIA MUNICIPAL DE EDUCAÇÃO</div>
+        <div class="fw-bold mt-1">FICHA DE MATRÍCULA</div>
+        <div class="fst-italic">"E.M. PROFª MARIA DE LOURDES G. DE OLIVEIRA"</div>
+    </div>
+</div>
 
 
-<hr>
+  <hr />
 
-<h3>Termo de Responsabilidade</h3>
+  <!-- DADOS DO ALUNO -->
 
-<p style="text-align: justify;">
-    Estou ciente das notificações escolares e declaro que todas as
-    informações dadas sobre a criança são verídicas, além de ter
-    informado o necessário para o desenvolvimento dela.
-</p>
-<br><br>
+  <div class="card">
+    <div class="card-header">Identificação do Aluno</div>
+    <div class="card-body row g-1">
+      <div class="col-2"><strong>RA:</strong> {{ aluno.ra }}</div>
+      <div class="col-2"><strong>RM:</strong> {{ aluno.rm }}</div>
+      <div class="col-4">
+        <strong>Resp.:</strong> {{ aluno.responsavel_matricula }}
+      </div>
+      <div class="col-4">
+        <strong>Nasc.:</strong> {{ aluno.data_nascimento }}
+      </div>
 
-<table style="width:100%; text-align:center;">
-    <tr>
-        <td>
-            _______________________________________<br>
-            Assinatura do Responsável<br>
-        </td>
+      <div class="col-6"><strong>Nome:</strong> {{ aluno.nome_completo }}</div>
+      <div class="col-3"><strong>Sexo:</strong> {{ aluno.sexo }}</div>
+      <div class="col-3"><strong>Raça/Cor:</strong> {{ aluno.raca_cor }}</div>
 
-        <td>
-            _______________________________________<br>
-            Assinatura para Rematrícula<br>
-        </td>
-    </tr>
-</table>
+      <div class="col-3"><strong>RG:</strong> {{ aluno.rg_aluno }}</div>
+      <div class="col-3"><strong>CPF:</strong> {{ aluno.cpf_aluno }}</div>
+      <div class="col-3"><strong>UF:</strong> {{ aluno.uf_aluno }}</div>
+      <div class="col-3">
+        <strong>Exp. RG:</strong> {{ aluno.expedicao_rg_aluno }}
+      </div>
 
-<br>
+      <div class="col-3"><strong>RNE:</strong> {{ aluno.rne_aluno }}</div>
+      <div class="col-3">
+        <strong>Cartão SUS:</strong> {{ aluno.cartao_sus }}
+      </div>
+      <div class="col-3">
+        <strong>Certidão:</strong> {{ aluno.certidao_nascimento }}
+      </div>
+      <div class="col-3">
+        <strong>Nacionalidade:</strong> {{ aluno.nacionalidade }}
+      </div>
 
-<p>Data: ____ / ____ / ______</p>
+      <div class="col-4">
+        <strong>Município:</strong> {{ aluno.municipio_nascimento }}
+      </div>
+      <div class="col-4"><strong>Distrito:</strong> {{ aluno.distrito }}</div>
+    </div>
+  </div>
 
-<div class="mt-3">
-    <a href="/" class="btn btn-secondary">Voltar</a>
-    <button onclick="window.print()" class="btn btn-primary">Imprimir</button>
+  <!-- DOCUMENTOS DO ALUNO -->
+
+  <div class="card">
+    <div class="card-header">Documentos do Aluno</div>
+    <div class="card-body row g-2">
+      <div class="col-4">
+        <strong>CPF (doc):</strong> {{ aluno.doc_cpf_aluno }}
+      </div>
+      <div class="col-4">
+        <strong>Cartão SUS:</strong> {{ aluno.cartao_sus }}
+      </div>
+      <div class="col-4">
+        <strong>Doc. Cartão SUS:</strong> {{ aluno.doc_cartao_sus }}
+      </div>
+
+      <div class="col-6">
+        <strong>Certidão nascimento:</strong> {{ aluno.certidao_nascimento }}
+      </div>
+      <div class="col-6">
+        <strong>Doc. certidão:</strong> {{ aluno.doc_certidao_nascimento }}
+      </div>
+
+      <div class="col-6">
+        <strong>Município nascimento:</strong> {{ aluno.municipio_nascimento }}
+      </div>
+      <div class="col-6"><strong>Distrito:</strong> {{ aluno.distrito }}</div>
+    </div>
+  </div>
+
+  <!-- SAÚDE -->
+
+  <div class="card">
+    <div class="card-header">Saúde</div>
+    <div class="card-body row g-1">
+      <div class="col-2"><strong>Peso:</strong> {{ aluno.peso }}</div>
+      <div class="col-2"><strong>Altura:</strong> {{ aluno.altura }}</div>
+      <div class="col-2"><strong>Uniforme:</strong> {{ aluno.uniforme }}</div>
+      <div class="col-2"><strong>Calçado:</strong> {{ aluno.calcado }}</div>
+      <div class="col-2">
+        <strong>Sangue:</strong> {{ aluno.tipo_sanguineo }}
+      </div>
+
+      <div class="col-2"><strong>Alergia:</strong> {{ aluno.alergico }}</div>
+      <div class="col-2"><strong>Diabetes:</strong> {{ aluno.diabetico }}</div>
+      <div class="col-2"><strong>Lactose:</strong> {{ aluno.lactose }}</div>
+      <div class="col-2"><strong>APLV:</strong> {{ aluno.aplv }}</div>
+      <div class="col-2"><strong>CID:</strong> {{ aluno.cid }}</div>
+
+      <div class="col-12">
+        <strong>Observações:</strong> {{ aluno.observacoes }}
+      </div>
+    </div>
+  </div>
+
+  <!-- RESPONSÁVEIS + CONTATOS-->
+
+  <div class="card">
+    <div class="card-header">Responsáveis</div>
+    <div class="card-body row g-1">
+      <div class="col-6"><strong>Mãe:</strong> {{ aluno.nome_mae }}</div>
+      <div class="col-3"><strong>CPF:</strong> {{ aluno.cpf_mae }}</div>
+      <div class="col-3"><strong>RG:</strong> {{ aluno.rg_mae }}</div>
+
+      <div class="col-6"><strong>Pai:</strong> {{ aluno.nome_pai }}</div>
+      <div class="col-3"><strong>CPF:</strong> {{ aluno.cpf_pai }}</div>
+      <div class="col-3"><strong>RG:</strong> {{ aluno.rg_pai }}</div>
+
+      <div class="col-3"><strong>Tel 1:</strong> {{ aluno.telefone1 }}</div>
+      <div class="col-3"><strong>Tel 2:</strong> {{ aluno.telefone2 }}</div>
+      <div class="col-3"><strong>Tel 3:</strong> {{ aluno.telefone3 }}</div>
+      <div class="col-3"><strong>Tel 4:</strong> {{ aluno.telefone4 }}</div>
+    </div>
+  </div>
+
+  <!-- ENDEREÇO -->
+
+  <div class="card">
+    <div class="card-header">Endereço</div>
+    <div class="card-body row g-1">
+      <div class="col-5">
+        <strong>Logradouro:</strong> {{ aluno.logradouro }}
+      </div>
+      <div class="col-2"><strong>Nº:</strong> {{ aluno.numero }}</div>
+      <div class="col-3"><strong>Bairro:</strong> {{ aluno.bairro }}</div>
+      <div class="col-2"><strong>CEP:</strong> {{ aluno.cep }}</div>
+
+      <div class="col-4">
+        <strong>Cidade:</strong> {{ aluno.cidade_endereco }}
+      </div>
+      <div class="col-2"><strong>Estado:</strong> {{ aluno.estado }}</div>
+    </div>
+  </div>
+
+  <!-- ESCOLAR / BENEFÍCIOS / AUTORIZAÇÕES -->
+
+  <div class="card">
+    <div class="card-header">Informações Finais</div>
+    <div class="card-body row g-1">
+      <div class="col-3"><strong>Nível:</strong> {{ aluno.nivel }}</div>
+      <div class="col-3"><strong>Integral:</strong> {{ aluno.integral }}</div>
+      <div class="col-3">
+        <strong>Transferência:</strong> {{ aluno.transferencia }}
+      </div>
+      <div class="col-3">
+        <strong>Bolsa Família:</strong> {{ aluno.bolsa_familia }}
+      </div>
+
+      <div class="col-3">
+        <strong>Contribuição:</strong> {{ aluno.contribuicao }}
+      </div>
+      <div class="col-3">
+        <strong>Tipo:</strong> {{ aluno.tipo_contribuicao }}
+      </div>
+
+      <div class="col-3">
+        <strong>Ed. Física:</strong> {{ aluno.permite_edfisica }}
+      </div>
+      <div class="col-3">
+        <strong>Uso de Imagem:</strong> {{ aluno.permite_fotos }}
+      </div>
+      <div class="col-3">
+        <strong>Passeios:</strong> {{ aluno.permite_passeios }}
+      </div>
+    </div>
+  </div>
+
+  <!-- ASSINATURAS -->
+  <div class="mt-4">
+    <p style="text-align: justify">
+      Estou ciente das notificações escolares e declaro que todas as informações
+      dadas sobre a criança são verídicas, além de ter informado o necessário
+      para o desenvolvimento dela.
+    </p>
+  </div>
+  <div class="mt-2">
+    <div class="row text-center">
+      <div class="col-6">
+        <hr />
+        Responsável Legal
+      </div>
+      <div class="col-6">
+        <hr />
+        Secretaria Escolar
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTÃO IMPRIMIR (não aparece no papel) -->
+
+  <button class="btn btn-secondary no-print mt-3" onclick="window.print()">
+    Imprimir ficha
+  </button>
 </div>
 {% endblock %}

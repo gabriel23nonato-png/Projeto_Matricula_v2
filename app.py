@@ -267,6 +267,7 @@ VALUES (
 @app.route("/resumo/<int:aluno_id>")
 def resumo_matricula(aluno_id):
     conn = get_db()
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM alunos_v3 WHERE id=?", (aluno_id,))
     aluno = cursor.fetchone()
