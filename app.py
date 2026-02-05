@@ -241,29 +241,6 @@ VALUES (
     return render_template("nova_matricula.html")
 
 
-# Backend — rota da Tela Resumo (Flask)
-# Exemplo de rota segura e simples
-# 📌 Por que sqlite3.Row?
-# Porque no HTML você acessa assim:
-# Sem ficar contando índice.
-# não deu certo ainda
-
-# @app.route("/resumo/<int:ra>")
-# def resumo_matricula(aluno_id):
-#     conn = sqlite3.connect("alunosv3.db")
-#     conn.row_factory = sqlite3.Row
-#     cursor = conn.cursor()
-
-#     cursor.execute("SELECT * FROM alunos_v3 WHERE id = ?", (aluno_id,))
-#     aluno = cursor.fetchone()
-#     conn.close()
-
-#     if not aluno:
-#         os.abort(404)
-
-#     return render_template("resumo_matricula.html", aluno=aluno)
-
-
 @app.route("/resumo/<int:aluno_id>")
 def resumo_matricula(aluno_id):
     conn = get_db()
@@ -277,14 +254,60 @@ def resumo_matricula(aluno_id):
 
 
 @app.route("/alunos")
-def alunos():
-    conn = get_db()
+def alunos_matriculados():
+    q = request.args.get("q", "").strip()
+    nivel = request.args.get("nivel", "")
+    sala = request.args.get("sala", "")
+
+    conn = sqlite3.connect("database\\database\\alunosv3.db")
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM alunos_v3")
+
+    query = "SELECT * FROM alunos_v3 WHERE 1=1"
+    params = []
+
+    if q:
+        query += """
+            AND (
+                nome_completo LIKE ?
+                OR nome_mae LIKE ?
+                OR cpf_aluno LIKE ?
+            )
+        """
+        like = f"%{q}%"
+        params.extend([like, like, like])
+
+    if nivel:
+        query += " AND nivel = ?"
+        params.append(nivel)
+
+    if sala:
+        query += " AND sala = ?"
+        params.append(sala)
+
+    query += " ORDER BY nome_completo"
+
+    cursor.execute(query, params)
     alunos = cursor.fetchall()
     conn.close()
 
-    return render_template("alunos.html", alunos=alunos)
+    return render_template("alunos.html", alunos=alunos, q=q, nivel=nivel, sala=sala)
+
+
+@app.route("/editar/<int:id>")
+def editar_matricula(id):
+    conn = sqlite3.connect("database\\database\\alunosv3.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM alunos_v3 WHERE id = ?", (id,))
+    aluno = cursor.fetchone()
+    conn.close()
+
+    if not aluno:
+        os.abort(404)
+
+    return render_template("nova_matricula.html", aluno=aluno, modo="editar")
 
 
 @app.route("/financeiro")

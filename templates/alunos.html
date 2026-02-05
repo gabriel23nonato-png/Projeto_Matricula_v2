@@ -1,20 +1,98 @@
 {% extends "base.html" %}
 {% block conteudo %}
-<h3>Alunos Matriculados</h3>
-<table class="table table-bordered">
-    <tr>
-        <th>Nome</th>
-        <th>Turma</th>
+<div class="container mt-4">
+
+  <h2 class="mb-4">Alunos Matriculados</h2>
+
+  <form method="get" class="row g-3 mb-4">
+
+    <div class="col-md-4">
+      <label class="form-label">Buscar aluno</label>
+      <input
+        type="text"
+        name="q"
+        class="form-control"
+        placeholder="Nome do aluno, nome da mãe ou CPF"
+        value="{{ q }}"
+      >
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Nível</label>
+      <select name="nivel" class="form-select">
+        <option value="">Todos</option>
+        <option value="IV" {{ "selected" if nivel == "IV" }}>Infantil IV</option>
+        <option value="V" {{ "selected" if nivel == "V" }}>Infantil V</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Sala</label>
+      <select name="sala" class="form-select">
+        <option value="">Todas</option>
+        <option value="IVA">IVA</option>
+        <option value="IVB">IVB</option>
+        <option value="IVC">IVC</option>
+        <option value="VA">VA</option>
+        <option value="VB">VB</option>
+        <option value="VC">VC</option>
+        <option value="VD">VD</option>
+      </select>
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+      <button class="btn btn-primary w-100">Filtrar</button>
+    </div>
+
+  </form>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle">
+
+    <thead class="table-light">
+      <tr>
+        <th>Nome do Aluno</th>
+        <th>Nível</th>
+        <th>Sala</th>
+        <th>Nome da Mãe</th>
         <th>Ações</th>
-    </tr>
-    {% for a in alunos %}
-    <tr>
-        <td>{{ a[1] }}</td>
-        <td>{{ a[4] }}</td>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for aluno in alunos %}
+      <tr>
+        <td>{{ aluno.nome_completo }}</td>
+        <td>{{ aluno.nivel }}</td>
+        <td>{{ aluno.sala }}</td>
+        <td>{{ aluno.nome_mae }}</td>
+
         <td>
-            <a href="/resumo/{{ a[0] }}" class="btn btn-sm btn-info">Imprimir</a>
+          <a href="/editar/{{ aluno.id }}" class="btn btn-sm btn-warning">
+            Editar
+          </a>
+          <a href="/resumo/{{ aluno.id }}" class="btn btn-sm btn-secondary">
+            Resumo
+          </a>
+          <a href="/imprimir/{{ aluno.id }}" class="btn btn-sm btn-success">
+            Imprimir
+          </a>
         </td>
-    </tr>
-    {% endfor %}
-</table>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" class="text-center">
+          Nenhum aluno encontrado.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+</div>
+
+</div>
+
+
+
 {% endblock %}
