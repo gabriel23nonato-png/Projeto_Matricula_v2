@@ -1,6 +1,10 @@
 {% extends "base.html" %} {% block conteudo %}
 
-<form method="POST" enctype="multipart/form-data">
+<form
+  method="POST"
+  enctype="multipart/form-data"
+  action="{% if modo == 'editar' %}{{ url_for('editar_matricula', id=aluno['id']) }}{% else %}{{ url_for('nova_matricula') }}{% endif %}"
+>
   <!-- 1️⃣ IDENTIFICAÇÃO DO ALUNO -->
   <div class="card mb-4">
     <div class="card-header bg-primary text-white">Identificação do Aluno</div>
@@ -8,25 +12,41 @@
       <div class="row" id="ident_aluno">
         <div class="col-md-3">
           <label class="form-label">RA (Registro Acadêmico)</label>
-          <input class="form-control mb-2" name="ra" />
+          <input
+            class="form-control mb-2"
+            name="ra"
+            value="{{ aluno['ra'] if aluno else '' }}"
+          />
         </div>
 
         <div class="col-md-3">
           <label class="form-label">RM</label>
-          <input class="form-control mb-2" name="rm" />
+          <input
+            class="form-control mb-2"
+            name="rm"
+            value="{{ aluno['rm'] if aluno else '' }}"
+          />
         </div>
 
         <div class="col-md-6">
           <label class="form-label"
             >Nome e parentesco do responsável pela matrícula</label
           >
-          <input class="form-control mb-2" name="responsavel_matricula" />
+          <input
+            class="form-control mb-2"
+            name="responsavel_matricula"
+            value="{{ aluno['responsavel_matricula'] if aluno else '' }}"
+          />
         </div>
       </div>
       <div class="row" id="ident_aluno">
         <div class="col-md-9">
           <label class="form-label">Nome completo da criança</label>
-          <input class="form-control mb-2" name="nome_completo" />
+          <input
+            class="form-control mb-2"
+            name="nome_completo"
+            value="{{ aluno['nome_completo'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-3">
           <label class="form-label">Data de nascimento</label>
@@ -34,33 +54,60 @@
             type="date"
             class="form-control mb-2"
             name="data_nascimento"
+            value="{{ aluno['data_nascimento'] if aluno else '' }}"
           />
         </div>
       </div>
       <div class="row" id="ident_aluno">
         <div class="col-md-2">
           <label class="form-label">RG do aluno</label>
-          <input class="form-control mb-2" name="rg_aluno" />
+          <input
+            class="form-control mb-2"
+            name="rg_aluno"
+            value="{{ aluno['rg_aluno'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">CPF do aluno</label>
-          <input class="form-control mb-2" name="cpf_aluno" />
+          <input
+            class="form-control mb-2"
+            name="cpf_aluno"
+            value="{{ aluno['cpf_aluno'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">UF</label>
-          <input class="form-control mb-2" name="uf_aluno" />
+          <input
+            class="form-control mb-2"
+            name="uf_aluno"
+            value="{{ aluno['uf_aluno'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Expedição</label>
-          <input type="date" class="form-control mb-2" name="expedicao_aluno" />
+          <input
+            type="date"
+            class="form-control mb-2"
+            name="expedicao_aluno"
+            value="{{ aluno['expedicao_aluno'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">RNE (se estrangeiro) </label>
-          <input class="form-control mb-2" name="rne_aluno" />
+          <input
+            class="form-control mb-2"
+            name="rne_aluno"
+            value="{{ aluno['rne_aluno'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Expedição</label>
-          <input type="date" class="form-control mb-2" name="expedicao_aluno" />
+          <input
+            type="date"
+            class="form-control mb-2"
+            name="expedicao_aluno"
+            value="{{ aluno['expedicao_aluno'] if aluno else '' }}"
+          />
         </div>
         <div>
           <label class="form-label">Anexar documento digitalizado</label>
@@ -71,19 +118,35 @@
     <div class="row" id="ident_aluno">
       <div class="col-md-2">
         <label class="form-label">Cartão SUS do aluno</label>
-        <input class="form-control mb-2" name="cartao_sus" />
+        <input
+          class="form-control mb-2"
+          name="cartao_sus"
+          value="{{ aluno['cartao_sus'] if aluno else '' }}"
+        />
       </div>
       <div class="col-md-2">
         <label class="form-label">Certidão de nascimento</label>
-        <input class="form-control mb-2" name="certidao_nascimento" />
+        <input
+          class="form-control mb-2"
+          name="certidao_nascimento"
+          value="{{ aluno['certidao_nascimento'] if aluno else '' }}"
+        />
       </div>
       <div class="col-md-2">
         <label class="form-label">Município de nascimento</label>
-        <input class="form-control mb-2" name="municipio_nascimento" />
+        <input
+          class="form-control mb-2"
+          name="municipio_nascimento"
+          value="{{ aluno['municipio_nascimento'] if aluno else '' }}"
+        />
       </div>
       <div class="col-md-2">
         <label class="form-label">Distrito</label>
-        <input class="form-control mb-2" name="distrito" />
+        <input
+          class="form-control mb-2"
+          name="distrito"
+          value="{{ aluno['distrito'] if aluno else '' }}"
+        />
       </div>
       <div class="col-md-2">
         <label class="form-label">Expedição</label>
@@ -91,11 +154,16 @@
           type="date"
           class="form-control mb-2"
           name="expedicao_rg_aluno"
+          value="{{ aluno['expedicao_rg_aluno'] if aluno else '' }}"
         />
       </div>
       <div class="col-md-2">
         <label class="form-label">Nacionalidade</label>
-        <input class="form-control mb-2" name="nacionalidade" />
+        <input
+          class="form-control mb-2"
+          name="nacionalidade"
+          value="{{ aluno['nacionalidade'] if aluno else '' }}"
+        />
       </div>
 
       <div>
@@ -126,37 +194,75 @@
           <label class="form-label">Sexo *</label>
           <select class="form-control mb-2" name="sexo">
             <option value="">Selecione</option>
-            <option>Masculino</option>
-            <option>Feminino</option>
+            <option
+              {% if aluno and aluno['sexo'] == 'Masculino' %}selected{% endif %}
+            >
+              Masculino
+            </option>
+            <option
+              {% if aluno and aluno['sexo'] == 'Feminino' %}selected{% endif %}
+            >
+              Feminino
+            </option>
           </select>
         </div>
         <div class="col-md-2">
           <label class="form-label">Raça/Cor</label>
           <select class="form-control mb-2" name="raca_cor">
             <option value="">Selecione</option>
-            <option>Preta</option>
-            <option>Parda</option>
-            <option>Indígena</option>
-            <option>Amarela</option>
-            <option>Branca</option>
+            <option {% if aluno and aluno['raca_cor'] == 'Preta' %}selected{% endif %}>
+              Preta
+            </option>
+            <option {% if aluno and aluno['raca_cor'] == 'Parda' %}selected{% endif %}>
+              Parda
+            </option>
+            <option
+              {% if aluno and aluno['raca_cor'] == 'Indígena' %}selected{% endif %}
+            >
+              Indígena
+            </option>
+            <option
+              {% if aluno and aluno['raca_cor'] == 'Amarela' %}selected{% endif %}
+            >
+              Amarela
+            </option>
+            <option {% if aluno and aluno['raca_cor'] == 'Branca' %}selected{% endif %}>
+              Branca
+            </option>
           </select>
         </div>
 
         <div class="col-md-2">
           <label class="form-label">Peso</label>
-          <input class="form-control mb-2" name="peso" />
+          <input
+            class="form-control mb-2"
+            name="peso"
+            value="{{ aluno['peso'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Altura</label>
-          <input class="form-control mb-2" name="altura" />
+          <input
+            class="form-control mb-2"
+            name="altura"
+            value="{{ aluno['altura'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Tamanho do uniforme</label>
-          <input class="form-control mb-2" name="uniforme" />
+          <input
+            class="form-control mb-2"
+            name="uniforme"
+            value="{{ aluno['uniforme'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Tamanho do calçado</label>
-          <input class="form-control mb-2" name="calcado" />
+          <input
+            class="form-control mb-2"
+            name="calcado"
+            value="{{ aluno['calcado'] if aluno else '' }}"
+          />
         </div>
       </div>
       <div class="row" id="saude_aluno">
@@ -164,35 +270,55 @@
           <label class="form-label">Tipo sanguíneo</label>
           <select class="form-control mb-2" name="tipo_sanguineo">
             <option value="">Selecione</option>
-            <option>A+</option>
-            <option>A-</option>
-            <option>B+</option>
-            <option>B-</option>
-            <option>AB+</option>
-            <option>AB-</option>
-            <option>O+</option>
-            <option>O-</option>
+            <option {% if aluno and aluno['tipo_sanguineo'] == 'A+' %}selected{% endif %}>A+</option>
+            <option {% if aluno and aluno['tipo_sanguineo'] == 'A-' %}selected{% endif %}>A-</option>
+            <option {% if aluno and aluno['tipo_sanguineo'] == 'B+' %}selected{% endif %}>B+</option>
+            <option {% if aluno and aluno['tipo_sanguineo'] == 'B-' %}selected{% endif %}>B-</option>
+            <option {% if aluno and aluno['tipo_sanguineo'] == 'AB+' %}selected{% endif %}>AB+</option>
+            <option {% if aluno and aluno['tipo_sanguineo'] == 'AB-' %}selected{% endif %}>AB-</option>
+            <option {% if aluno and aluno['tipo_sanguineo'] == 'O+' %}selected{% endif %}>O+</option>
+            <option {% if aluno and aluno['tipo_sanguineo'] == 'O-' %}selected{% endif %}>O-</option>
           </select>
         </div>
         <div class="col-md-2">
           <label class="form-label">Alergias</label>
-          <input class="form-control mb-2" name="alergico" />
+          <input
+            class="form-control mb-2"
+            name="alergico"
+            value="{{ aluno['alergico'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Diabetes</label>
-          <input class="form-control mb-2" name="diabetico" />
+          <input
+            class="form-control mb-2"
+            name="diabetico"
+            value="{{ aluno['diabetico'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Intolerante à lactose?</label>
-          <input class="form-control mb-2" name="lactose" />
+          <input
+            class="form-control mb-2"
+            name="lactose"
+            value="{{ aluno['lactose'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">APLV</label>
-          <input class="form-control mb-2" name="aplv" />
+          <input
+            class="form-control mb-2"
+            name="aplv"
+            value="{{ aluno['aplv'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">CID (se houver)</label>
-          <input class="form-control mb-2" name="cid" />
+          <input
+            class="form-control mb-2"
+            name="cid"
+            value="{{ aluno['cid'] if aluno else '' }}"
+          />
         </div>
       </div>
 
@@ -221,7 +347,9 @@
       <div class="row" id="saude_aluno">
         <div class="col-md-12">
           <label class="form-label">Demais observações</label>
-          <textarea class="form-control mb-2" name="observacoes"></textarea>
+          <textarea class="form-control mb-2" name="observacoes">{{
+            aluno['observacoes'] if aluno else ''
+          }}</textarea>
         </div>
     </div>
   </div>
@@ -235,27 +363,51 @@
       <div class="row" id="resp_legal">
         <div class="col-md-4">
           <label class="form-label">Nome do 1º genitor</label>
-          <input class="form-control mb-2" name="nome_mae" />
+          <input
+            class="form-control mb-2"
+            name="nome_mae"
+            value="{{ aluno['nome_mae'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">Profissão e local</label>
-          <input class="form-control mb-2" name="profissao_mae" />
+          <input
+            class="form-control mb-2"
+            name="profissao_mae"
+            value="{{ aluno['profissao_mae'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">E-mail</label>
-          <input class="form-control mb-2" name="email_mae" />
+          <input
+            class="form-control mb-2"
+            name="email_mae"
+            value="{{ aluno['email_mae'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">CPF do 1º genitor</label>
-          <input class="form-control mb-2" name="cpf_mae" />
+          <input
+            class="form-control mb-2"
+            name="cpf_mae"
+            value="{{ aluno['cpf_mae'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">RG do 1º genitor</label>
-          <input class="form-control mb-2" name="rg_mae" />
+          <input
+            class="form-control mb-2"
+            name="rg_mae"
+            value="{{ aluno['rg_mae'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">UF do RG do 1º genitor</label>
-          <input class="form-control mb-2" name="uf_rg_mae" />
+          <input
+            class="form-control mb-2"
+            name="uf_rg_mae"
+            value="{{ aluno['uf_rg_mae'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">Expedição do RG do 1º genitor</label>
@@ -263,16 +415,33 @@
             type="date"
             class="form-control mb-2"
             name="expedicao_rg_mae"
+            value="{{ aluno['expedicao_rg_mae'] if aluno else '' }}"
           />
         </div>
         <div class="col-md-4">
           <label class="form-label">Estado civil</label>
           <select class="form-control mb-2" name="estado_civil_mae">
             <option value="">Selecione</option>
-            <option>Solteiro(a)</option>
-            <option>Casado(a)</option>
-            <option>Divorciado(a)</option>
-            <option>Viúvo(a)</option>
+            <option
+              {% if aluno and aluno['estado_civil_mae'] == 'Solteiro(a)' %}selected{% endif %}
+            >
+              Solteiro(a)
+            </option>
+            <option
+              {% if aluno and aluno['estado_civil_mae'] == 'Casado(a)' %}selected{% endif %}
+            >
+              Casado(a)
+            </option>
+            <option
+              {% if aluno and aluno['estado_civil_mae'] == 'Divorciado(a)' %}selected{% endif %}
+            >
+              Divorciado(a)
+            </option>
+            <option
+              {% if aluno and aluno['estado_civil_mae'] == 'Viúvo(a)' %}selected{% endif %}
+            >
+              Viúvo(a)
+            </option>
           </select>
         </div>
         <div class="col-md-4">
@@ -286,27 +455,51 @@
       <div class="row" id="resp_legal">
         <div class="col-md-4">
           <label class="form-label">Nome do 2º genitor</label>
-          <input class="form-control mb-2" name="nome_pai" />
+          <input
+            class="form-control mb-2"
+            name="nome_pai"
+            value="{{ aluno['nome_pai'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">Profissão e local</label>
-          <input class="form-control mb-2" name="profissao_pai" />
+          <input
+            class="form-control mb-2"
+            name="profissao_pai"
+            value="{{ aluno['profissao_pai'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">E-mail</label>
-          <input class="form-control mb-2" name="email_pai" />
+          <input
+            class="form-control mb-2"
+            name="email_pai"
+            value="{{ aluno['email_pai'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">CPF do 2º genitor</label>
-          <input class="form-control mb-2" name="cpf_pai" />
+          <input
+            class="form-control mb-2"
+            name="cpf_pai"
+            value="{{ aluno['cpf_pai'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">RG do 2º genitor</label>
-          <input class="form-control mb-2" name="rg_pai" />
+          <input
+            class="form-control mb-2"
+            name="rg_pai"
+            value="{{ aluno['rg_pai'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">UF do RG do 2º genitor</label>
-          <input class="form-control mb-2" name="uf_rg_pai" />
+          <input
+            class="form-control mb-2"
+            name="uf_rg_pai"
+            value="{{ aluno['uf_rg_pai'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-4">
           <label class="form-label">Expedição do RG do 2º genitor</label>
@@ -314,16 +507,33 @@
             type="date"
             class="form-control mb-2"
             name="expedicao_rg_pai"
+            value="{{ aluno['expedicao_rg_pai'] if aluno else '' }}"
           />
         </div>
         <div class="col-md-4">
           <label class="form-label">Estado civil</label>
           <select class="form-control mb-2" name="estado_civil_pai">
             <option value="">Selecione</option>
-            <option>Solteiro(a)</option>
-            <option>Casado(a)</option>
-            <option>Divorciado(a)</option>
-            <option>Viúvo(a)</option>
+            <option
+              {% if aluno and aluno['estado_civil_pai'] == 'Solteiro(a)' %}selected{% endif %}
+            >
+              Solteiro(a)
+            </option>
+            <option
+              {% if aluno and aluno['estado_civil_pai'] == 'Casado(a)' %}selected{% endif %}
+            >
+              Casado(a)
+            </option>
+            <option
+              {% if aluno and aluno['estado_civil_pai'] == 'Divorciado(a)' %}selected{% endif %}
+            >
+              Divorciado(a)
+            </option>
+            <option
+              {% if aluno and aluno['estado_civil_pai'] == 'Viúvo(a)' %}selected{% endif %}
+            >
+              Viúvo(a)
+            </option>
           </select>
         </div>
         <div class="col-md-4">
@@ -336,22 +546,38 @@
       <div class="row" id="resp_legal">
         <div class="col-md-3">
           <label class="form-label">Telefone 1 *</label>
-          <input class="form-control mb-2" name="telefone1" />
+          <input
+            class="form-control mb-2"
+            name="telefone1"
+            value="{{ aluno['telefone1'] if aluno else '' }}"
+          />
         </div>
 
         <div class="col-md-3">
           <label class="form-label">Telefone 2</label>
-          <input class="form-control mb-2" name="telefone2" />
+          <input
+            class="form-control mb-2"
+            name="telefone2"
+            value="{{ aluno['telefone2'] if aluno else '' }}"
+          />
         </div>
 
         <div class="col-md-3">
           <label class="form-label">Telefone 3</label>
-          <input class="form-control mb-2" name="telefone3" />
+          <input
+            class="form-control mb-2"
+            name="telefone3"
+            value="{{ aluno['telefone3'] if aluno else '' }}"
+          />
         </div>
 
         <div class="col-md-3">
           <label class="form-label">Telefone 4</label>
-          <input class="form-control mb-2" name="telefone4" />
+          <input
+            class="form-control mb-2"
+            name="telefone4"
+            value="{{ aluno['telefone4'] if aluno else '' }}"
+          />
         </div>
       </div>
     </div>
@@ -368,22 +594,38 @@
         >
         <div class="col-md-3">
           <label class="form-label">Pessoa e telefone 1</label>
-          <input class="form-control mb-2" name="pessoa1" />
+          <input
+            class="form-control mb-2"
+            name="pessoa1"
+            value="{{ aluno['pessoa1'] if aluno else '' }}"
+          />
         </div>
 
         <div class="col-md-3">
           <label class="form-label">Pessoa e telefone 2</label>
-          <input class="form-control mb-2" name="pessoa2" />
+          <input
+            class="form-control mb-2"
+            name="pessoa2"
+            value="{{ aluno['pessoa2'] if aluno else '' }}"
+          />
         </div>
 
         <div class="col-md-3">
           <label class="form-label">Pessoa e telefone 3</label>
-          <input class="form-control mb-2" name="pessoa3" />
+          <input
+            class="form-control mb-2"
+            name="pessoa3"
+            value="{{ aluno['pessoa3'] if aluno else '' }}"
+          />
         </div>
 
         <div class="col-md-3">
           <label class="form-label">Pessoa e telefone 4</label>
-          <input class="form-control mb-2" name="pessoa4" />
+          <input
+            class="form-control mb-2"
+            name="pessoa4"
+            value="{{ aluno['pessoa4'] if aluno else '' }}"
+          />
         </div>
       </div>
 
@@ -392,17 +634,33 @@
           <label class="form-label">Programa Bolsa Família</label>
           <select class="form-control mb-2" name="bolsa_familia">
             <option value="">Selecione</option>
-            <option>Sim</option>
-            <option>Não</option>
+            <option
+              {% if aluno and aluno['bolsa_familia'] == 'Sim' %}selected{% endif %}
+            >
+              Sim
+            </option>
+            <option
+              {% if aluno and aluno['bolsa_familia'] == 'Não' %}selected{% endif %}
+            >
+              Não
+            </option>
           </select>
         </div>
         <div class="col-md-3">
           <label class="form-label">NIS</label>
-          <input class="form-control mb-2" name="nis" />
+          <input
+            class="form-control mb-2"
+            name="nis"
+            value="{{ aluno['nis'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-3">
           <label class="form-label">Plano de saúde</label>
-          <input class="form-control mb-2" name="plano" />
+          <input
+            class="form-control mb-2"
+            name="plano"
+            value="{{ aluno['plano'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-3">
           <label class="form-label">Foto do APP Bolsa Família</label>
@@ -412,19 +670,35 @@
       <div class="row">
         <div class="col-md-3">
           <label class="form-label">Procedência (escola anterior)</label>
-          <input class="form-control mb-2" name="escola_anterior" />
+          <input
+            class="form-control mb-2"
+            name="escola_anterior"
+            value="{{ aluno['escola_anterior'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-3">
           <label class="form-label">Ano</label>
-          <input class="form-control mb-2" name="ano" />
+          <input
+            class="form-control mb-2"
+            name="ano"
+            value="{{ aluno['ano'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-3">
           <label class="form-label">Cidade</label>
-          <input class="form-control mb-2" name="cidade" />
+          <input
+            class="form-control mb-2"
+            name="cidade"
+            value="{{ aluno['cidade'] if aluno else '' }}"
+          />
         </div>
         <div class="col-md-3">
           <label class="form-label">Estado</label>
-          <input class="form-control mb-2" name="estado" />
+          <input
+            class="form-control mb-2"
+            name="estado"
+            value="{{ aluno['estado'] if aluno else '' }}"
+          />
         </div>
       </div>
     </div>
@@ -438,11 +712,32 @@
         class="form-control mb-2"
         name="logradouro"
         placeholder="Logradouro"
+        value="{{ aluno['logradouro'] if aluno else '' }}"
       />
-      <input class="form-control mb-2" name="numero" placeholder="Número" />
-      <input class="form-control mb-2" name="bairro" placeholder="Bairro" />
-      <input class="form-control mb-2" name="cidade" placeholder="Cidade" />
-      <input class="form-control mb-2" name="cep" placeholder="CEP" />
+      <input
+        class="form-control mb-2"
+        name="numero"
+        placeholder="Número"
+        value="{{ aluno['numero'] if aluno else '' }}"
+      />
+      <input
+        class="form-control mb-2"
+        name="bairro"
+        placeholder="Bairro"
+        value="{{ aluno['bairro'] if aluno else '' }}"
+      />
+      <input
+        class="form-control mb-2"
+        name="cidade_endereco"
+        placeholder="Cidade"
+        value="{{ aluno['cidade_endereco'] if aluno else '' }}"
+      />
+      <input
+        class="form-control mb-2"
+        name="cep"
+        placeholder="CEP"
+        value="{{ aluno['cep'] if aluno else '' }}"
+      />
 
       <label>Comprovante de residência</label>
       <input type="file" class="form-control mb-2" name="doc_cep" />
@@ -456,24 +751,56 @@
     <div class="card-body">
       <label>Prática de educação física ou ações esportivas diversas</label
       ><br />
-      <input type="radio" name="permite_edfisica" value="Sim" /> Sim, autorizo a
-      prática esportiva<br />
-      <input type="radio" name="permite_edfisica" value="Não" /> Não, não
-      autorizo<br />
+      <input
+        type="radio"
+        name="permite_edfisica"
+        value="Sim"
+        {% if aluno and aluno['permite_edfisica'] == 'Sim' %}checked{% endif %}
+      />
+      Sim, autorizo a prática esportiva<br />
+      <input
+        type="radio"
+        name="permite_edfisica"
+        value="Não"
+        {% if aluno and aluno['permite_edfisica'] == 'Não' %}checked{% endif %}
+      />
+      Não, não autorizo<br />
       <label
         >Uso de imagens e divulgação de depoimentos, em redes sociais e
         jornais</label
       ><br />
-      <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo o
-      uso de imagens e depoimentos<br />
-      <input type="radio" name="permite_fotos" value="Não" /> Não autorizo<br />
+      <input
+        type="radio"
+        name="permite_fotos"
+        value="Sim"
+        {% if aluno and aluno['permite_fotos'] == 'Sim' %}checked{% endif %}
+      />
+      Sim, autorizo o uso de imagens e depoimentos<br />
+      <input
+        type="radio"
+        name="permite_fotos"
+        value="Não"
+        {% if aluno and aluno['permite_fotos'] == 'Não' %}checked{% endif %}
+      />
+      Não autorizo<br />
       <label
         >Participação de passeios e atividades extraclasses, que serão
         previamente avisados, durante todo o ano letivo</label
       ><br />
-      <input type="radio" name="permite_passeios" value="Sim" /> Sim, autorizo
-      passeios e atividades extraclasses<br />
-      <input type="radio" name="permite_passeios" value="Não" /> Não autorizo<br />
+      <input
+        type="radio"
+        name="permite_passeios"
+        value="Sim"
+        {% if aluno and aluno['permite_passeios'] == 'Sim' %}checked{% endif %}
+      />
+      Sim, autorizo passeios e atividades extraclasses<br />
+      <input
+        type="radio"
+        name="permite_passeios"
+        value="Não"
+        {% if aluno and aluno['permite_passeios'] == 'Não' %}checked{% endif %}
+      />
+      Não autorizo<br />
     </div>
   </div>
 
@@ -486,25 +813,57 @@
       >
       <select class="form-control mb-4" name="nivel">
         <option value="">Selecione</option>
-        <option>INFANTIL IV</option>
-        <option>INFANTIL V</option>
+        <option
+          {% if aluno and aluno['nivel'] == 'INFANTIL IV' %}selected{% endif %}
+        >
+          INFANTIL IV
+        </option>
+        <option
+          {% if aluno and aluno['nivel'] == 'INFANTIL V' %}selected{% endif %}
+        >
+          INFANTIL V
+        </option>
       </select>
 
       <label class="form-label">Ensino Integral?</label>
       <select class="form-control mb-2" name="integral">
         <option value="">Selecione</option>
-        <option>Sim</option>
-        <option>Não</option>
+        <option {% if aluno and aluno['integral'] == 'Sim' %}selected{% endif %}>
+          Sim
+        </option>
+        <option {% if aluno and aluno['integral'] == 'Não' %}selected{% endif %}>
+          Não
+        </option>
       </select>
 
       <label class="form-label">Transferência</label>
       <select class="form-control mb-2" name="transferencia">
         <option value="">Selecione</option>
-        <option>Mudança de Residência</option>
-        <option>Transferência Rede Pública</option>
-        <option>Transferência Outro Estado</option>
-        <option>Transferência Outro País</option>
-        <option>Transferência Rede Particular</option>
+        <option
+          {% if aluno and aluno['transferencia'] == 'Mudança de Residência' %}selected{% endif %}
+        >
+          Mudança de Residência
+        </option>
+        <option
+          {% if aluno and aluno['transferencia'] == 'Transferência Rede Pública' %}selected{% endif %}
+        >
+          Transferência Rede Pública
+        </option>
+        <option
+          {% if aluno and aluno['transferencia'] == 'Transferência Outro Estado' %}selected{% endif %}
+        >
+          Transferência Outro Estado
+        </option>
+        <option
+          {% if aluno and aluno['transferencia'] == 'Transferência Outro País' %}selected{% endif %}
+        >
+          Transferência Outro País
+        </option>
+        <option
+          {% if aluno and aluno['transferencia'] == 'Transferência Rede Particular' %}selected{% endif %}
+        >
+          Transferência Rede Particular
+        </option>
       </select>
     </div>
   </div>
@@ -517,11 +876,20 @@
         class="form-control mb-2"
         name="contribuicao"
         placeholder="Valor da contribuição"
+        value="{{ aluno['contribuicao'] if aluno else '' }}"
       />
 
       <select class="form-control mb-2" name="tipo_contribuicao">
-        <option>Dinheiro</option>
-        <option>Pix</option>
+        <option
+          {% if aluno and aluno['tipo_contribuicao'] == 'Dinheiro' %}selected{% endif %}
+        >
+          Dinheiro
+        </option>
+        <option
+          {% if aluno and aluno['tipo_contribuicao'] == 'Pix' %}selected{% endif %}
+        >
+          Pix
+        </option>
       </select>
     </div>
   </div>
