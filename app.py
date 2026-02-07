@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, abort, render_template, request, redirect, url_for
 import sqlite3
 import os
 from datetime import datetime
@@ -294,7 +294,7 @@ def alunos_matriculados():
     return render_template("alunos.html", alunos=alunos, q=q, nivel=nivel, sala=sala)
 
 
-@app.route("/editar/<int:id>")
+@app.route("/editar/<int:id>", methods=["GET", "POST"])
 def editar_matricula(id):
     conn = sqlite3.connect("database\\database\\alunosv3.db")
     conn.row_factory = sqlite3.Row
@@ -302,12 +302,52 @@ def editar_matricula(id):
 
     cursor.execute("SELECT * FROM alunos_v3 WHERE id = ?", (id,))
     aluno = cursor.fetchone()
-    conn.close()
 
     if not aluno:
-        os.abort(404)
+        conn.close()
+        abort(404)
 
-    return render_template("nova_matricula.html", aluno=aluno, modo="editar")
+    if request.method == "POST":
+        d = request.form
+
+        cursor.execute(
+            """
+            UPDATE alunos_v3 SET
+                nome_completo = ?,
+                data_nascimento = ?,
+                cpf_aluno = ?,
+                nome_mae = ?,
+                telefone1 = ?,
+                contribuicao = ?,
+                nivel = ?,
+                ano = ?
+            WHERE id = ?
+            """,
+            (
+                d.get("nome_completo"),
+                d.get("data_nascimento"),
+                d.get("cpf_aluno"),
+                d.get("nome_mae"),
+                d.get("telefone1"),
+                d.get("contribuicao"),
+                d.get("nivel"),
+                d.get("ano"),
+                id,
+            ),
+        )
+        conn.commit()
+        conn.close()
+        return redirect(url_for("resumo_matricula", aluno_id=id))
+
+    edicao_habilitada = request.args.get("editar") == "1"
+    conn.close()
+
+    return render_template(
+        "nova_matricula.html",
+        aluno=aluno,
+        modo="editar",
+        edicao_habilitada=edicao_habilitada,
+    )
 
 
 @app.route("/financeiro")

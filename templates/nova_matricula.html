@@ -1,532 +1,301 @@
-{% extends "base.html" %} {% block conteudo %}
+<!-- Template unificado: Nova Matrícula / Editar Matrícula -->
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nova Matrícula</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/
+bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
 
-<form method="POST" enctype="multipart/form-data">
-  <!-- 1️⃣ IDENTIFICAÇÃO DO ALUNO -->
-  <div class="card mb-4">
-    <div class="card-header bg-primary text-white">Identificação do Aluno</div>
-    <div class="card-body">
-      <div class="row" id="ident_aluno">
+    <style>
+      .bloqueado input,
+      .bloqueado textarea,
+      .bloqueado select {
+        pointer-events: none;
+        background-color: #e9ecef;
+      }
+
+      .cadeado {
+        font-size: 0.9em;
+        margin-left: 6px;
+      }
+    </style>
+  </head>
+  <body class="container my-4">
+    <h3 class="mb-4">
+      {{ 'Editar Matrícula' if modo=='editar' else 'Nova Matrícula' }}
+    </h3>
+    {% if modo=='editar' and not edicao_habilitada %}
+    <button
+      class="btn btn-warning mb-3"
+      onclick="window.location = '?editar=1'"
+    >
+      <i class="bi bi-lock-fill text-secondary ms-2"></i> Habilitar edição
+    </button>
+    {% endif %}
+
+    <form
+      method="POST"
+      enctype="multipart/form-data"
+      class="{% if modo=='editar' and not edicao_habilitada %}bloqueado{% endif %}"
+    >
+      <!-- ================= IDENTIFICAÇÃO DO ALUNO ================= -->
+      <h5>
+        Identificação do Aluno
+        <span class="cadeado"
+          ><i class="bi bi-lock-fill text-secondary ms-2"></i
+        ></span>
+      </h5>
+      <div class="row g-2">
         <div class="col-md-3">
-          <label class="form-label">RA (Registro Acadêmico)</label>
-          <input class="form-control mb-2" name="ra" />
+          <input
+            name="ra"
+            class="form-control"
+            placeholder="RA"
+            value="{{ aluno.ra if aluno else '' }}"
+          />
         </div>
-
         <div class="col-md-3">
-          <label class="form-label">RM</label>
-          <input class="form-control mb-2" name="rm" />
+          <input
+            name="rm"
+            class="form-control"
+            placeholder="RM"
+            value="{{ aluno.rm if aluno
+else '' }}"
+          />
+        </div>
+        <div class="col-md-6">
+          <input
+            name="nome_completo"
+            class="form-control"
+            placeholder="Nome completo"
+            value="{{ aluno.nome_completo if aluno else '' }}"
+          />
+        </div>
+        <div class="col- md-4">
+          <input
+            type="date"
+            name="data_nascimento"
+            class="form-control"
+            value="{{ aluno.data_nascimento if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            name="cpf_aluno"
+            class="form-control"
+            placeholder="CPF"
+            value="{{ aluno.cpf_aluno if aluno else
+'' }}"
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            name="rg_aluno"
+            class="form-control"
+            placeholder="RG"
+            value="{{ aluno.rg_aluno if aluno else '' }}"
+          />
+        </div>
+      </div>
+      <hr />
+
+      <!-- ================= SAÚDE ================= -->
+      <h5>
+        Saúde e Necessidades
+        <span class="cadeado"
+          ><i class="bi bi-lock-fill text-secondary ms-2"></i
+        ></span>
+      </h5>
+      <div class="row g-2">
+        <div class="col-md-3">
+          <input
+            name="sexo"
+            class="form-control"
+            placeholder="Sexo"
+            value="{{ aluno.sexo if aluno else '' }}"
+          />
+        </div>
+        <div class="col- md-3">
+          <input
+            name="tipo_sanguineo"
+            class="form-control"
+            placeholder="Tipo sanguíneo"
+            value="{{ aluno.tipo_sanguineo if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="peso"
+            class="form-control"
+            placeholder="Peso"
+            value="{{ aluno.peso if aluno else '' }}"
+          />
+        </div>
+        <div class="col- md-3">
+          <input
+            name="altura"
+            class="form-control"
+            placeholder="Altura"
+            value="{{ aluno.altura if aluno
+else '' }}"
+          />
+        </div>
+        <div class="col-md-12">
+          <textarea
+            name="observacoes"
+            class="form-control"
+            placeholder="Observações"
+          >
+{{ aluno.observacoes if aluno else '' }}</textarea
+          >
+        </div>
+      </div>
+      <hr />
+
+      <!-- ================= RESPONSÁVEL ================= -->
+      <h5>
+        Responsável Legal
+        <span class="cadeado"
+          ><i class="bi bi-lock-fill text-secondary ms-2"></i
+        ></span>
+      </h5>
+      <div class="row g-2">
+        <div class="col-md-6">
+          <input
+            name="nome_mae"
+            class="form-control"
+            placeholder="Nome da mãe"
+            value="{{ aluno.nome_mae if
+aluno else '' }}"
+          />
         </div>
 
         <div class="col-md-6">
-          <label class="form-label"
-            >Nome e parentesco do responsável pela matrícula</label
-          >
-          <input class="form-control mb-2" name="responsavel_matricula" />
-        </div>
-      </div>
-      <div class="row" id="ident_aluno">
-        <div class="col-md-9">
-          <label class="form-label">Nome completo da criança</label>
-          <input class="form-control mb-2" name="nome_completo" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Data de nascimento</label>
           <input
-            type="date"
-            class="form-control mb-2"
-            name="data_nascimento"
+            name="cpf_mae"
+            class="form-control"
+            placeholder="CPF da mãe"
+            value="{{ aluno.cpf_mae if aluno else '' }}"
           />
         </div>
-      </div>
-      <div class="row" id="ident_aluno">
-        <div class="col-md-2">
-          <label class="form-label">RG do aluno</label>
-          <input class="form-control mb-2" name="rg_aluno" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">CPF do aluno</label>
-          <input class="form-control mb-2" name="cpf_aluno" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">UF</label>
-          <input class="form-control mb-2" name="uf_aluno" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">Expedição</label>
-          <input type="date" class="form-control mb-2" name="expedicao_aluno" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">RNE (se estrangeiro) </label>
-          <input class="form-control mb-2" name="rne_aluno" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">Expedição</label>
-          <input type="date" class="form-control mb-2" name="expedicao_aluno" />
-        </div>
-        <div>
-          <label class="form-label">Anexar documento digitalizado</label>
-          <input type="file" class="form-control mb-2" name="doc_cpf_aluno" />
-        </div>
-      </div>
-    </div>
-    <div class="row" id="ident_aluno">
-      <div class="col-md-2">
-        <label class="form-label">Cartão SUS do aluno</label>
-        <input class="form-control mb-2" name="cartao_sus" />
-      </div>
-      <div class="col-md-2">
-        <label class="form-label">Certidão de nascimento</label>
-        <input class="form-control mb-2" name="certidao_nascimento" />
-      </div>
-      <div class="col-md-2">
-        <label class="form-label">Município de nascimento</label>
-        <input class="form-control mb-2" name="municipio_nascimento" />
-      </div>
-      <div class="col-md-2">
-        <label class="form-label">Distrito</label>
-        <input class="form-control mb-2" name="distrito" />
-      </div>
-      <div class="col-md-2">
-        <label class="form-label">Expedição</label>
-        <input
-          type="date"
-          class="form-control mb-2"
-          name="expedicao_rg_aluno"
-        />
-      </div>
-      <div class="col-md-2">
-        <label class="form-label">Nacionalidade</label>
-        <input class="form-control mb-2" name="nacionalidade" />
-      </div>
 
-      <div>
-        <label class="form-label">Anexar cartão SUS digitalizado</label>
-        <input type="file" class="form-control mb-2" name="doc_cartao_sus" />
-      </div>
-      <div>
-        <label class="form-label"
-          >Anexar certidão de nascimento digitalizada</label
-        >
-        <input
-          type="file"
-          class="form-control mb-2"
-          name="doc_certidao_nascimento"
-        />
-      </div>
-    </div>
-  </div>
-
-  <!-- 5️⃣ SAÚDE -->
-  <div class="card mb-4">
-    <div class="card-header bg-success text-white">
-      Saúde e Necessidades Especiais
-    </div>
-    <div class="card-body">
-      <div class="row" id="fisico_aluno">
-        <div class="col-md-2">
-          <label class="form-label">Sexo *</label>
-          <select class="form-control mb-2" name="sexo">
-            <option value="">Selecione</option>
-            <option>Masculino</option>
-            <option>Feminino</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">Raça/Cor</label>
-          <select class="form-control mb-2" name="raca_cor">
-            <option value="">Selecione</option>
-            <option>Preta</option>
-            <option>Parda</option>
-            <option>Indígena</option>
-            <option>Amarela</option>
-            <option>Branca</option>
-          </select>
-        </div>
-
-        <div class="col-md-2">
-          <label class="form-label">Peso</label>
-          <input class="form-control mb-2" name="peso" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">Altura</label>
-          <input class="form-control mb-2" name="altura" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">Tamanho do uniforme</label>
-          <input class="form-control mb-2" name="uniforme" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">Tamanho do calçado</label>
-          <input class="form-control mb-2" name="calcado" />
-        </div>
-      </div>
-      <div class="row" id="saude_aluno">
-        <div class="col-md-2">
-          <label class="form-label">Tipo sanguíneo</label>
-          <select class="form-control mb-2" name="tipo_sanguineo">
-            <option value="">Selecione</option>
-            <option>A+</option>
-            <option>A-</option>
-            <option>B+</option>
-            <option>B-</option>
-            <option>AB+</option>
-            <option>AB-</option>
-            <option>O+</option>
-            <option>O-</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">Alergias</label>
-          <input class="form-control mb-2" name="alergico" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">Diabetes</label>
-          <input class="form-control mb-2" name="diabetico" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">Intolerante à lactose?</label>
-          <input class="form-control mb-2" name="lactose" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">APLV</label>
-          <input class="form-control mb-2" name="aplv" />
-        </div>
-        <div class="col-md-2">
-          <label class="form-label">CID (se houver)</label>
-          <input class="form-control mb-2" name="cid" />
-        </div>
-      </div>
-
-      <div class="row" id="docs_saude_aluno">
-        <div class="col-md-4">
-          <label class="form-label">Carteira de vacinação</label>
+        <div class="col- md-4">
           <input
-            type="file"
-            class="form-control mb-2"
-            name="doc_carteira_vacinacao"
+            name="telefone1"
+            class="form-control"
+            placeholder="Telefone 1"
+            value="{{ aluno.telefone1 if aluno else '' }}"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <input
+            name="telefone2"
+            class="form-control"
+            placeholder="Telefone 2"
+            value="{{ aluno.telefone2 if aluno else '' }}"
           />
         </div>
         <div class="col-md-4">
-          <label class="form-label">Comprovante de vacinação</label>
           <input
-            type="file"
-            class="form-control mb-2"
-            name="doc_comprovante_vacinacao"
+            name="email_mae"
+            class="form-control"
+            placeholder="Email"
+            value="{{ aluno.email_mae if aluno else '' }}"
+          />
+        </div>
+      </div>
+      <hr />
+
+      <!-- ================= ENDEREÇO ================= -->
+      <h5>
+        Endereço
+        <span class="cadeado"
+          ><i class="bi bi-lock-fill text-secondary ms-2"></i
+        ></span>
+      </h5>
+      <div class="row g-2">
+        <div class="col-md-4">
+          <input
+            name="logradouro"
+            class="form- control"
+            placeholder="Logradouro"
+            value="{{ aluno.logradouro if aluno else '' }}"
+          />
+        </div>
+        <div class="col- md-2">
+          <input
+            name="numero"
+            class="form-control"
+            placeholder="Número"
+            value="{{ aluno.numero if
+aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="bairro"
+            class="form-control"
+            placeholder="Bairro"
+            value="{{ aluno.bairro if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="cep"
+            class="form-control"
+            placeholder="CEP"
+            value="{{ aluno.cep if aluno else '' }}"
+          />
+        </div>
+      </div>
+      <hr />
+      <!-- ================= ESCOLAR / FINANCEIRO ================= -->
+      <h5>
+        Escolar / Financeiro
+        <span class="cadeado"
+          ><i class="bi bi-lock-fill text-secondary ms-2"></i
+        ></span>
+      </h5>
+      <div class="row g-2">
+        <div class="col-md-4">
+          <input
+            name="ano"
+            class="form-control"
+            placeholder="Ano"
+            value="{{ aluno.ano if aluno else '' }}"
           />
         </div>
         <div class="col-md-4">
-          <label class="form-label">Laudo (se houver)</label>
-          <input type="file" class="form-control mb-2" name="doc_laudo" />
-        </div>
-      </div>
-      <div class="row" id="saude_aluno">
-        <div class="col-md-12">
-          <label class="form-label">Demais observações</label>
-          <textarea class="form-control mb-2" name="observacoes"></textarea>
-        </div>
-    </div>
-  </div>
-
-  <!-- 2️⃣ RESPONSÁVEL LEGAL -->
-  <div class="card mb-4">
-    <div class="card-header bg-secondary text-white">
-      Responsável(eis) Legal(ais)
-    </div>
-    <div class="card-body">
-      <div class="row" id="resp_legal">
-        <div class="col-md-4">
-          <label class="form-label">Nome do 1º genitor</label>
-          <input class="form-control mb-2" name="nome_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Profissão e local</label>
-          <input class="form-control mb-2" name="profissao_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">E-mail</label>
-          <input class="form-control mb-2" name="email_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">CPF do 1º genitor</label>
-          <input class="form-control mb-2" name="cpf_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">RG do 1º genitor</label>
-          <input class="form-control mb-2" name="rg_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">UF do RG do 1º genitor</label>
-          <input class="form-control mb-2" name="uf_rg_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Expedição do RG do 1º genitor</label>
           <input
-            type="date"
-            class="form-control mb-2"
-            name="expedicao_rg_mae"
+            name="nivel"
+            class="form-control"
+            placeholder="Nível"
+            value="{{ aluno.nivel if
+aluno else '' }}"
           />
         </div>
         <div class="col-md-4">
-          <label class="form-label">Estado civil</label>
-          <select class="form-control mb-2" name="estado_civil_mae">
-            <option value="">Selecione</option>
-            <option>Solteiro(a)</option>
-            <option>Casado(a)</option>
-            <option>Divorciado(a)</option>
-            <option>Viúvo(a)</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label class="form-label"
-            >Anexar documento de identidade digitalizado</label
-          >
-          <input type="file" class="form-control mb-2" name="doc_cpf_mae" />
-        </div>
-      </div>
-
-      <div class="row" id="resp_legal">
-        <div class="col-md-4">
-          <label class="form-label">Nome do 2º genitor</label>
-          <input class="form-control mb-2" name="nome_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Profissão e local</label>
-          <input class="form-control mb-2" name="profissao_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">E-mail</label>
-          <input class="form-control mb-2" name="email_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">CPF do 2º genitor</label>
-          <input class="form-control mb-2" name="cpf_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">RG do 2º genitor</label>
-          <input class="form-control mb-2" name="rg_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">UF do RG do 2º genitor</label>
-          <input class="form-control mb-2" name="uf_rg_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Expedição do RG do 2º genitor</label>
           <input
-            type="date"
-            class="form-control mb-2"
-            name="expedicao_rg_pai"
+            name="contribuicao"
+            class="form-control"
+            placeholder="Contribuição"
+            value="{{ aluno.contribuicao if aluno else '' }}"
           />
         </div>
-        <div class="col-md-4">
-          <label class="form-label">Estado civil</label>
-          <select class="form-control mb-2" name="estado_civil_pai">
-            <option value="">Selecione</option>
-            <option>Solteiro(a)</option>
-            <option>Casado(a)</option>
-            <option>Divorciado(a)</option>
-            <option>Viúvo(a)</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label class="form-label"
-            >Anexar documento de identidade digitalizado</label
-          >
-          <input type="file" class="form-control mb-2" name="doc_cpf_pai" />
-        </div>
       </div>
-      <div class="row" id="resp_legal">
-        <div class="col-md-3">
-          <label class="form-label">Telefone 1 *</label>
-          <input class="form-control mb-2" name="telefone1" />
-        </div>
-
-        <div class="col-md-3">
-          <label class="form-label">Telefone 2</label>
-          <input class="form-control mb-2" name="telefone2" />
-        </div>
-
-        <div class="col-md-3">
-          <label class="form-label">Telefone 3</label>
-          <input class="form-control mb-2" name="telefone3" />
-        </div>
-
-        <div class="col-md-3">
-          <label class="form-label">Telefone 4</label>
-          <input class="form-control mb-2" name="telefone4" />
-        </div>
+      <hr />
+      <div class="mt-4">
+        <button type="submit" class="btn btn-success">💾 Salvar</button>
       </div>
-    </div>
-  </div>
-
-  <!-- 3️⃣ INFORMAÇÕES ESCOLARES -->
-  <div class="card mb-4">
-    <div class="card-header bg-info text-white">Informações Escolares</div>
-    <div class="card-body">
-      <div class="row">
-        <label class="form-label"
-          >Nome e telefone da(s) pessoa(s) autorizada(s) a retirar a criança da
-          escola</label
-        >
-        <div class="col-md-3">
-          <label class="form-label">Pessoa e telefone 1</label>
-          <input class="form-control mb-2" name="pessoa1" />
-        </div>
-
-        <div class="col-md-3">
-          <label class="form-label">Pessoa e telefone 2</label>
-          <input class="form-control mb-2" name="pessoa2" />
-        </div>
-
-        <div class="col-md-3">
-          <label class="form-label">Pessoa e telefone 3</label>
-          <input class="form-control mb-2" name="pessoa3" />
-        </div>
-
-        <div class="col-md-3">
-          <label class="form-label">Pessoa e telefone 4</label>
-          <input class="form-control mb-2" name="pessoa4" />
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3">
-          <label class="form-label">Programa Bolsa Família</label>
-          <select class="form-control mb-2" name="bolsa_familia">
-            <option value="">Selecione</option>
-            <option>Sim</option>
-            <option>Não</option>
-          </select>
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">NIS</label>
-          <input class="form-control mb-2" name="nis" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Plano de saúde</label>
-          <input class="form-control mb-2" name="plano" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Foto do APP Bolsa Família</label>
-          <input type="file" class="form-control mb-2" name="app_bolsa" />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <label class="form-label">Procedência (escola anterior)</label>
-          <input class="form-control mb-2" name="escola_anterior" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Ano</label>
-          <input class="form-control mb-2" name="ano" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Cidade</label>
-          <input class="form-control mb-2" name="cidade" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Estado</label>
-          <input class="form-control mb-2" name="estado" />
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4️⃣ ENDEREÇO -->
-  <div class="card mb-4">
-    <div class="card-header bg-dark text-white">Endereço</div>
-    <div class="card-body">
-      <input
-        class="form-control mb-2"
-        name="logradouro"
-        placeholder="Logradouro"
-      />
-      <input class="form-control mb-2" name="numero" placeholder="Número" />
-      <input class="form-control mb-2" name="bairro" placeholder="Bairro" />
-      <input class="form-control mb-2" name="cidade" placeholder="Cidade" />
-      <input class="form-control mb-2" name="cep" placeholder="CEP" />
-
-      <label>Comprovante de residência</label>
-      <input type="file" class="form-control mb-2" name="doc_cep" />
-    </div>
-  </div>
-  <!-- 5️⃣ AUTORIZAÇÕES -->
-  <div class="card mb-4">
-    <div class="card-header bg-info text-white">
-      Autorização para atividades
-    </div>
-    <div class="card-body">
-      <label>Prática de educação física ou ações esportivas diversas</label
-      ><br />
-      <input type="radio" name="permite_edfisica" value="Sim" /> Sim, autorizo a
-      prática esportiva<br />
-      <input type="radio" name="permite_edfisica" value="Não" /> Não, não
-      autorizo<br />
-      <label
-        >Uso de imagens e divulgação de depoimentos, em redes sociais e
-        jornais</label
-      ><br />
-      <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo o
-      uso de imagens e depoimentos<br />
-      <input type="radio" name="permite_fotos" value="Não" /> Não autorizo<br />
-      <label
-        >Participação de passeios e atividades extraclasses, que serão
-        previamente avisados, durante todo o ano letivo</label
-      ><br />
-      <input type="radio" name="permite_passeios" value="Sim" /> Sim, autorizo
-      passeios e atividades extraclasses<br />
-      <input type="radio" name="permite_passeios" value="Não" /> Não autorizo<br />
-    </div>
-  </div>
-
-  <div class="card mb-4">
-    <div class="card-header bg-danger">Matrícula</div>
-    <div class="card-body">
-      <label class="form-label"
-        >Solicito matrícula no nível da Educação Infantil. Declaro acatar as
-        normas regimentais desse estabelecimento de ensino.</label
-      >
-      <select class="form-control mb-4" name="nivel">
-        <option value="">Selecione</option>
-        <option>INFANTIL IV</option>
-        <option>INFANTIL V</option>
-      </select>
-
-      <label class="form-label">Ensino Integral?</label>
-      <select class="form-control mb-2" name="integral">
-        <option value="">Selecione</option>
-        <option>Sim</option>
-        <option>Não</option>
-      </select>
-
-      <label class="form-label">Transferência</label>
-      <select class="form-control mb-2" name="transferencia">
-        <option value="">Selecione</option>
-        <option>Mudança de Residência</option>
-        <option>Transferência Rede Pública</option>
-        <option>Transferência Outro Estado</option>
-        <option>Transferência Outro País</option>
-        <option>Transferência Rede Particular</option>
-      </select>
-    </div>
-  </div>
-
-  <!-- 6️⃣ FINANCEIRO -->
-  <div class="card mb-4">
-    <div class="card-header bg-warning">Financeiro</div>
-    <div class="card-body">
-      <input
-        class="form-control mb-2"
-        name="contribuicao"
-        placeholder="Valor da contribuição"
-      />
-
-      <select class="form-control mb-2" name="tipo_contribuicao">
-        <option>Dinheiro</option>
-        <option>Pix</option>
-      </select>
-    </div>
-  </div>
-
-  <button class="btn btn-success btn-lg w-100">Salvar Matrícula</button>
-</form>
-
-{% endblock %}
+    </form>
+  </body>
+</html>
