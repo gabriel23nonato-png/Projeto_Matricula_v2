@@ -10,15 +10,78 @@
   margin: 15px;
 }
 
-/* #info_escolares {
-  border: 1px solid rgba(13, 202, 240, 0.5);
-  border-radius: 15px;
-  margin: 15px;
+/* checkbox invisível */
+.toggle-edicao {
+    display: none;
 }
-#telefones {
-  display: flex;
-  justify-content: center;
+
+/* wrapper do input */
+.input-cadeado {
+    position: relative;
+}
+
+/* cadeado dentro do input */
+.cadeado {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 14px;
+}
+
+/* campo bloqueado */
+.campo-rm {
+    background-color: #e9ecef;
+    padding-right: 30px;
+}
+
+/* QUANDO habilitar edição */
+.toggle-edicao:checked ~ .input-cadeado .campo-rm {
+    background-color: #fff;
+    pointer-events: auto;
+}
+
+/* remove cadeado */
+.toggle-edicao:checked ~ .input-cadeado .cadeado {
+    display: none;
+}
+
+/* ⚠️ LIMITAÇÃO: readonly não some sem JS */
+
+
+.campo-wrapper {
+    position: relative;
+}
+
+.campo-bloqueado {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.cadeado {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* esse pedaço de código CSS estiliza o cadeado dentro do campo bloqueado
+foi criado pelo programador para indicar visualmente que o campo está bloqueado
+O vs que fez esta parte */
+/* QUANDO habilitar edição */
+/* .toggle-edicao:checked ~ .campo-wrapper .cadeado {
+    display: none;
+}
+.toggle-edicao:checked ~ .campo-wrapper .campo-bloqueado {
+    background-color: #fff;
+    cursor: auto;
+    pointer-events: auto;
 } */
+
 
 /* ESTILOS PARA IMPRESSÃO */
 @media print {

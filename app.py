@@ -40,6 +40,72 @@ def index():
 
 @app.route("/nova_matricula", methods=["GET", "POST"])
 def nova_matricula():
+
+    conn = sqlite3.connect("database\\database\\alunosv3.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    aluno = None
+    aluno_id = request.args.get("id")
+    if aluno_id:
+        cursor.execute("SELECT * FROM alunos_v3 WHERE id = ?", (aluno_id,))
+        aluno = cursor.fetchone()
+
+    if aluno_id:
+        cursor.execute(
+            """
+        UPDATE alunos_v3 SET
+            ra = ?, rm = ?, responsavel_matricula = ?,
+            nome_completo = ?, data_nascimento = ?, rg_aluno = ?,
+            cpf_aluno = ?, uf_aluno = ?, expedicao_aluno = ?,
+            rne_aluno = ?, cartao_sus = ?, certidao_nascimento = ?,
+            municipio_nascimento = ?, distrito = ?, nacionalidade = ?,
+            sexo = ?, raca_cor = ?, peso = ?, altura = ?,
+            uniforme = ?, calcado = ?, tipo_sanguineo = ?,
+            alergico = ?, diabetico = ?, lactose = ?, aplv = ?, cid = ?,
+            observacoes = ?, nome_mae = ?, telefone1 = ?
+        WHERE id = ?
+    """,
+            (
+                d.get("ra"),
+                d.get("rm"),
+                d.get("responsavel_matricula"),
+                d.get("nome_completo"),
+                d.get("data_nascimento"),
+                d.get("rg_aluno"),
+                d.get("cpf_aluno"),
+                d.get("uf_aluno"),
+                d.get("expedicao_aluno"),
+                d.get("rne_aluno"),
+                d.get("cartao_sus"),
+                d.get("certidao_nascimento"),
+                d.get("municipio_nascimento"),
+                d.get("distrito"),
+                d.get("nacionalidade"),
+                d.get("sexo"),
+                d.get("raca_cor"),
+                d.get("peso"),
+                d.get("altura"),
+                d.get("uniforme"),
+                d.get("calcado"),
+                d.get("tipo_sanguineo"),
+                d.get("alergico"),
+                d.get("diabetico"),
+                d.get("lactose"),
+                d.get("aplv"),
+                d.get("cid"),
+                d.get("observacoes"),
+                d.get("nome_mae"),
+                d.get("telefone1"),
+                aluno_id,
+            ),
+        )
+        conn.commit()
+        conn.close()
+        return redirect(
+            url_for("resumo_matricula", aluno_id=aluno_id or cursor.lastrowid)
+        )
+
     if request.method == "POST":
         d = request.form
         f = request.files
@@ -308,6 +374,51 @@ def editar_matricula(id):
         os.abort(404)
 
     return render_template("nova_matricula.html", aluno=aluno, modo="editar")
+
+
+# @app.route("/aluno/<int:id>")
+# def aluno(id):
+#     aluno = buscar_aluno(id)
+#     edicao_habilitada = request.args.get("editar") == "1"
+
+#     return render_template(
+#         "aluno.html", aluno=aluno, edicao_habilitada=edicao_habilitada
+#     )
+
+
+@app.route("/editar/<int:id>", methods=["POST"])
+def salvar_edicao(id):
+    d = request.form
+
+    conn = sqlite3.connect("escola.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        UPDATE alunos_v3 SET
+            nome_completo = ?,
+            data_nascimento = ?,
+            cpf_aluno = ?,
+            nome_mae = ?,
+            telefone1 = ?,
+            endereco = ?
+        WHERE id = ?
+    """,
+        (
+            d.get("nome_completo"),
+            d.get("data_nascimento"),
+            d.get("cpf_aluno"),
+            d.get("nome_mae"),
+            d.get("telefone1"),
+            d.get("endereco"),
+            id,
+        ),
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for("resumo_matricula", id=id))
 
 
 @app.route("/financeiro")

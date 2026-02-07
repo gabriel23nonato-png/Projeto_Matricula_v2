@@ -1,6 +1,32 @@
-{% extends "base.html" %} {% block conteudo %}
+{% extends "base.html" %} {% block conteudo %} 
 
-<form method="POST" enctype="multipart/form-data">
+
+
+{% if modo == "editar" %}
+<button type="button" class="btn btn-warning" onclick="habilitarEdicao()">
+  Habilitar edição
+</button>
+{% endif %}
+
+
+{% if not edicao_habilitada %}
+  <a href="?editar=1" class="btn btn-outline-secondary btn-sm">
+    🔓 Habilitar edição
+  </a>
+{% endif %}
+
+
+{% if edicao_habilitada %}
+  <button type="submit" class="btn btn-primary btn-sm">
+    💾 Salvar alterações
+  </button>
+{% endif %}F
+
+<form
+  method="POST"
+  enctype="multipart/form-data"
+  action="{% if modo == 'editar' %}/editar/{{ aluno.id }}{% else %}/nova_matricula{% endif %}"
+>
   <!-- 1️⃣ IDENTIFICAÇÃO DO ALUNO -->
   <div class="card mb-4">
     <div class="card-header bg-primary text-white">Identificação do Aluno</div>
@@ -8,25 +34,77 @@
       <div class="row" id="ident_aluno">
         <div class="col-md-3">
           <label class="form-label">RA (Registro Acadêmico)</label>
-          <input class="form-control mb-2" name="ra" />
+          <input
+            class="form-control mb-2"
+            name="ra"
+            value="{{ aluno.nome_completo if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
 
         <div class="col-md-3">
           <label class="form-label">RM</label>
-          <input class="form-control mb-2" name="rm" />
+
+          <div class="campo-wrapper">
+            <input
+              type="text"
+              class="form-control {% if not edicao_habilitada %}campo-bloqueado{% endif %}"
+              name="rm"
+              value="{{ aluno.rm }}"
+              {%
+              if
+              not
+              edicao_habilitada
+              %}readonly{%
+              endif
+              %}
+            />
+
+            {% if not edicao_habilitada %}
+            <span class="cadeado">🔒</span>
+            {% endif %}
+          </div>
         </div>
 
         <div class="col-md-6">
           <label class="form-label"
             >Nome e parentesco do responsável pela matrícula</label
           >
-          <input class="form-control mb-2" name="responsavel_matricula" />
+          <input
+            class="form-control mb-2"
+            name="responsavel_matricula"
+            value="{{ aluno.nome_completo if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
       </div>
       <div class="row" id="ident_aluno">
         <div class="col-md-9">
           <label class="form-label">Nome completo da criança</label>
-          <input class="form-control mb-2" name="nome_completo" />
+          <input
+            class="form-control mb-2"
+            name="nome_completo"
+            value="{{ aluno.nome_completo if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-3">
           <label class="form-label">Data de nascimento</label>
@@ -34,56 +112,188 @@
             type="date"
             class="form-control mb-2"
             name="data_nascimento"
+            value="{{ aluno.nome_completo if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
           />
         </div>
       </div>
       <div class="row" id="ident_aluno">
         <div class="col-md-2">
           <label class="form-label">RG do aluno</label>
-          <input class="form-control mb-2" name="rg_aluno" />
+          <input
+            class="form-control mb-2"
+            name="rg_aluno"
+            value="{{ aluno.rg_aluno if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">CPF do aluno</label>
-          <input class="form-control mb-2" name="cpf_aluno" />
+          <input
+            class="form-control mb-2"
+            name="cpf_aluno"
+            value="{{ aluno.cpf_aluno if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">UF</label>
-          <input class="form-control mb-2" name="uf_aluno" />
+          <input
+            class="form-control mb-2"
+            name="uf_aluno"
+            value="{{ aluno.uf_aluno if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Expedição</label>
-          <input type="date" class="form-control mb-2" name="expedicao_aluno" />
+          <input
+            type="date"
+            class="form-control mb-2"
+            name="expedicao_rg_aluno"
+            value="{{ aluno.expedicao_rg_aluno if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">RNE (se estrangeiro) </label>
-          <input class="form-control mb-2" name="rne_aluno" />
+          <input
+            class="form-control mb-2"
+            name="rne_aluno"
+            value="{{ aluno.rne_aluno if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Expedição</label>
-          <input type="date" class="form-control mb-2" name="expedicao_aluno" />
+          <input
+            type="date"
+            class="form-control mb-2"
+            name="expedicao_aluno"
+            value="{{ aluno.nome_completo if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div>
           <label class="form-label">Anexar documento digitalizado</label>
-          <input type="file" class="form-control mb-2" name="doc_cpf_aluno" />
+          <input
+            type="file"
+            class="form-control mb-2"
+            name="doc_cpf_aluno"
+            value="{{ aluno.nome_completo if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
       </div>
     </div>
     <div class="row" id="ident_aluno">
       <div class="col-md-2">
         <label class="form-label">Cartão SUS do aluno</label>
-        <input class="form-control mb-2" name="cartao_sus" />
+        <input
+          class="form-control mb-2"
+          name="cartao_sus"
+          value="{{ aluno.cartao_sus if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
       </div>
       <div class="col-md-2">
         <label class="form-label">Certidão de nascimento</label>
-        <input class="form-control mb-2" name="certidao_nascimento" />
+        <input
+          class="form-control mb-2"
+          name="certidao_nascimento"
+          value="{{ aluno.certidao_nascimento if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
       </div>
       <div class="col-md-2">
         <label class="form-label">Município de nascimento</label>
-        <input class="form-control mb-2" name="municipio_nascimento" />
+        <input
+          class="form-control mb-2"
+          name="municipio_nascimento"
+          value="{{ aluno.municipio_nascimento if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
       </div>
       <div class="col-md-2">
         <label class="form-label">Distrito</label>
-        <input class="form-control mb-2" name="distrito" />
+        <input
+          class="form-control mb-2"
+          name="distrito"
+          value="{{ aluno.distrito if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
       </div>
       <div class="col-md-2">
         <label class="form-label">Expedição</label>
@@ -91,16 +301,47 @@
           type="date"
           class="form-control mb-2"
           name="expedicao_rg_aluno"
+          value="{{ aluno.expedicao_rg_aluno if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
         />
       </div>
       <div class="col-md-2">
         <label class="form-label">Nacionalidade</label>
-        <input class="form-control mb-2" name="nacionalidade" />
+        <input
+          class="form-control mb-2"
+          name="nacionalidade"
+          value="{{ aluno.nacionalidade if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
       </div>
 
       <div>
         <label class="form-label">Anexar cartão SUS digitalizado</label>
-        <input type="file" class="form-control mb-2" name="doc_cartao_sus" />
+        <input
+          type="file"
+          class="form-control mb-2"
+          name="doc_cartao_sus"
+          value="{{ aluno.doc_cartao_sus if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
       </div>
       <div>
         <label class="form-label"
@@ -110,6 +351,14 @@
           type="file"
           class="form-control mb-2"
           name="doc_certidao_nascimento"
+          value="{{ aluno.doc_certidao_nascimento if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
         />
       </div>
     </div>
@@ -144,19 +393,63 @@
 
         <div class="col-md-2">
           <label class="form-label">Peso</label>
-          <input class="form-control mb-2" name="peso" />
+          <input
+            class="form-control mb-2"
+            name="peso"
+            value="{{ aluno.peso if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Altura</label>
-          <input class="form-control mb-2" name="altura" />
+          <input
+            class="form-control mb-2"
+            name="altura"
+            value="{{ aluno.altura if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Tamanho do uniforme</label>
-          <input class="form-control mb-2" name="uniforme" />
+          <input
+            class="form-control mb-2"
+            name="uniforme"
+            value="{{ aluno.uniforme if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Tamanho do calçado</label>
-          <input class="form-control mb-2" name="calcado" />
+          <input
+            class="form-control mb-2"
+            name="calcado"
+            value="{{ aluno.calcado if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
       </div>
       <div class="row" id="saude_aluno">
@@ -176,23 +469,78 @@
         </div>
         <div class="col-md-2">
           <label class="form-label">Alergias</label>
-          <input class="form-control mb-2" name="alergico" />
+          <input
+            class="form-control mb-2"
+            name="alergico"
+            value="{{ aluno.alergico if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Diabetes</label>
-          <input class="form-control mb-2" name="diabetico" />
+          <input
+            class="form-control mb-2"
+            name="diabetico"
+            value="{{ aluno.diabetico if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">Intolerante à lactose?</label>
-          <input class="form-control mb-2" name="lactose" />
+          <input
+            class="form-control mb-2"
+            name="lactose"
+            value="{{ aluno.lactose if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">APLV</label>
-          <input class="form-control mb-2" name="aplv" />
+          <input
+            class="form-control mb-2"
+            name="aplv"
+            value="{{ aluno.aplv if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
         <div class="col-md-2">
           <label class="form-label">CID (se houver)</label>
-          <input class="form-control mb-2" name="cid" />
+          <input
+            class="form-control mb-2"
+            name="cid"
+            value="{{ aluno.cid if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
       </div>
 
@@ -203,6 +551,14 @@
             type="file"
             class="form-control mb-2"
             name="doc_carteira_vacinacao"
+            value="{{ aluno.doc_carteira_vacinacao if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
           />
         </div>
         <div class="col-md-4">
@@ -211,11 +567,31 @@
             type="file"
             class="form-control mb-2"
             name="doc_comprovante_vacinacao"
+            value="{{ aluno.doc_comprovante_vacinacao if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
           />
         </div>
         <div class="col-md-4">
           <label class="form-label">Laudo (se houver)</label>
-          <input type="file" class="form-control mb-2" name="doc_laudo" />
+          <input
+            type="file"
+            class="form-control mb-2"
+            name="doc_laudo"
+            value="{{ aluno.doc_laudo if aluno else '' }}"
+            {%
+            if
+            modo=""
+            ="editar"
+            %}readonly{%
+            endif
+            %}
+          />
         </div>
       </div>
       <div class="row" id="saude_aluno">
@@ -223,310 +599,819 @@
           <label class="form-label">Demais observações</label>
           <textarea class="form-control mb-2" name="observacoes"></textarea>
         </div>
+      </div>
     </div>
-  </div>
 
-  <!-- 2️⃣ RESPONSÁVEL LEGAL -->
-  <div class="card mb-4">
-    <div class="card-header bg-secondary text-white">
-      Responsável(eis) Legal(ais)
+    <!-- 2️⃣ RESPONSÁVEL LEGAL -->
+    <div class="card mb-4">
+      <div class="card-header bg-secondary text-white">
+        Responsável(eis) Legal(ais)
+      </div>
+      <div class="card-body">
+        <div class="row" id="resp_legal">
+          <div class="col-md-4">
+            <label class="form-label">Nome do 1º genitor</label>
+            <input
+              class="form-control mb-2"
+              name="nome_mae"
+              value="{{ aluno.nome_mae if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Profissão e local</label>
+            <input
+              class="form-control mb-2"
+              name="profissao_mae"
+              value="{{ aluno.profissao_mae if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">E-mail</label>
+            <input
+              class="form-control mb-2"
+              name="email_mae"
+              value="{{ aluno.email_mae if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">CPF do 1º genitor</label>
+            <input
+              class="form-control mb-2"
+              name="cpf_mae"
+              value="{{ aluno.cpf_mae if aluno else '' }}"
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">RG do 1º genitor</label>
+            <input
+              class="form-control mb-2"
+              name="rg_mae"
+              value="{{ aluno.rg_mae if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">RG do 1º genitor</label>
+            <input
+              class="form-control mb-2"
+              name="rg_mae"
+              value="{{ aluno.rg_mae if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">UF do RG do 1º genitor</label>
+            <input
+              class="form-control mb-2"
+              name="uf_rg_mae"
+              value="{{ aluno.uf_rg_mae if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Expedição do RG do 1º genitor</label>
+            <input
+              type="date"
+              class="form-control mb-2"
+              name="expedicao_rg_mae"
+              value="{{ aluno.expedicao_rg_mae if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Estado civil</label>
+            <select class="form-control mb-2" name="estado_civil_mae">
+              <option value="">Selecione</option>
+              <option>Solteiro(a)</option>
+              <option>Casado(a)</option>
+              <option>Divorciado(a)</option>
+              <option>Viúvo(a)</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label"
+              >Anexar documento de identidade digitalizado</label
+            >
+            <input
+              type="file"
+              class="form-control mb-2"
+              name="doc_cpf_mae"
+              value="{{ aluno.doc_cpf_mae if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+        </div>
+
+        <div class="row" id="resp_legal">
+          <div class="col-md-4">
+            <label class="form-label">Nome do 2º genitor</label>
+            <input
+              class="form-control mb-2"
+              name="nome_pai"
+              value="{{ aluno.nome_pai if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Profissão e local</label>
+            <input
+              class="form-control mb-2"
+              name="profissao_pai"
+              value="{{ aluno.profissao_pai if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">E-mail</label>
+            <input
+              class="form-control mb-2"
+              name="email_pai"
+              value="{{ aluno.email_pai if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">CPF do 2º genitor</label>
+            <input
+              class="form-control mb-2"
+              name="cpf_pai"
+              value="{{ aluno.cpf_pai if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">RG do 2º genitor</label>
+            <input
+              class="form-control mb-2"
+              name="rg_pai"
+              value="{{ aluno.rg_pai if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">UF do RG do 2º genitor</label>
+            <input
+              class="form-control mb-2"
+              name="uf_rg_pai"
+              value="{{ aluno.uf_rg_pai if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Expedição do RG do 2º genitor</label>
+            <input
+              type="date"
+              class="form-control mb-2"
+              name="expedicao_rg_pai"
+              value="{{ aluno.expedicao_rg_pai if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Estado civil</label>
+            <select class="form-control mb-2" name="estado_civil_pai">
+              <option value="">Selecione</option>
+              <option>Solteiro(a)</option>
+              <option>Casado(a)</option>
+              <option>Divorciado(a)</option>
+              <option>Viúvo(a)</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label"
+              >Anexar documento de identidade digitalizado</label
+            >
+            <input type="file" class="form-control mb-2" name="doc_cpf_pai" />
+          </div>
+        </div>
+        <div class="row" id="resp_legal">
+          <div class="col-md-3">
+            <label class="form-label">Telefone 1 *</label>
+            <input
+              class="form-control mb-2"
+              name="telefone1"
+              value="{{ aluno.telefone1 if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Telefone 2</label>
+            <input
+              class="form-control mb-2"
+              name="telefone2"
+              value="{{ aluno.telefone2 if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Telefone 4</label>
+            <input
+              class="form-control mb-2"
+              name="telefone4"
+              value="{{ aluno.telefone4 if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card-body">
-      <div class="row" id="resp_legal">
-        <div class="col-md-4">
-          <label class="form-label">Nome do 1º genitor</label>
-          <input class="form-control mb-2" name="nome_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Profissão e local</label>
-          <input class="form-control mb-2" name="profissao_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">E-mail</label>
-          <input class="form-control mb-2" name="email_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">CPF do 1º genitor</label>
-          <input class="form-control mb-2" name="cpf_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">RG do 1º genitor</label>
-          <input class="form-control mb-2" name="rg_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">UF do RG do 1º genitor</label>
-          <input class="form-control mb-2" name="uf_rg_mae" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Expedição do RG do 1º genitor</label>
-          <input
-            type="date"
-            class="form-control mb-2"
-            name="expedicao_rg_mae"
-          />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Estado civil</label>
-          <select class="form-control mb-2" name="estado_civil_mae">
-            <option value="">Selecione</option>
-            <option>Solteiro(a)</option>
-            <option>Casado(a)</option>
-            <option>Divorciado(a)</option>
-            <option>Viúvo(a)</option>
-          </select>
-        </div>
-        <div class="col-md-4">
+
+    <!-- 3️⃣ INFORMAÇÕES ESCOLARES -->
+    <div class="card mb-4">
+      <div class="card-header bg-info text-white">Informações Escolares</div>
+      <div class="card-body">
+        <div class="row">
           <label class="form-label"
-            >Anexar documento de identidade digitalizado</label
+            >Nome e telefone da(s) pessoa(s) autorizada(s) a retirar a criança
+            da escola</label
           >
-          <input type="file" class="form-control mb-2" name="doc_cpf_mae" />
-        </div>
-      </div>
+          <div class="col-md-3">
+            <label class="form-label">Pessoa e telefone 1</label>
+            <input
+              class="form-control mb-2"
+              name="pessoa1"
+              value="{{ aluno.nome_completo if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
 
-      <div class="row" id="resp_legal">
-        <div class="col-md-4">
-          <label class="form-label">Nome do 2º genitor</label>
-          <input class="form-control mb-2" name="nome_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Profissão e local</label>
-          <input class="form-control mb-2" name="profissao_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">E-mail</label>
-          <input class="form-control mb-2" name="email_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">CPF do 2º genitor</label>
-          <input class="form-control mb-2" name="cpf_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">RG do 2º genitor</label>
-          <input class="form-control mb-2" name="rg_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">UF do RG do 2º genitor</label>
-          <input class="form-control mb-2" name="uf_rg_pai" />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Expedição do RG do 2º genitor</label>
-          <input
-            type="date"
-            class="form-control mb-2"
-            name="expedicao_rg_pai"
-          />
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Estado civil</label>
-          <select class="form-control mb-2" name="estado_civil_pai">
-            <option value="">Selecione</option>
-            <option>Solteiro(a)</option>
-            <option>Casado(a)</option>
-            <option>Divorciado(a)</option>
-            <option>Viúvo(a)</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label class="form-label"
-            >Anexar documento de identidade digitalizado</label
-          >
-          <input type="file" class="form-control mb-2" name="doc_cpf_pai" />
-        </div>
-      </div>
-      <div class="row" id="resp_legal">
-        <div class="col-md-3">
-          <label class="form-label">Telefone 1 *</label>
-          <input class="form-control mb-2" name="telefone1" />
-        </div>
+          <div class="col-md-3">
+            <label class="form-label">Pessoa e telefone 2</label>
+            <input
+              class="form-control mb-2"
+              name="pessoa2"
+              value="{{ aluno.nome_completo if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
 
-        <div class="col-md-3">
-          <label class="form-label">Telefone 2</label>
-          <input class="form-control mb-2" name="telefone2" />
-        </div>
+          <div class="col-md-3">
+            <label class="form-label">Pessoa e telefone 3</label>
+            <input
+              class="form-control mb-2"
+              name="pessoa3"
+              value="{{ aluno.nome_completo if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
 
-        <div class="col-md-3">
-          <label class="form-label">Telefone 3</label>
-          <input class="form-control mb-2" name="telefone3" />
+          <div class="col-md-3">
+            <label class="form-label">Pessoa e telefone 4</label>
+            <input
+              class="form-control mb-2"
+              name="pessoa4"
+              value="{{ aluno.nome_completo if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
         </div>
 
-        <div class="col-md-3">
-          <label class="form-label">Telefone 4</label>
-          <input class="form-control mb-2" name="telefone4" />
+        <div class="row">
+          <div class="col-md-3">
+            <label class="form-label">Programa Bolsa Família</label>
+            <select class="form-control mb-2" name="bolsa_familia">
+              <option value="">Selecione</option>
+              <option>Sim</option>
+              <option>Não</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">NIS</label>
+            <input
+              class="form-control mb-2"
+              name="nis"
+              value="{{ aluno.nis if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Plano de saúde</label>
+            <input
+              class="form-control mb-2"
+              name="plano"
+              value="{{ aluno.plano if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Foto do APP Bolsa Família</label>
+            <input
+              type="file"
+              class="form-control mb-2"
+              name="app_bolsa"
+              value="{{ aluno.nome_completo if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label class="form-label">Procedência (escola anterior)</label>
+            <input
+              class="form-control mb-2"
+              name="escola_anterior"
+              value="{{ aluno.escola_anterior if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Ano</label>
+            <input
+              class="form-control mb-2"
+              name="ano"
+              value="{{ aluno.ano if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Cidade</label>
+            <input
+              class="form-control mb-2"
+              name="cidade"
+              value="{{ aluno.cidade if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Estado</label>
+            <input
+              class="form-control mb-2"
+              name="estado"
+              value="{{ aluno.estado if aluno else '' }}"
+              {%
+              if
+              modo=""
+              ="editar"
+              %}readonly{%
+              endif
+              %}
+            />
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- 3️⃣ INFORMAÇÕES ESCOLARES -->
-  <div class="card mb-4">
-    <div class="card-header bg-info text-white">Informações Escolares</div>
-    <div class="card-body">
-      <div class="row">
+    <!-- 4️⃣ ENDEREÇO -->
+    <div class="card mb-4">
+      <div class="card-header bg-dark text-white">Endereço</div>
+      <div class="card-body">
+        <input
+          class="form-control mb-2"
+          name="logradouro"
+          placeholder="Logradouro"
+          value="{{ aluno.logradouro if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+        <input
+          class="form-control mb-2"
+          name="numero"
+          placeholder="Número"
+          value="{{ aluno.numero if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+        <input
+          class="form-control mb-2"
+          name="bairro"
+          placeholder="Bairro"
+          value="{{ aluno.bairro if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+        <input
+          class="form-control mb-2"
+          name="cidade"
+          placeholder="Cidade"
+          value="{{ aluno.cidade if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+        <input
+          class="form-control mb-2"
+          name="cep"
+          placeholder="CEP"
+          value="{{ aluno.cep if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+
+        <label>Comprovante de residência</label>
+        <input
+          type="file"
+          class="form-control mb-2"
+          name="doc_cep"
+          value="{{ aluno.doc_cep if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+      </div>
+    </div>
+    <!-- 5️⃣ AUTORIZAÇÕES -->
+    <div class="card mb-4">
+      <div class="card-header bg-info text-white">
+        Autorização para atividades
+      </div>
+      <div class="card-body">
+        <label>Prática de educação física ou ações esportivas diversas</label
+        ><br />
+        <input
+          type="radio"
+          name="permite_edfisica"
+          value="Sim"
+          value="{{ aluno.permite_edfisica if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+        Sim, autorizo a prática esportiva<br />
+        <input
+          type="radio"
+          name="permite_edfisica"
+          value="Não"
+          value="{{ aluno.permite_edfisica if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+        Não, não autorizo<br />
+        <label
+          >Uso de imagens e divulgação de depoimentos, em redes sociais e
+          jornais</label
+        ><br />
+        <input
+          type="radio"
+          name="permite_fotos"
+          value="Sim"
+          value="{{ aluno.permite_fotos if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+        Sim, autorizo o uso de imagens e depoimentos<br />
+        <input
+          type="radio"
+          name="permite_fotos"
+          value="Não"
+          value="{{ aluno.permite_fotos if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+        Não autorizo<br />
+        <label
+          >Participação de passeios e atividades extraclasses, que serão
+          previamente avisados, durante todo o ano letivo</label
+        ><br />
+        <input
+          type="radio"
+          name="permite_passeios"
+          value="Sim"
+          value="{{ aluno.permite_passeios if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+        Sim, autorizo passeios e atividades extraclasses<br />
+        <input
+          type="radio"
+          name="permite_passeios"
+          value="Não"
+          value="{{ aluno.permite_passeios if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+        Não autorizo<br />
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-header bg-danger">Matrícula</div>
+      <div class="card-body">
         <label class="form-label"
-          >Nome e telefone da(s) pessoa(s) autorizada(s) a retirar a criança da
-          escola</label
+          >Solicito matrícula no nível da Educação Infantil. Declaro acatar as
+          normas regimentais desse estabelecimento de ensino.</label
         >
-        <div class="col-md-3">
-          <label class="form-label">Pessoa e telefone 1</label>
-          <input class="form-control mb-2" name="pessoa1" />
-        </div>
+        <select class="form-control mb-4" name="nivel">
+          <option value="">Selecione</option>
+          <option>INFANTIL IV</option>
+          <option>INFANTIL V</option>
+        </select>
 
-        <div class="col-md-3">
-          <label class="form-label">Pessoa e telefone 2</label>
-          <input class="form-control mb-2" name="pessoa2" />
-        </div>
+        <label class="form-label">Ensino Integral?</label>
+        <select class="form-control mb-2" name="integral">
+          <option value="">Selecione</option>
+          <option>Sim</option>
+          <option>Não</option>
+        </select>
 
-        <div class="col-md-3">
-          <label class="form-label">Pessoa e telefone 3</label>
-          <input class="form-control mb-2" name="pessoa3" />
-        </div>
-
-        <div class="col-md-3">
-          <label class="form-label">Pessoa e telefone 4</label>
-          <input class="form-control mb-2" name="pessoa4" />
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3">
-          <label class="form-label">Programa Bolsa Família</label>
-          <select class="form-control mb-2" name="bolsa_familia">
-            <option value="">Selecione</option>
-            <option>Sim</option>
-            <option>Não</option>
-          </select>
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">NIS</label>
-          <input class="form-control mb-2" name="nis" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Plano de saúde</label>
-          <input class="form-control mb-2" name="plano" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Foto do APP Bolsa Família</label>
-          <input type="file" class="form-control mb-2" name="app_bolsa" />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <label class="form-label">Procedência (escola anterior)</label>
-          <input class="form-control mb-2" name="escola_anterior" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Ano</label>
-          <input class="form-control mb-2" name="ano" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Cidade</label>
-          <input class="form-control mb-2" name="cidade" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Estado</label>
-          <input class="form-control mb-2" name="estado" />
-        </div>
+        <label class="form-label">Transferência</label>
+        <select class="form-control mb-2" name="transferencia">
+          <option value="">Selecione</option>
+          <option>Mudança de Residência</option>
+          <option>Transferência Rede Pública</option>
+          <option>Transferência Outro Estado</option>
+          <option>Transferência Outro País</option>
+          <option>Transferência Rede Particular</option>
+        </select>
       </div>
     </div>
+
+    <!-- 6️⃣ FINANCEIRO -->
+    <div class="card mb-4">
+      <div class="card-header bg-warning">Financeiro</div>
+      <div class="card-body">
+        <input
+          class="form-control mb-2"
+          name="contribuicao"
+          placeholder="Valor da contribuição"
+          value="{{ aluno.contribuicao if aluno else '' }}"
+          {%
+          if
+          modo=""
+          ="editar"
+          %}readonly{%
+          endif
+          %}
+        />
+
+        <select class="form-control mb-2" name="tipo_contribuicao">
+          <option>Dinheiro</option>
+          <option>Pix</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn btn-success btn-lg w-100">Salvar Matrícula</button>
+
+    {% endblock %}
   </div>
 
-  <!-- 4️⃣ ENDEREÇO -->
-  <div class="card mb-4">
-    <div class="card-header bg-dark text-white">Endereço</div>
-    <div class="card-body">
-      <input
-        class="form-control mb-2"
-        name="logradouro"
-        placeholder="Logradouro"
-      />
-      <input class="form-control mb-2" name="numero" placeholder="Número" />
-      <input class="form-control mb-2" name="bairro" placeholder="Bairro" />
-      <input class="form-control mb-2" name="cidade" placeholder="Cidade" />
-      <input class="form-control mb-2" name="cep" placeholder="CEP" />
+  <button
+    type="submit"
+    class="btn btn-success mt-3"
+    id="btnSalvar"
+    {%
+    if
+    modo=""
+    ="editar"
+    %}style="display:none"
+    {%
+    endif
+    %}
+  >
+    💾 Salvar
+  </button>
 
-      <label>Comprovante de residência</label>
-      <input type="file" class="form-control mb-2" name="doc_cep" />
-    </div>
-  </div>
-  <!-- 5️⃣ AUTORIZAÇÕES -->
-  <div class="card mb-4">
-    <div class="card-header bg-info text-white">
-      Autorização para atividades
-    </div>
-    <div class="card-body">
-      <label>Prática de educação física ou ações esportivas diversas</label
-      ><br />
-      <input type="radio" name="permite_edfisica" value="Sim" /> Sim, autorizo a
-      prática esportiva<br />
-      <input type="radio" name="permite_edfisica" value="Não" /> Não, não
-      autorizo<br />
-      <label
-        >Uso de imagens e divulgação de depoimentos, em redes sociais e
-        jornais</label
-      ><br />
-      <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo o
-      uso de imagens e depoimentos<br />
-      <input type="radio" name="permite_fotos" value="Não" /> Não autorizo<br />
-      <label
-        >Participação de passeios e atividades extraclasses, que serão
-        previamente avisados, durante todo o ano letivo</label
-      ><br />
-      <input type="radio" name="permite_passeios" value="Sim" /> Sim, autorizo
-      passeios e atividades extraclasses<br />
-      <input type="radio" name="permite_passeios" value="Não" /> Não autorizo<br />
-    </div>
-  </div>
+  {% if modo == "editar" %}
+  <button
+    type="submit"
+    class="btn btn-success mt-3"
+    id="btnSalvar"
+    onclick="return confirm('Deseja salvar as informações?');"
+  >
+    💾 Salvar
+  </button>
 
-  <div class="card mb-4">
-    <div class="card-header bg-danger">Matrícula</div>
-    <div class="card-body">
-      <label class="form-label"
-        >Solicito matrícula no nível da Educação Infantil. Declaro acatar as
-        normas regimentais desse estabelecimento de ensino.</label
-      >
-      <select class="form-control mb-4" name="nivel">
-        <option value="">Selecione</option>
-        <option>INFANTIL IV</option>
-        <option>INFANTIL V</option>
-      </select>
-
-      <label class="form-label">Ensino Integral?</label>
-      <select class="form-control mb-2" name="integral">
-        <option value="">Selecione</option>
-        <option>Sim</option>
-        <option>Não</option>
-      </select>
-
-      <label class="form-label">Transferência</label>
-      <select class="form-control mb-2" name="transferencia">
-        <option value="">Selecione</option>
-        <option>Mudança de Residência</option>
-        <option>Transferência Rede Pública</option>
-        <option>Transferência Outro Estado</option>
-        <option>Transferência Outro País</option>
-        <option>Transferência Rede Particular</option>
-      </select>
-    </div>
-  </div>
-
-  <!-- 6️⃣ FINANCEIRO -->
-  <div class="card mb-4">
-    <div class="card-header bg-warning">Financeiro</div>
-    <div class="card-body">
-      <input
-        class="form-control mb-2"
-        name="contribuicao"
-        placeholder="Valor da contribuição"
-      />
-
-      <select class="form-control mb-2" name="tipo_contribuicao">
-        <option>Dinheiro</option>
-        <option>Pix</option>
-      </select>
-    </div>
-  </div>
-
-  <button class="btn btn-success btn-lg w-100">Salvar Matrícula</button>
+  {% endif %}
 </form>
 
-{% endblock %}
+<script>
+  function habilitarEdicao() {
+    document.body.classList.add("editando");
+
+    document
+      .querySelectorAll(".campo-editavel")
+      .forEach((el) => el.removeAttribute("readonly"));
+
+    document.getElementById("btnSalvar").style.display = "inline-block";
+  }
+</script>
