@@ -59,14 +59,6 @@
       <div class="row g-2">
         <div class="col-md-3">
           <input
-            name="ra"
-            class="form-control"
-            placeholder="RA"
-            value="{{ aluno.ra if aluno else '' }}"
-          />
-        </div>
-        <div class="col-md-3">
-          <input
             name="rm"
             class="form-control"
             placeholder="RM"
@@ -119,7 +111,7 @@
           <input
             name="certidao_nascimento"
             class="form-control"
-            placeholder="Certidão"
+            placeholder="Certidão de nascimento"
             value="{{ aluno.certidao_nascimento if aluno else '' }}"
           />
         </div>
@@ -133,20 +125,31 @@
         </div>
 
         <div class="col-md-3">
-          <input
+          <select
             name="sexo"
             class="form-control"
             placeholder="Sexo"
             value="{{ aluno.sexo if aluno else '' }}"
-          />
+          >
+            <option value="">Sexo</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+          </select>
         </div>
         <div class="col-md-3">
-          <input
+          <select
             name="raca_cor"
             class="form-control"
             placeholder="Raça/Cor"
             value="{{ aluno.raca_cor if aluno else '' }}"
-          />
+          >
+            <option value="">Raça/Cor</option>
+            <option value="Branco">Branco</option>
+            <option value="Preto">Preto</option>
+            <option value="Pardo">Pardo</option>
+            <option value="Amarelo">Amarelo</option>
+            <option value="Indígena">Indígena</option>
+          </select>
         </div>
       </div>
 
@@ -244,7 +247,7 @@
           <input
             name="peso"
             class="form-control"
-            placeholder="Peso"
+            placeholder="Peso (kg)"
             value="{{ aluno.peso if aluno else '' }}"
           />
         </div>
@@ -252,16 +255,16 @@
           <input
             name="altura"
             class="form-control"
-            placeholder="Altura"
+            placeholder="Altura (cm)"
             value="{{ aluno.altura if aluno else '' }}"
           />
         </div>
         <div class="col-md-3">
           <input
-            name="tipo_sanguineo"
+            name="calcado"
             class="form-control"
-            placeholder="Tipo sanguíneo"
-            value="{{ aluno.tipo_sanguineo if aluno else '' }}"
+            placeholder="Calçado"
+            value="{{ aluno.calcado if aluno else '' }}"
           />
         </div>
         <div class="col-md-3">
@@ -272,7 +275,57 @@
             value="{{ aluno.uniforme if aluno else '' }}"
           />
         </div>
-
+        <div class="col-md-3">
+          <select
+            name="tipo_sanguineo"
+            class="form-control"
+            placeholder="Tipo sanguíneo"
+            value="{{ aluno.tipo_sanguineo if aluno else '' }}"
+          >
+            <option value="">Tipo Sanguíneo</option>
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+            <option>O+</option>
+            <option>O-</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <input
+            name="alergico"
+            class="form-control"
+            placeholder="Alergico"
+            value="{{ aluno.alergico if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <select
+            name="diabetico"
+            class="form-control"
+            placeholder="Diabético"
+            value="{{ aluno.diabetico if aluno else '' }}"
+          >
+            <option value="">Diabético</option>
+            <option>Sim</option>
+            <option>Não</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select
+            name="lactose"
+            class="form-control"
+            placeholder="Lactose"
+            value="{{ aluno.lactose if aluno else '' }}"
+          >
+            <option value="">Intolerancia</option>
+            <option>Não</option>
+            <option>Intolerância à Lactose</option>
+            <option>APLV (Alergia à Proteína do Leite de Vaca)</option>
+          </select>
+        </div>
         <div class="col-md-12">
           <textarea
             name="observacoes"
