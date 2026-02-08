@@ -1,58 +1,61 @@
-<!-- Template unificado: Nova Matrícula / Editar Matrícula -->
 <!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <title>Nova Matrícula</title>
+    <title>
+      {{ 'Editar Matrícula' if modo == 'editar' else 'Nova Matrícula' }}
+    </title>
+
     <link
-      href="https://cdn.jsdelivr.net/npm/
-bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
       rel="stylesheet"
     />
 
     <style>
       .bloqueado input,
-      .bloqueado textarea,
-      .bloqueado select {
-        pointer-events: none;
+      .bloqueado select,
+      .bloqueado textarea {
         background-color: #e9ecef;
+        pointer-events: none;
       }
 
-      .cadeado {
-        font-size: 0.9em;
-        margin-left: 6px;
+      .secao-titulo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
     </style>
   </head>
+
   <body class="container my-4">
-    <h3 class="mb-4">
-      {{ 'Editar Matrícula' if modo=='editar' else 'Nova Matrícula' }}
+    <h3 class="mb-3">
+      {{ 'Editar Matrícula' if modo == 'editar' else 'Nova Matrícula' }}
     </h3>
-    {% if modo=='editar' and not edicao_habilitada %}
-    <button
-      class="btn btn-warning mb-3"
-      onclick="window.location = '?editar=1'"
-    >
-      <i class="bi bi-lock-fill text-secondary ms-2"></i> Habilitar edição
-    </button>
+
+    {% set edicao_habilitada = request.args.get('editar') == '1' or modo !=
+    'editar' %} {% if modo == 'editar' and not edicao_habilitada %}
+    <a href="?editar=1" class="btn btn-warning mb-4">
+      <i class="bi bi-unlock-fill"></i> Habilitar edição
+    </a>
     {% endif %}
 
     <form
       method="POST"
       enctype="multipart/form-data"
-      class="{% if modo=='editar' and not edicao_habilitada %}bloqueado{% endif %}"
+      class="{% if modo == 'editar' and not edicao_habilitada %}bloqueado{% endif %}"
     >
-      <!-- ================= IDENTIFICAÇÃO DO ALUNO ================= -->
-      <h5>
+      <!-- ================= IDENTIFICAÇÃO ================= -->
+      <h5 class="secao-titulo">
         Identificação do Aluno
-        <span class="cadeado"
-          ><i class="bi bi-lock-fill text-secondary ms-2"></i
-        ></span>
+        <i
+          class="bi {{ 'bi-unlock-fill' if edicao_habilitada else 'bi-lock-fill text-secondary' }}"
+        ></i>
       </h5>
+
       <div class="row g-2">
         <div class="col-md-3">
           <input
@@ -67,8 +70,7 @@ bootstrap@5.3.2/dist/css/bootstrap.min.css"
             name="rm"
             class="form-control"
             placeholder="RM"
-            value="{{ aluno.rm if aluno
-else '' }}"
+            value="{{ aluno.rm if aluno else '' }}"
           />
         </div>
         <div class="col-md-6">
@@ -79,7 +81,8 @@ else '' }}"
             value="{{ aluno.nome_completo if aluno else '' }}"
           />
         </div>
-        <div class="col- md-4">
+
+        <div class="col-md-4">
           <input
             type="date"
             name="data_nascimento"
@@ -92,8 +95,7 @@ else '' }}"
             name="cpf_aluno"
             class="form-control"
             placeholder="CPF"
-            value="{{ aluno.cpf_aluno if aluno else
-'' }}"
+            value="{{ aluno.cpf_aluno if aluno else '' }}"
           />
         </div>
         <div class="col-md-4">
@@ -104,17 +106,32 @@ else '' }}"
             value="{{ aluno.rg_aluno if aluno else '' }}"
           />
         </div>
-      </div>
-      <hr />
 
-      <!-- ================= SAÚDE ================= -->
-      <h5>
-        Saúde e Necessidades
-        <span class="cadeado"
-          ><i class="bi bi-lock-fill text-secondary ms-2"></i
-        ></span>
-      </h5>
-      <div class="row g-2">
+        <div class="col-md-4">
+          <input
+            name="cartao_sus"
+            class="form-control"
+            placeholder="Cartão SUS"
+            value="{{ aluno.cartao_sus if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            name="certidao_nascimento"
+            class="form-control"
+            placeholder="Certidão"
+            value="{{ aluno.certidao_nascimento if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            name="nacionalidade"
+            class="form-control"
+            placeholder="Nacionalidade"
+            value="{{ aluno.nacionalidade if aluno else '' }}"
+          />
+        </div>
+
         <div class="col-md-3">
           <input
             name="sexo"
@@ -123,7 +140,123 @@ else '' }}"
             value="{{ aluno.sexo if aluno else '' }}"
           />
         </div>
-        <div class="col- md-3">
+        <div class="col-md-3">
+          <input
+            name="raca_cor"
+            class="form-control"
+            placeholder="Raça/Cor"
+            value="{{ aluno.raca_cor if aluno else '' }}"
+          />
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- ================= RESPONSÁVEL ================= -->
+      <h5 class="secao-titulo">
+        Responsável Legal
+        <i
+          class="bi {{ 'bi-unlock-fill' if edicao_habilitada else 'bi-lock-fill text-secondary' }}"
+        ></i>
+      </h5>
+
+      <div class="row g-2">
+        <div class="col-md-6">
+          <input
+            name="nome_mae"
+            class="form-control"
+            placeholder="Nome da mãe"
+            value="{{ aluno.nome_mae if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-6">
+          <input
+            name="cpf_mae"
+            class="form-control"
+            placeholder="CPF da mãe"
+            value="{{ aluno.cpf_mae if aluno else '' }}"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <input
+            name="nome_pai"
+            class="form-control"
+            placeholder="Nome do pai"
+            value="{{ aluno.nome_pai if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-6">
+          <input
+            name="cpf_pai"
+            class="form-control"
+            placeholder="CPF do pai"
+            value="{{ aluno.cpf_pai if aluno else '' }}"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <input
+            name="telefone1"
+            class="form-control"
+            placeholder="Telefone 1"
+            value="{{ aluno.telefone1 if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="telefone2"
+            class="form-control"
+            placeholder="Telefone 2"
+            value="{{ aluno.telefone2 if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="telefone3"
+            class="form-control"
+            placeholder="Telefone 3"
+            value="{{ aluno.telefone3 if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="telefone4"
+            class="form-control"
+            placeholder="Telefone 4"
+            value="{{ aluno.telefone4 if aluno else '' }}"
+          />
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- ================= SAÚDE ================= -->
+      <h5 class="secao-titulo">
+        Saúde e Necessidades
+        <i
+          class="bi {{ 'bi-unlock-fill' if edicao_habilitada else 'bi-lock-fill text-secondary' }}"
+        ></i>
+      </h5>
+
+      <div class="row g-2">
+        <div class="col-md-3">
+          <input
+            name="peso"
+            class="form-control"
+            placeholder="Peso"
+            value="{{ aluno.peso if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="altura"
+            class="form-control"
+            placeholder="Altura"
+            value="{{ aluno.altura if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-3">
           <input
             name="tipo_sanguineo"
             class="form-control"
@@ -133,21 +266,13 @@ else '' }}"
         </div>
         <div class="col-md-3">
           <input
-            name="peso"
+            name="uniforme"
             class="form-control"
-            placeholder="Peso"
-            value="{{ aluno.peso if aluno else '' }}"
+            placeholder="Uniforme"
+            value="{{ aluno.uniforme if aluno else '' }}"
           />
         </div>
-        <div class="col- md-3">
-          <input
-            name="altura"
-            class="form-control"
-            placeholder="Altura"
-            value="{{ aluno.altura if aluno
-else '' }}"
-          />
-        </div>
+
         <div class="col-md-12">
           <textarea
             name="observacoes"
@@ -158,86 +283,32 @@ else '' }}"
           >
         </div>
       </div>
-      <hr />
 
-      <!-- ================= RESPONSÁVEL ================= -->
-      <h5>
-        Responsável Legal
-        <span class="cadeado"
-          ><i class="bi bi-lock-fill text-secondary ms-2"></i
-        ></span>
-      </h5>
-      <div class="row g-2">
-        <div class="col-md-6">
-          <input
-            name="nome_mae"
-            class="form-control"
-            placeholder="Nome da mãe"
-            value="{{ aluno.nome_mae if
-aluno else '' }}"
-          />
-        </div>
-
-        <div class="col-md-6">
-          <input
-            name="cpf_mae"
-            class="form-control"
-            placeholder="CPF da mãe"
-            value="{{ aluno.cpf_mae if aluno else '' }}"
-          />
-        </div>
-
-        <div class="col- md-4">
-          <input
-            name="telefone1"
-            class="form-control"
-            placeholder="Telefone 1"
-            value="{{ aluno.telefone1 if aluno else '' }}"
-          />
-        </div>
-
-        <div class="col-md-4">
-          <input
-            name="telefone2"
-            class="form-control"
-            placeholder="Telefone 2"
-            value="{{ aluno.telefone2 if aluno else '' }}"
-          />
-        </div>
-        <div class="col-md-4">
-          <input
-            name="email_mae"
-            class="form-control"
-            placeholder="Email"
-            value="{{ aluno.email_mae if aluno else '' }}"
-          />
-        </div>
-      </div>
       <hr />
 
       <!-- ================= ENDEREÇO ================= -->
-      <h5>
+      <h5 class="secao-titulo">
         Endereço
-        <span class="cadeado"
-          ><i class="bi bi-lock-fill text-secondary ms-2"></i
-        ></span>
+        <i
+          class="bi {{ 'bi-unlock-fill' if edicao_habilitada else 'bi-lock-fill text-secondary' }}"
+        ></i>
       </h5>
+
       <div class="row g-2">
         <div class="col-md-4">
           <input
             name="logradouro"
-            class="form- control"
+            class="form-control"
             placeholder="Logradouro"
             value="{{ aluno.logradouro if aluno else '' }}"
           />
         </div>
-        <div class="col- md-2">
+        <div class="col-md-2">
           <input
             name="numero"
             class="form-control"
             placeholder="Número"
-            value="{{ aluno.numero if
-aluno else '' }}"
+            value="{{ aluno.numero if aluno else '' }}"
           />
         </div>
         <div class="col-md-3">
@@ -257,14 +328,17 @@ aluno else '' }}"
           />
         </div>
       </div>
+
       <hr />
-      <!-- ================= ESCOLAR / FINANCEIRO ================= -->
-      <h5>
+
+      <!-- ================= FINANCEIRO ================= -->
+      <h5 class="secao-titulo">
         Escolar / Financeiro
-        <span class="cadeado"
-          ><i class="bi bi-lock-fill text-secondary ms-2"></i
-        ></span>
+        <i
+          class="bi {{ 'bi-unlock-fill' if edicao_habilitada else 'bi-lock-fill text-secondary' }}"
+        ></i>
       </h5>
+
       <div class="row g-2">
         <div class="col-md-4">
           <input
@@ -279,8 +353,7 @@ aluno else '' }}"
             name="nivel"
             class="form-control"
             placeholder="Nível"
-            value="{{ aluno.nivel if
-aluno else '' }}"
+            value="{{ aluno.nivel if aluno else '' }}"
           />
         </div>
         <div class="col-md-4">
@@ -292,9 +365,11 @@ aluno else '' }}"
           />
         </div>
       </div>
-      <hr />
+
       <div class="mt-4">
-        <button type="submit" class="btn btn-success">💾 Salvar</button>
+        <button type="submit" class="btn btn-success">
+          <i class="bi bi-save"></i> Salvar
+        </button>
       </div>
     </form>
   </body>
