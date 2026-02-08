@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>
-      {{ 'Editar Matrícula' if modo == 'editar' else 'Nova Matrícula' }}
+      {{ 'Editar Matrícula' if modo=='editar' else 'Nova Matrícula' }}
     </title>
 
     <link
@@ -19,147 +19,130 @@
       .bloqueado input,
       .bloqueado select,
       .bloqueado textarea {
-        background-color: #e9ecef;
         pointer-events: none;
+        background-color: #e9ecef;
       }
-
-      .secao-titulo {
+      .titulo {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        gap: 8px;
       }
     </style>
   </head>
 
   <body class="container my-4">
-    <h3 class="mb-3">
-      {{ 'Editar Matrícula' if modo == 'editar' else 'Nova Matrícula' }}
+    <h3 class="mb-4">
+      {{ 'Editar Matrícula' if modo=='editar' else 'Nova Matrícula' }}
     </h3>
 
-    {% set edicao_habilitada = request.args.get('editar') == '1' or modo !=
-    'editar' %} {% if modo == 'editar' and not edicao_habilitada %}
-    <a href="?editar=1" class="btn btn-warning mb-4">
+    {% if modo=='editar' and not edicao_habilitada %}
+    <button
+      class="btn btn-warning mb-3"
+      type="button"
+      onclick="window.location = '?editar=1'"
+    >
       <i class="bi bi-unlock-fill"></i> Habilitar edição
-    </a>
+    </button>
     {% endif %}
 
     <form
       method="POST"
       enctype="multipart/form-data"
-      class="{% if modo == 'editar' and not edicao_habilitada %}bloqueado{% endif %}"
+      class="{% if modo=='editar' and not edicao_habilitada %}bloqueado{% endif %}"
     >
-      <!-- ================= IDENTIFICAÇÃO ================= -->
-      <h5 class="secao-titulo">
-        Identificação do Aluno
+      <!-- ================= 1️⃣ IDENTIFICAÇÃO ================= -->
+      <h5 class="titulo">
+        1️⃣ Identificação do Aluno
         <i
-          class="bi {{ 'bi-unlock-fill' if edicao_habilitada else 'bi-lock-fill text-secondary' }}"
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
         ></i>
       </h5>
 
       <div class="row g-2">
         <div class="col-md-3">
-          <input
-            name="rm"
-            class="form-control"
-            placeholder="RM"
-            value="{{ aluno.rm if aluno else '' }}"
-          />
+          <input name="ra" class="form-control" placeholder="RA" />
         </div>
         <div class="col-md-6">
           <input
             name="nome_completo"
             class="form-control"
             placeholder="Nome completo"
-            value="{{ aluno.nome_completo if aluno else '' }}"
+            required
           />
         </div>
-
-        <div class="col-md-4">
+        <div class="col-md-3">
           <input
             type="date"
             name="data_nascimento"
             class="form-control"
-            value="{{ aluno.data_nascimento if aluno else '' }}"
-          />
-        </div>
-        <div class="col-md-4">
-          <input
-            name="cpf_aluno"
-            class="form-control"
-            placeholder="CPF"
-            value="{{ aluno.cpf_aluno if aluno else '' }}"
-          />
-        </div>
-        <div class="col-md-4">
-          <input
-            name="rg_aluno"
-            class="form-control"
-            placeholder="RG"
-            value="{{ aluno.rg_aluno if aluno else '' }}"
+            required
           />
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
+          <input
+            name="rg_aluno"
+            class="form-control"
+            placeholder="RG (somente números)"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="cpf_aluno"
+            class="form-control"
+            placeholder="CPF (somente números)"
+          />
+        </div>
+        <div class="col-md-3">
           <input
             name="cartao_sus"
             class="form-control"
             placeholder="Cartão SUS"
-            value="{{ aluno.cartao_sus if aluno else '' }}"
           />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <input
             name="certidao_nascimento"
             class="form-control"
             placeholder="Certidão de nascimento"
-            value="{{ aluno.certidao_nascimento if aluno else '' }}"
-          />
-        </div>
-        <div class="col-md-4">
-          <input
-            name="nacionalidade"
-            class="form-control"
-            placeholder="Nacionalidade"
-            value="{{ aluno.nacionalidade if aluno else '' }}"
           />
         </div>
 
         <div class="col-md-3">
-          <select
-            name="sexo"
-            class="form-control"
-            placeholder="Sexo"
-            value="{{ aluno.sexo if aluno else '' }}"
-          >
-            <option value="">Sexo</option>
-            <option value="Masculino">Masculino</option>
-            <option value="Feminino">Feminino</option>
-          </select>
+          <input name="sexo" class="form-control" placeholder="Sexo" required />
         </div>
         <div class="col-md-3">
-          <select
-            name="raca_cor"
+          <input name="raca_cor" class="form-control" placeholder="Raça/Cor" />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="nacionalidade"
             class="form-control"
-            placeholder="Raça/Cor"
-            value="{{ aluno.raca_cor if aluno else '' }}"
-          >
-            <option value="">Raça/Cor</option>
-            <option value="Branco">Branco</option>
-            <option value="Preto">Preto</option>
-            <option value="Pardo">Pardo</option>
-            <option value="Amarelo">Amarelo</option>
-            <option value="Indígena">Indígena</option>
-          </select>
+            placeholder="Nacionalidade"
+          />
+        </div>
+      </div>
+
+      <p class="mt-2"><strong>📎 Uploads</strong></p>
+      <div class="row g-2">
+        <div class="col-md-4">
+          <input type="file" name="doc_cpf" class="form-control" />
+        </div>
+        <div class="col-md-4">
+          <input type="file" name="doc_cartao_sus" class="form-control" />
+        </div>
+        <div class="col-md-4">
+          <input type="file" name="doc_certidao" class="form-control" />
         </div>
       </div>
 
       <hr />
 
-      <!-- ================= RESPONSÁVEL ================= -->
-      <h5 class="secao-titulo">
-        Responsável Legal
+      <!-- ================= 2️⃣ RESPONSÁVEL ================= -->
+      <h5 class="titulo">
+        2️⃣ Responsável Legal
         <i
-          class="bi {{ 'bi-unlock-fill' if edicao_habilitada else 'bi-lock-fill text-secondary' }}"
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
         ></i>
       </h5>
 
@@ -169,33 +152,38 @@
             name="nome_mae"
             class="form-control"
             placeholder="Nome da mãe"
-            value="{{ aluno.nome_mae if aluno else '' }}"
+            required
           />
         </div>
-        <div class="col-md-6">
-          <input
-            name="cpf_mae"
-            class="form-control"
-            placeholder="CPF da mãe"
-            value="{{ aluno.cpf_mae if aluno else '' }}"
-          />
-        </div>
-
         <div class="col-md-6">
           <input
             name="nome_pai"
             class="form-control"
             placeholder="Nome do pai"
-            value="{{ aluno.nome_pai if aluno else '' }}"
           />
         </div>
-        <div class="col-md-6">
+
+        <div class="col-md-3">
           <input
-            name="cpf_pai"
+            name="cpf_mae"
             class="form-control"
-            placeholder="CPF do pai"
-            value="{{ aluno.cpf_pai if aluno else '' }}"
+            placeholder="CPF da mãe"
+            required
           />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="rg_mae"
+            class="form-control"
+            placeholder="RG da mãe"
+            required
+          />
+        </div>
+        <div class="col-md-3">
+          <input name="cpf_pai" class="form-control" placeholder="CPF do pai" />
+        </div>
+        <div class="col-md-3">
+          <input name="rg_pai" class="form-control" placeholder="RG do pai" />
         </div>
 
         <div class="col-md-3">
@@ -203,7 +191,7 @@
             name="telefone1"
             class="form-control"
             placeholder="Telefone 1"
-            value="{{ aluno.telefone1 if aluno else '' }}"
+            required
           />
         </div>
         <div class="col-md-3">
@@ -211,7 +199,6 @@
             name="telefone2"
             class="form-control"
             placeholder="Telefone 2"
-            value="{{ aluno.telefone2 if aluno else '' }}"
           />
         </div>
         <div class="col-md-3">
@@ -219,7 +206,6 @@
             name="telefone3"
             class="form-control"
             placeholder="Telefone 3"
-            value="{{ aluno.telefone3 if aluno else '' }}"
           />
         </div>
         <div class="col-md-3">
@@ -227,123 +213,88 @@
             name="telefone4"
             class="form-control"
             placeholder="Telefone 4"
-            value="{{ aluno.telefone4 if aluno else '' }}"
           />
+        </div>
+
+        <div class="col-md-6">
+          <input
+            name="responsavel_matricula"
+            class="form-control"
+            placeholder="Quem é o responsável pela matrícula"
+          />
+        </div>
+      </div>
+
+      <p class="mt-2"><strong>📎 Uploads</strong></p>
+      <div class="row g-2">
+        <div class="col-md-6">
+          <input type="file" name="doc_cpf_mae" class="form-control" />
+        </div>
+        <div class="col-md-6">
+          <input type="file" name="doc_cpf_pai" class="form-control" />
         </div>
       </div>
 
       <hr />
 
-      <!-- ================= SAÚDE ================= -->
-      <h5 class="secao-titulo">
-        Saúde e Necessidades
+      <!-- ================= 3️⃣ ESCOLAR ================= -->
+      <h5 class="titulo">
+        3️⃣ Informações Escolares
         <i
-          class="bi {{ 'bi-unlock-fill' if edicao_habilitada else 'bi-lock-fill text-secondary' }}"
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
         ></i>
       </h5>
 
       <div class="row g-2">
-        <div class="col-md-3">
+        <div class="col-md-6">
           <input
-            name="peso"
+            name="pessoa1"
             class="form-control"
-            placeholder="Peso (kg)"
-            value="{{ aluno.peso if aluno else '' }}"
+            placeholder="Pessoa autorizada 1 + telefone"
           />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
           <input
-            name="altura"
+            name="pessoa2"
             class="form-control"
-            placeholder="Altura (cm)"
-            value="{{ aluno.altura if aluno else '' }}"
+            placeholder="Pessoa autorizada 2 + telefone"
           />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
           <input
-            name="calcado"
+            name="pessoa3"
             class="form-control"
-            placeholder="Calçado"
-            value="{{ aluno.calcado if aluno else '' }}"
+            placeholder="Pessoa autorizada 3 + telefone"
           />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
           <input
-            name="uniforme"
+            name="escola_anterior"
             class="form-control"
-            placeholder="Uniforme"
-            value="{{ aluno.uniforme if aluno else '' }}"
+            placeholder="Escola anterior"
           />
         </div>
-        <div class="col-md-3">
-          <select
-            name="tipo_sanguineo"
-            class="form-control"
-            placeholder="Tipo sanguíneo"
-            value="{{ aluno.tipo_sanguineo if aluno else '' }}"
-          >
-            <option value="">Tipo Sanguíneo</option>
-            <option>A+</option>
-            <option>A-</option>
-            <option>B+</option>
-            <option>B-</option>
-            <option>AB+</option>
-            <option>AB-</option>
-            <option>O+</option>
-            <option>O-</option>
-          </select>
-        </div>
-        <div class="col-md-3">
-          <input
-            name="alergico"
-            class="form-control"
-            placeholder="Alergico"
-            value="{{ aluno.alergico if aluno else '' }}"
-          />
-        </div>
-        <div class="col-md-3">
-          <select
-            name="diabetico"
-            class="form-control"
-            placeholder="Diabético"
-            value="{{ aluno.diabetico if aluno else '' }}"
-          >
-            <option value="">Diabético</option>
-            <option>Sim</option>
-            <option>Não</option>
-          </select>
-        </div>
-        <div class="col-md-3">
-          <select
-            name="lactose"
-            class="form-control"
-            placeholder="Lactose"
-            value="{{ aluno.lactose if aluno else '' }}"
-          >
-            <option value="">Intolerancia</option>
-            <option>Não</option>
-            <option>Intolerância à Lactose</option>
-            <option>APLV (Alergia à Proteína do Leite de Vaca)</option>
-          </select>
-        </div>
-        <div class="col-md-12">
-          <textarea
-            name="observacoes"
-            class="form-control"
-            placeholder="Observações"
-          >
-{{ aluno.observacoes if aluno else '' }}</textarea
-          >
-        </div>
+      </div>
+
+      <div class="mt-2">
+        <label>Permite tirar fotos:</label><br />
+        <input type="radio" name="permite_fotos" value="Sim" /> Sim
+        <input type="radio" name="permite_fotos" value="Não" /> Não
+      </div>
+
+      <div class="mt-2">
+        <label>Permite postar fotos (LGPD):</label><br />
+        <input type="radio" name="permite_postar_fotos" value="Sim" /> Sim
+        <input type="radio" name="permite_postar_fotos" value="Não" /> Não
       </div>
 
       <hr />
 
-      <!-- ================= ENDEREÇO ================= -->
-      <h5 class="secao-titulo">
-        Endereço
+      <!-- ================= 4️⃣ ENDEREÇO ================= -->
+      <h5 class="titulo">
+        4️⃣ Endereço
         <i
-          class="bi {{ 'bi-unlock-fill' if edicao_habilitada else 'bi-lock-fill text-secondary' }}"
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
         ></i>
       </h5>
 
@@ -353,77 +304,132 @@
             name="logradouro"
             class="form-control"
             placeholder="Logradouro"
-            value="{{ aluno.logradouro if aluno else '' }}"
           />
         </div>
         <div class="col-md-2">
-          <input
-            name="numero"
-            class="form-control"
-            placeholder="Número"
-            value="{{ aluno.numero if aluno else '' }}"
-          />
+          <input name="numero" class="form-control" placeholder="Número" />
         </div>
         <div class="col-md-3">
-          <input
-            name="bairro"
-            class="form-control"
-            placeholder="Bairro"
-            value="{{ aluno.bairro if aluno else '' }}"
-          />
+          <input name="bairro" class="form-control" placeholder="Bairro" />
         </div>
         <div class="col-md-3">
+          <input name="cidade" class="form-control" placeholder="Cidade" />
+        </div>
+        <div class="col-md-3">
+          <input name="cep" class="form-control" placeholder="CEP" />
+        </div>
+      </div>
+
+      <p class="mt-2"><strong>📎 Upload</strong></p>
+      <input type="file" name="doc_cep" class="form-control w-50" />
+
+      <hr />
+
+      <!-- ================= 5️⃣ SAÚDE ================= -->
+      <h5 class="titulo">
+        5️⃣ Saúde e Necessidades Especiais
+        <i
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
+        ></i>
+      </h5>
+
+      <div class="row g-2">
+        <div class="col-md-3">
+          <input name="peso" class="form-control" placeholder="Peso" />
+        </div>
+        <div class="col-md-3">
+          <input name="altura" class="form-control" placeholder="Altura" />
+        </div>
+        <div class="col-md-3">
+          <input name="uniforme" class="form-control" placeholder="Uniforme" />
+        </div>
+        <div class="col-md-3">
+          <input name="calcado" class="form-control" placeholder="Calçado" />
+        </div>
+      </div>
+
+      <div class="mt-2">
+        Alérgico:
+        <input type="radio" name="alergico" value="Sim" /> Sim
+        <input type="radio" name="alergico" value="Não" /> Não
+      </div>
+
+      <div class="mt-2">
+        Diabético:
+        <input type="radio" name="diabetico" value="Sim" /> Sim
+        <input type="radio" name="diabetico" value="Não" /> Não
+      </div>
+
+      <div class="mt-2">
+        Intolerante à lactose:
+        <input type="radio" name="lactose" value="Sim" /> Sim
+        <input type="radio" name="lactose" value="Não" /> Não
+      </div>
+
+      <div class="mt-2">
+        APLV:
+        <input type="radio" name="aplv" value="Sim" /> Sim
+        <input type="radio" name="aplv" value="Não" /> Não
+      </div>
+
+      <textarea
+        name="observacoes"
+        class="form-control mt-2"
+        placeholder="Observações adicionais sobre saúde ou necessidades especiais"
+      ></textarea>
+
+      <p class="mt-2"><strong>📎 Uploads</strong></p>
+      <div class="row g-2">
+        <div class="col-md-4">
+          <input type="file" name="doc_laudo" class="form-control" />
+        </div>
+        <div class="col-md-4">
           <input
-            name="cep"
+            type="file"
+            name="doc_carteira_vacinacao"
             class="form-control"
-            placeholder="CEP"
-            value="{{ aluno.cep if aluno else '' }}"
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            type="file"
+            name="doc_comprovante_vacinacao"
+            class="form-control"
           />
         </div>
       </div>
 
       <hr />
 
-      <!-- ================= FINANCEIRO ================= -->
-      <h5 class="secao-titulo">
-        Escolar / Financeiro
+      <!-- ================= 6️⃣ FINANCEIRO ================= -->
+      <h5 class="titulo">
+        6️⃣ Financeiro
         <i
-          class="bi {{ 'bi-unlock-fill' if edicao_habilitada else 'bi-lock-fill text-secondary' }}"
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
         ></i>
       </h5>
 
       <div class="row g-2">
         <div class="col-md-4">
           <input
-            name="ano"
-            class="form-control"
-            placeholder="Ano"
-            value="{{ aluno.ano if aluno else '' }}"
-          />
-        </div>
-        <div class="col-md-4">
-          <input
-            name="nivel"
-            class="form-control"
-            placeholder="Nível"
-            value="{{ aluno.nivel if aluno else '' }}"
-          />
-        </div>
-        <div class="col-md-4">
-          <input
             name="contribuicao"
             class="form-control"
-            placeholder="Contribuição"
-            value="{{ aluno.contribuicao if aluno else '' }}"
+            placeholder="Quantia da contribuição"
           />
         </div>
       </div>
 
-      <div class="mt-4">
-        <button type="submit" class="btn btn-success">
-          <i class="bi bi-save"></i> Salvar
-        </button>
+      <div class="mt-2">
+        Tipo da contribuição:
+        <input type="radio" name="tipo_contribuicao" value="Dinheiro" />
+        Dinheiro <input type="radio" name="tipo_contribuicao" value="Pix" /> Pix
       </div>
+
+      <hr />
+
+      <button type="submit" class="btn btn-success mt-3">
+        <i class="bi bi-save"></i> Salvar
+      </button>
     </form>
   </body>
 </html>
