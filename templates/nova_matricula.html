@@ -67,16 +67,10 @@
             name="nome_completo"
             class="form-control"
             placeholder="Nome completo"
-            required
           />
         </div>
         <div class="col-md-3">
-          <input
-            type="date"
-            name="data_nascimento"
-            class="form-control"
-            required
-          />
+          <input type="date" name="data_nascimento" class="form-control" />
         </div>
 
         <div class="col-md-3">
@@ -109,10 +103,17 @@
         </div>
 
         <div class="col-md-3">
-          <input name="sexo" class="form-control" placeholder="Sexo" required />
+          <input name="sexo" class="form-control" placeholder="Sexo" />
         </div>
         <div class="col-md-3">
           <input name="raca_cor" class="form-control" placeholder="Raça/Cor" />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="municipio_nascimento"
+            class="form-control"
+            placeholder="Município de Nascimento e UF"
+          />
         </div>
         <div class="col-md-3">
           <input
@@ -120,6 +121,37 @@
             class="form-control"
             placeholder="Nacionalidade"
           />
+        </div>
+
+        <div class="col-md-3">
+          <input
+            name="escola_anterior"
+            class="form-control"
+            placeholder="Escola anterior"
+          />
+        </div>
+        <div class="col-md-3">
+          <input name="ano" class="form-control" placeholder="Ano" />
+        </div>
+        <div class="col-md-3">
+          <input name="cidade" class="form-control" placeholder="Cidade" />
+        </div>
+        <div class="col-md-3">
+          <input name="estado" class="form-control" placeholder="Estado" />
+        </div>
+        <div class="col-md-6">
+          <select name="integral" class="form-control">
+            <option value="">Solicita matrícula para o nível:</option>
+            <option value="infantil_iv">Infantil IV</option>
+            <option value="infantil_v">Infantil V</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <select name="integral" class="form-control">
+            <option value="">Ensino integral (Ensino Fundamental I):</option>
+            <option value="integral_sim">Sim</option>
+            <option value="integral_nao">Não</option>
+          </select>
         </div>
       </div>
 
@@ -155,7 +187,6 @@
             name="nome_mae"
             class="form-control"
             placeholder="Nome da mãe"
-            required
           />
         </div>
         <div class="col-md-6">
@@ -167,20 +198,10 @@
         </div>
 
         <div class="col-md-3">
-          <input
-            name="cpf_mae"
-            class="form-control"
-            placeholder="CPF da mãe"
-            required
-          />
+          <input name="cpf_mae" class="form-control" placeholder="CPF da mãe" />
         </div>
         <div class="col-md-3">
-          <input
-            name="rg_mae"
-            class="form-control"
-            placeholder="RG da mãe"
-            required
-          />
+          <input name="rg_mae" class="form-control" placeholder="RG da mãe" />
         </div>
         <div class="col-md-3">
           <input name="cpf_pai" class="form-control" placeholder="CPF do pai" />
@@ -191,10 +212,55 @@
 
         <div class="col-md-3">
           <input
+            name="uf_rg_mae"
+            class="form-control"
+            placeholder="UF RG da mãe"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="expedicao_rg_mae"
+            class="form-control"
+            placeholder="Expedição RG da mãe"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <input
+            name="responsavel_matricula"
+            class="form-control"
+            placeholder="Nome e parentesco do responsável pela matrícula"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <input
+            name="estado_civil_mae"
+            class="form-control"
+            placeholder="Estado Civil"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <input
+            name="profissao_mae"
+            class="form-control"
+            placeholder="Profissão da mãe e local"
+          />
+        </div>
+        <div class="col-md-6">
+          <input
+            name="profissao_pai"
+            class="form-control"
+            placeholder="Profissão do pai e local"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <input
             name="telefone1"
             class="form-control"
             placeholder="Telefone 1"
-            required
           />
         </div>
         <div class="col-md-3">
@@ -218,13 +284,29 @@
             placeholder="Telefone 4"
           />
         </div>
-
-        <div class="col-md-6">
+        <div class="col-md-3">
           <input
-            name="responsavel_matricula"
+            name="bolsa_familia"
             class="form-control"
-            placeholder="Quem é o responsável pela matrícula"
+            placeholder="Programa Bolsa Família?"
           />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="nis"
+            class="form-control"
+            placeholder="Número do NIS (para famílias do Bolsa Família)"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="gemeo"
+            class="form-control"
+            placeholder="Possuí irmão gêmeo?"
+          />
+        </div>
+        <div class="col-md-3">
+          <input name="rne" class="form-control" placeholder="Número do RNE" />
         </div>
       </div>
 
@@ -281,10 +363,10 @@
         </div>
       </div>
       <div class="mt-2">
-        <label
-          >PRÁTICA DE EDUCAÇÃO FÍSICA OU AÇÕES ESPORTIVAS DIVERSAS</label
+        <label>PRÁTICA DE EDUCAÇÃO FÍSICA OU AÇÕES ESPORTIVAS DIVERSAS</label
         ><br />
-        <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo a prática esportiva<br />
+        <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo a
+        prática esportiva<br />
         <input type="radio" name="permite_fotos" value="Não" /> Não autorizo.
       </div>
       <div class="mt-2">
@@ -383,13 +465,23 @@
           />
         </div>
         <div class="col-md-3">
-          <input name="apvl" class="form-control" placeholder="APVL" />
+          <input name="aplv" class="form-control" placeholder="APLV" />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="tipo_sanguineo"
+            class="form-control"
+            placeholder="Tipo Sanguíneo"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="plano"
+            class="form-control"
+            placeholder="Plano de Saúde"
+          />
         </div>
       </div>
-
-      <!-- <div class="row g-2">
-        
-      </div> -->
 
       <textarea
         name="observacoes"
@@ -400,14 +492,11 @@
       <p class="mt-2"><strong>📎 Uploads</strong></p>
       <div class="row g-2">
         <div class="col-md-4">
-          <input
-            type="file"
-            name="doc_laudo"
-            class="form-control"
-            placeholder="Laudo (se houver)"
-          />
+          <label>Anexo laudo médico do aluno (se houver):</label>
+          <input type="file" name="doc_laudo" class="form-control" />
         </div>
         <div class="col-md-4">
+          <label>Anexo carteira de vacinação do aluno:</label>
           <input
             type="file"
             name="doc_carteira_vacinacao"
@@ -415,6 +504,7 @@
           />
         </div>
         <div class="col-md-4">
+          <label>Anexo comprovante de vacinação do aluno:</label>
           <input
             type="file"
             name="doc_comprovante_vacinacao"
