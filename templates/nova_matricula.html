@@ -126,12 +126,15 @@
       <p class="mt-2"><strong>📎 Uploads</strong></p>
       <div class="row g-2">
         <div class="col-md-4">
+          <label>Anexo documento de identidade do aluno:</label>
           <input type="file" name="doc_cpf" class="form-control" />
         </div>
         <div class="col-md-4">
+          <label>Anexo cartão SUS do aluno:</label>
           <input type="file" name="doc_cartao_sus" class="form-control" />
         </div>
         <div class="col-md-4">
+          <label>Anexo certidão de nascimento do aluno:</label>
           <input type="file" name="doc_certidao" class="form-control" />
         </div>
       </div>
@@ -228,9 +231,11 @@
       <p class="mt-2"><strong>📎 Uploads</strong></p>
       <div class="row g-2">
         <div class="col-md-6">
+          <label>Anexo documento de identidade da mãe:</label>
           <input type="file" name="doc_cpf_mae" class="form-control" />
         </div>
         <div class="col-md-6">
+          <label>Anexo documento de identidade do pai:</label>
           <input type="file" name="doc_cpf_pai" class="form-control" />
         </div>
       </div>
@@ -275,17 +280,33 @@
           />
         </div>
       </div>
-
       <div class="mt-2">
-        <label>Permite tirar fotos:</label><br />
-        <input type="radio" name="permite_fotos" value="Sim" /> Sim
-        <input type="radio" name="permite_fotos" value="Não" /> Não
+        <label
+          >PRÁTICA DE EDUCAÇÃO FÍSICA OU AÇÕES ESPORTIVAS DIVERSAS</label
+        ><br />
+        <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo a prática esportiva<br />
+        <input type="radio" name="permite_fotos" value="Não" /> Não autorizo.
+      </div>
+      <div class="mt-2">
+        <label
+          >USO DE IMAGENS E DIVULGAÇÃO DE DEPOIMENTOS, EM REDES SOCIAIS E
+          JORNAIS</label
+        ><br />
+        <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo o
+        uso de imagens e depoimentos do meu filho(a) para divulgação da escola
+        em redes sociais, site e jornais.<br />
+        <input type="radio" name="permite_fotos" value="Não" /> Não autorizo.
       </div>
 
       <div class="mt-2">
-        <label>Permite postar fotos (LGPD):</label><br />
-        <input type="radio" name="permite_postar_fotos" value="Sim" /> Sim
+        <label
+          >PASSEIOS E ATIVIDADES EXTRA-CLASSE (previamente avisados durante o
+          ano letivo):</label
+        ><br />
+        <input type="radio" name="permite_postar_fotos" value="Sim" /> Sim,
+        autorizo passeios e ações extra-classe.<br />
         <input type="radio" name="permite_postar_fotos" value="Não" /> Não
+        autorizo
       </div>
 
       <hr />
@@ -321,13 +342,17 @@
       </div>
 
       <p class="mt-2"><strong>📎 Upload</strong></p>
+      <label
+        >Anexo comprovante de endereço (conta de luz, água, internet,
+        etc):</label
+      >
       <input type="file" name="doc_cep" class="form-control w-50" />
 
       <hr />
 
       <!-- ================= 5️⃣ SAÚDE ================= -->
       <h5 class="titulo">
-        5️⃣ Saúde e Necessidades Especiais
+        5️⃣ Saúde do Aluno
         <i
           class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
         ></i>
@@ -335,42 +360,36 @@
 
       <div class="row g-2">
         <div class="col-md-3">
-          <input name="peso" class="form-control" placeholder="Peso" />
-        </div>
-        <div class="col-md-3">
-          <input name="altura" class="form-control" placeholder="Altura" />
-        </div>
-        <div class="col-md-3">
           <input name="uniforme" class="form-control" placeholder="Uniforme" />
         </div>
         <div class="col-md-3">
           <input name="calcado" class="form-control" placeholder="Calçado" />
         </div>
+        <div class="col-md-3">
+          <input name="alergico" class="form-control" placeholder="Alérgico" />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="diabetico"
+            class="form-control"
+            placeholder="Diabético"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="lactose"
+            class="form-control"
+            placeholder="Intolerante à lactose"
+          />
+        </div>
+        <div class="col-md-3">
+          <input name="apvl" class="form-control" placeholder="APVL" />
+        </div>
       </div>
 
-      <div class="mt-2">
-        Alérgico:
-        <input type="radio" name="alergico" value="Sim" /> Sim
-        <input type="radio" name="alergico" value="Não" /> Não
-      </div>
-
-      <div class="mt-2">
-        Diabético:
-        <input type="radio" name="diabetico" value="Sim" /> Sim
-        <input type="radio" name="diabetico" value="Não" /> Não
-      </div>
-
-      <div class="mt-2">
-        Intolerante à lactose:
-        <input type="radio" name="lactose" value="Sim" /> Sim
-        <input type="radio" name="lactose" value="Não" /> Não
-      </div>
-
-      <div class="mt-2">
-        APLV:
-        <input type="radio" name="aplv" value="Sim" /> Sim
-        <input type="radio" name="aplv" value="Não" /> Não
-      </div>
+      <!-- <div class="row g-2">
+        
+      </div> -->
 
       <textarea
         name="observacoes"
@@ -381,7 +400,12 @@
       <p class="mt-2"><strong>📎 Uploads</strong></p>
       <div class="row g-2">
         <div class="col-md-4">
-          <input type="file" name="doc_laudo" class="form-control" />
+          <input
+            type="file"
+            name="doc_laudo"
+            class="form-control"
+            placeholder="Laudo (se houver)"
+          />
         </div>
         <div class="col-md-4">
           <input

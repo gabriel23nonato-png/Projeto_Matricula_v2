@@ -124,7 +124,7 @@ def editar_matricula(id):
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM alunos WHERE id = ?", (id,))
+    cursor.execute("SELECT * FROM alunos_v3 WHERE id = ?", (id,))
     aluno = cursor.fetchone()
 
     if not aluno:
