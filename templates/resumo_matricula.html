@@ -2,103 +2,158 @@
 
 <!-- CABEÇALHO -->
 <style>
-@media print {
+  @media print {
     footer {
-        display: none !important;
+      display: none !important;
     }
-}
+  }
 </style>
 <div class="header-print d-flex align-items-center justify-content-center mb-2">
-    <img src="/static/img/logo_guaruja.png" height="55" class="me-3"> 
+  <img src="/static/img/logo_guaruja.png" height="55" class="me-3" />
 
-    <div class="text-center">
-        <div class="fw-bold">PREFEITURA MUNICIPAL DE GUARUJÁ</div>
-        <div>Estado de São Paulo</div>
-        <div class="fw-bold">SECRETARIA MUNICIPAL DE EDUCAÇÃO</div>
-        <div class="fw-bold mt-1">FICHA DE MATRÍCULA</div>
-        <div class="fst-italic">"E.M. PROFª MARIA DE LOURDES G. DE OLIVEIRA"</div>
-    </div>
+  <div class="text-center">
+    <div class="fw-bold">PREFEITURA MUNICIPAL DE GUARUJÁ</div>
+    <div>Estado de São Paulo</div>
+    <div class="fw-bold">SECRETARIA MUNICIPAL DE EDUCAÇÃO</div>
+    <div class="fw-bold mt-1">FICHA DE MATRÍCULA</div>
+    <div class="fst-italic">"E.M. PROFª MARIA DE LOURDES G. DE OLIVEIRA"</div>
+  </div>
 </div>
 
+<hr />
 
-  <hr />
+<!-- ================= 1️⃣ IDENTIFICAÇÃO ================= -->
 
-  <!-- DADOS DO ALUNO -->
+<div class="card">
+  <div class="card-header">Identificação do Aluno</div>
+  <div class="card-body row g-1">
+    <div class="col-6">
+      <strong>Nome e parentesco do responsável pela matrícula:</strong> {{
+      aluno.responsavel_matricula }}
+    </div>
+    <div class="col-3"><strong>RM:</strong> {{ aluno.rm }}</div>
+    <div class="col-3"><strong>RA:</strong> {{ aluno.ra }}</div>
+    <div class="col-6">
+      <strong>Nome completo:</strong> {{ aluno.nome_completo }}
+    </div>
+    <div class="col-4"><strong>Nasc.:</strong> {{ aluno.data_nascimento }}</div>
+    <div class="col-4"><strong>RG:</strong> {{ aluno.rg_aluno }}</div>
+    <div class="col-4"><strong>CPF:</strong> {{ aluno.cpf_aluno }}</div>
+    <div class="col-4"><strong>Cartão SUS:</strong> {{ aluno.cartao_sus }}</div>
+    <div class="col-6">
+      <strong>Certidão nascimento:</strong> {{ aluno.certidao_nascimento }}
+    </div>
+    <div class="col-4"><strong>Sexo:</strong> {{ aluno.sexo }}</div>
+    <div class="col-4"><strong>Raça/Cor:</strong> {{ aluno.raca_cor }}</div>
+    <div class="col-4">
+      <strong>Município:</strong> {{ aluno.municipio_nascimento }}
+    </div>
+    <div class="col-4">
+      <strong>Nacionalidade:</strong> {{ aluno.nacionalidade }}
+    </div>
+    <div class="col-4">
+      <strong>Escola anterior:</strong> {{ aluno.escola_anterior }}
+    </div>
+    <div class="col-4">
+      <strong>Nacionalidade:</strong> {{ aluno.nacionalidade }}
+    </div>
+
+    <div class="col-4"><strong>Ano:</strong> {{ aluno.ano }}</div>
+    <div class="col-4"><strong>Cidade:</strong> {{ aluno.cidade }}</div>
+    <div class="col-4"><strong>Estado:</strong> {{ aluno.estado }}</div>
+    <div class="col-4"><strong>Nível:</strong> {{ aluno.nivel }}</div>
+    <div class="col-4"><strong>Integral:</strong> {{ aluno.integral }}</div>
+  </div>
+
+  <!-- ================= 2️⃣ RESPONSÁVEL ================= -->
 
   <div class="card">
-    <div class="card-header">Identificação do Aluno</div>
+    <div class="card-header">Responsáveis</div>
     <div class="card-body row g-1">
-      <div class="col-2"><strong>RA:</strong> {{ aluno.ra }}</div>
-      <div class="col-2"><strong>RM:</strong> {{ aluno.rm }}</div>
+      <div class="col-4"><strong>Mãe:</strong> {{ aluno.nome_mae }}</div>
       <div class="col-4">
-        <strong>Resp.:</strong> {{ aluno.responsavel_matricula }}
+        <strong>Profissão da mãe e local:</strong> {{ aluno.profissao_mae }}
+      </div>
+      <div class="col-3"><strong>CPF da mãe:</strong> {{ aluno.cpf_mae }}</div>
+      <div class="col-3"><strong>RG da mãe:</strong> {{ aluno.rg_mae }}</div>
+      <div class="col-4">
+        <strong>UF RG da mãe:</strong> {{ aluno.uf_rg_mae }}
       </div>
       <div class="col-4">
-        <strong>Nasc.:</strong> {{ aluno.data_nascimento }}
+        <strong>Expedição RG da mãe:</strong> {{ aluno.expedicao_rg_mae }}
       </div>
-
-      <div class="col-6"><strong>Nome:</strong> {{ aluno.nome_completo }}</div>
-      <div class="col-3"><strong>Sexo:</strong> {{ aluno.sexo }}</div>
-      <div class="col-3"><strong>Raça/Cor:</strong> {{ aluno.raca_cor }}</div>
-
-      <div class="col-3"><strong>RG:</strong> {{ aluno.rg_aluno }}</div>
-      <div class="col-3"><strong>CPF:</strong> {{ aluno.cpf_aluno }}</div>
-      <div class="col-3"><strong>UF:</strong> {{ aluno.uf_aluno }}</div>
-      <div class="col-3">
-        <strong>Exp. RG:</strong> {{ aluno.expedicao_rg_aluno }}
-      </div>
-
-      <div class="col-3"><strong>RNE:</strong> {{ aluno.rne_aluno }}</div>
-      <div class="col-3">
-        <strong>Cartão SUS:</strong> {{ aluno.cartao_sus }}
-      </div>
-      <div class="col-3">
-        <strong>Certidão:</strong> {{ aluno.certidao_nascimento }}
-      </div>
-      <div class="col-3">
-        <strong>Nacionalidade:</strong> {{ aluno.nacionalidade }}
-      </div>
-
       <div class="col-4">
-        <strong>Município:</strong> {{ aluno.municipio_nascimento }}
+        <strong>Estado Civil:</strong> {{ aluno.estado_civil_mae }}
       </div>
-      <div class="col-4"><strong>Distrito:</strong> {{ aluno.distrito }}</div>
+
+      <div class="col-4"><strong>Pai:</strong> {{ aluno.nome_pai }}</div>
+      <div class="col-4">
+        <strong>Profissão do pai e local:</strong> {{ aluno.profissao_pai }}
+      </div>
+      <div class="col-3"><strong>CPF do pai:</strong> {{ aluno.cpf_pai }}</div>
+      <div class="col-3"><strong>RG do pai:</strong> {{ aluno.rg_pai }}</div>
+
+      <div class="col-3"><strong>Tel 1:</strong> {{ aluno.telefone1 }}</div>
+      <div class="col-3"><strong>Tel 2:</strong> {{ aluno.telefone2 }}</div>
+      <div class="col-3"><strong>Tel 3:</strong> {{ aluno.telefone3 }}</div>
+      <div class="col-3"><strong>Tel 4:</strong> {{ aluno.telefone4 }}</div>
+
+      <div class="col-3">
+        <strong>Bolsa família:</strong> {{ aluno.bolsa_familia }}
+      </div>
+      <div class="col-3"><strong>NIS:</strong> {{ aluno.nis }}</div>
+      <div class="col-3">
+        <strong>Irmão gêmeo:</strong> {{ aluno.irmao_gemeo }}
+      </div>
+      <div class="col-3"><strong>RNE:</strong> {{ aluno.rne }}</div>
     </div>
   </div>
 
-  <!-- DOCUMENTOS DO ALUNO -->
-
+  <!-- ================= 3️⃣ ESCOLAR ================= -->
   <div class="card">
-    <div class="card-header">Documentos do Aluno</div>
+    <div class="card-header">Informações Escolares</div>
     <div class="card-body row g-2">
       <div class="col-4">
-        <strong>CPF (doc):</strong> {{ aluno.doc_cpf_aluno }}
+        <strong>Pessoa autorizada 1 + telefone</strong> {{ aluno.pessoa1 }}
       </div>
       <div class="col-4">
-        <strong>Cartão SUS:</strong> {{ aluno.cartao_sus }}
+        <strong>Pessoa autorizada 2 + telefone</strong> {{ aluno.pessoa2 }}
       </div>
       <div class="col-4">
-        <strong>Doc. Cartão SUS:</strong> {{ aluno.doc_cartao_sus }}
+        <strong>Pessoa autorizada 3 + telefone</strong> {{ aluno.pessoa3 }}
       </div>
 
       <div class="col-6">
-        <strong>Certidão nascimento:</strong> {{ aluno.certidao_nascimento }}
-      </div>
-      <div class="col-6">
-        <strong>Doc. certidão:</strong> {{ aluno.doc_certidao_nascimento }}
+        <strong>Escola anterior:</strong> {{ aluno.escola_anterior }}
       </div>
 
-      <div class="col-6">
-        <strong>Município nascimento:</strong> {{ aluno.municipio_nascimento }}
+      <div class="col-3">
+        <strong
+          >PRÁTICA DE EDUCAÇÃO FÍSICA OU AÇÕES ESPORTIVAS DIVERSAS:</strong
+        >
+        {{ aluno.permite_edfisica }}
       </div>
-      <div class="col-6"><strong>Distrito:</strong> {{ aluno.distrito }}</div>
+      <div class="col-3">
+        <strong
+          >PASSEIOS E ATIVIDADES EXTRA-CLASSE (previamente avisados durante o
+          ano letivo)</strong
+        >
+        {{ aluno.permite_passeios }}
+      </div>
+      <div class="col-3">
+        <strong
+          >USO DE IMAGENS E DIVULGAÇÃO DE DEPOIMENTOS, EM REDES SOCIAIS E
+          JORNAIS:</strong
+        >
+        {{ aluno.permite_fotos }}
+      </div>
     </div>
   </div>
 
   <!-- SAÚDE -->
 
   <div class="card">
-    <div class="card-header">Saúde</div>
+    <div class="card-header">Endereço</div>
     <div class="card-body row g-1">
       <div class="col-2"><strong>Peso:</strong> {{ aluno.peso }}</div>
       <div class="col-2"><strong>Altura:</strong> {{ aluno.altura }}</div>
@@ -117,26 +172,6 @@
       <div class="col-12">
         <strong>Observações:</strong> {{ aluno.observacoes }}
       </div>
-    </div>
-  </div>
-
-  <!-- RESPONSÁVEIS + CONTATOS-->
-
-  <div class="card">
-    <div class="card-header">Responsáveis</div>
-    <div class="card-body row g-1">
-      <div class="col-6"><strong>Mãe:</strong> {{ aluno.nome_mae }}</div>
-      <div class="col-3"><strong>CPF:</strong> {{ aluno.cpf_mae }}</div>
-      <div class="col-3"><strong>RG:</strong> {{ aluno.rg_mae }}</div>
-
-      <div class="col-6"><strong>Pai:</strong> {{ aluno.nome_pai }}</div>
-      <div class="col-3"><strong>CPF:</strong> {{ aluno.cpf_pai }}</div>
-      <div class="col-3"><strong>RG:</strong> {{ aluno.rg_pai }}</div>
-
-      <div class="col-3"><strong>Tel 1:</strong> {{ aluno.telefone1 }}</div>
-      <div class="col-3"><strong>Tel 2:</strong> {{ aluno.telefone2 }}</div>
-      <div class="col-3"><strong>Tel 3:</strong> {{ aluno.telefone3 }}</div>
-      <div class="col-3"><strong>Tel 4:</strong> {{ aluno.telefone4 }}</div>
     </div>
   </div>
 

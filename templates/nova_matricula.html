@@ -112,14 +112,14 @@
           <input
             name="municipio_nascimento"
             class="form-control"
-            placeholder="Município de Nascimento e UF"
+            placeholder="Município de Nascimento e UF (ex: Guarujá/SP)"
           />
         </div>
         <div class="col-md-3">
           <input
             name="nacionalidade"
             class="form-control"
-            placeholder="Nacionalidade"
+            placeholder="Nacionalidade (ex: Brasileira)"
           />
         </div>
 
@@ -140,9 +140,9 @@
           <input name="estado" class="form-control" placeholder="Estado" />
         </div>
         <div class="col-md-6">
-          <select name="integral" class="form-control">
+          <select name="nivel" class="form-control">
             <option value="">Solicita matrícula para o nível:</option>
-            <option value="infantil_iv">Infantil IV</option>
+            <option value="Infantil IV">Infantil IV</option>
             <option value="infantil_v">Infantil V</option>
           </select>
         </div>
@@ -306,7 +306,7 @@
           />
         </div>
         <div class="col-md-3">
-          <input name="rne" class="form-control" placeholder="Número do RNE" />
+          <input name="rne" class="form-control" placeholder="Número do RNE (aluno estrangeiro)" />
         </div>
       </div>
 
@@ -365,9 +365,9 @@
       <div class="mt-2">
         <label>PRÁTICA DE EDUCAÇÃO FÍSICA OU AÇÕES ESPORTIVAS DIVERSAS</label
         ><br />
-        <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo a
+        <input type="radio" name="permite_edfisica" value="Sim" /> Sim, autorizo a
         prática esportiva<br />
-        <input type="radio" name="permite_fotos" value="Não" /> Não autorizo.
+        <input type="radio" name="permite_edfisica" value="Não" /> Não autorizo.
       </div>
       <div class="mt-2">
         <label
@@ -385,9 +385,9 @@
           >PASSEIOS E ATIVIDADES EXTRA-CLASSE (previamente avisados durante o
           ano letivo):</label
         ><br />
-        <input type="radio" name="permite_postar_fotos" value="Sim" /> Sim,
+        <input type="radio" name="permite_passeios" value="Sim" /> Sim,
         autorizo passeios e ações extra-classe.<br />
-        <input type="radio" name="permite_postar_fotos" value="Não" /> Não
+        <input type="radio" name="permite_passeios" value="Não" /> Não
         autorizo
       </div>
 
