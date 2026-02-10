@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Ficha de Matrícula</title>
+    <style>
+        :root { --primary: #333; --bg: #f4f4f4; --border: #ddd; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 20px; }
+        
+        .ficha { 
+            max-width: 800px; margin: auto; background: white; 
+            padding: 40px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+        }
+
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 30px; }
+        
+        /* Espaço da Foto 3x4 */
+        .foto-placeholder { 
+            width: 3cm; height: 4cm; border: 2px dashed #999; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; color: #888; text-align: center;
+        }
+
+        h2 { font-size: 1.2rem; text-transform: uppercase; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-top: 25px; }
+
+        /* Grid de Informações */
+        .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 15px; margin-top: 10px; }
+        .campo { display: flex; flex-direction: column; grid-column: span 12; }
+        .campo label { font-size: 11px; font-weight: bold; color: #666; text-transform: uppercase; margin-bottom: 3px; }
+        .campo span { font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 2px; min-height: 20px; }
+
+        /* Variações de tamanho de coluna */
+        .col-8 { grid-column: span 8; }
+        .col-6 { grid-column: span 6; }
+        .col-4 { grid-column: span 4; }
+        .col-3 { grid-column: span 3; }
+        .col-2 { grid-column: span 2; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .ficha { box-shadow: none; border: none; max-width: 100%; padding: 0; }
+            .no-print { display: none; }
+            @page { margin: 1.5cm; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ficha">
+        <header>
+            <div>
+                <h1>Ficha de Matrícula</h1>
+                <p>Ano Letivo: 2024</p>
+            </div>
+            <div class="foto-placeholder">Foto 3x4</div>
+        </header>
+
+        <section>
+            <h2>Dados do Aluno</h2>
+            <div class="grid">
+                <div class="campo col-8"><label>Nome Completo</label><span>João da Silva Sauro</span></div>
+                <div class="campo col-4"><label>Data de Nascimento</label><span>15/05/2010</span></div>
+                <div class="campo col-4"><label>RG</label><span>00.000.000-0</span></div>
+                <div class="campo col-4"><label>CPF</label><span>000.000.000-00</span></div>
+                <div class="campo col-2"><label>Sexo</label><span>Masculino</span></div>
+                <div class="campo col-2"><label>Cor/Raça</label><span>Parda</span></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Filiação</h2>
+            <div class="grid">
+                <div class="campo col-6"><label>Nome da Mãe</label><span>Maria das Dores</span></div>
+                <div class="campo col-3"><label>RG Mãe</label><span>11.111.111-1</span></div>
+                <div class="campo col-3"><label>CPF Mãe</label><span>111.111.111-11</span></div>
+                
+                <div class="campo col-6"><label>Nome do Pai</label><span>José do Egito</span></div>
+                <div class="campo col-3"><label>RG Pai</label><span>22.222.222-2</span></div>
+                <div class="campo col-3"><label>CPF Pai</label><span>222.222.222-22</span></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Endereço Residencial</h2>
+            <div class="grid">
+                <div class="campo col-8"><label>Logradouro</label><span>Avenida das Nações</span></div>
+                <div class="campo col-2"><label>Número</label><span>123</span></div>
+                <div class="campo col-2"><label>Complemento</label><span>Apto 402</span></div>
+                <div class="campo col-4"><label>Bairro</label><span>Centro</span></div>
+                <div class="campo col-4"><label>Cidade</label><span>São Paulo</span></div>
+                <div class="campo col-4"><label>CEP</label><span>01001-000</span></div>
+            </div>
+        </section>
+
+        <button class="no-print" onclick="window.print()" style="margin-top:30px; padding:10px 20px; cursor:pointer;">
+            Imprimir Ficha
+        </button>
+    </div>
+
+</body>
+</html>
