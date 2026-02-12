@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Editar Matrícula</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body class="container mt-4">
+
+<h4>Editar Matrícula</h4>
+
+<form method="post">
+
+  <div class="mb-2">
+    <label>Nome completo</label>
+    <input
+      type="text"
+      class="form-control"
+      name="nome_completo"
+      value="{{ aluno.nome_completo }}"
+    />
+  </div>
+
+  <div class="mb-2">
+    <label>RM</label>
+    <input
+      type="text"
+      class="form-control"
+      name="rm"
+      value="{{ aluno.rm }}"
+    />
+  </div>
+
+  <div class="mb-2">
+    <label>RA</label>
+    <input
+      type="text"
+      class="form-control"
+      name="ra"
+      value="{{ aluno.ra }}"
+    />
+  </div>
+
+  <!-- você pode colar AQUI o formulário completo que já existe -->
+       <form
+      method="POST"
+      enctype="multipart/form-data"
+      class="{% if modo=='editar' and not edicao_habilitada %}bloqueado{% endif %}"
+    >
+      <!-- ================= 1️⃣ IDENTIFICAÇÃO ================= -->
+      <h5 class="titulo">
+        1️⃣ Identificação do Aluno
+        <i
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
+        ></i>
+      </h5>
+
+      <div class="row g-2">
+        <div class="col-md-3">
+          <input name="ra" class="form-control" placeholder="RA" />
+        </div>
+        <div class="col-md-6">
+          <input
+            name="nome_completo"
+            class="form-control"
+            placeholder="Nome completo"
+          />
+        </div>
+        <div class="col-md-3">
+          <input type="date" name="data_nascimento" class="form-control" />
+        </div>
+
+        <div class="col-md-3">
+          <input
+            name="rg_aluno"
+            class="form-control"
+            placeholder="RG (somente números)"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="cpf_aluno"
+            class="form-control"
+            placeholder="CPF (somente números)"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="cartao_sus"
+            class="form-control"
+            placeholder="Cartão SUS"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="certidao_nascimento"
+            class="form-control"
+            placeholder="Certidão de nascimento"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <input name="sexo" class="form-control" placeholder="Sexo" />
+        </div>
+        <div class="col-md-3">
+          <input name="raca_cor" class="form-control" placeholder="Raça/Cor" />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="municipio_nascimento"
+            class="form-control"
+            placeholder="Município de Nascimento e UF (ex: Guarujá/SP)"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="nacionalidade"
+            class="form-control"
+            placeholder="Nacionalidade (ex: Brasileira)"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <input
+            name="escola_anterior"
+            class="form-control"
+            placeholder="Escola anterior"
+          />
+        </div>
+        <div class="col-md-3">
+          <input name="ano" class="form-control" placeholder="Ano" />
+        </div>
+        <div class="col-md-3">
+          <input name="cidade" class="form-control" placeholder="Cidade" />
+        </div>
+        <div class="col-md-3">
+          <input name="estado" class="form-control" placeholder="Estado" />
+        </div>
+        <div class="col-md-6">
+          <select name="nivel" class="form-control">
+            <option value="">Solicita matrícula para o nível:</option>
+            <option value="Infantil IV">Infantil IV</option>
+            <option value="infantil_v">Infantil V</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <select name="integral" class="form-control">
+            <option value="">Ensino integral (Ensino Fundamental I):</option>
+            <option value="integral_sim">Sim</option>
+            <option value="integral_nao">Não</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="mt-2"><strong>📎 Uploads</strong></p>
+      <div class="row g-2">
+        <div class="col-md-4">
+          <label>Anexo documento de identidade do aluno:</label>
+          <input type="file" name="doc_cpf" class="form-control" />
+        </div>
+        <div class="col-md-4">
+          <label>Anexo cartão SUS do aluno:</label>
+          <input type="file" name="doc_cartao_sus" class="form-control" />
+        </div>
+        <div class="col-md-4">
+          <label>Anexo certidão de nascimento do aluno:</label>
+          <input type="file" name="doc_certidao" class="form-control" />
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- ================= 2️⃣ RESPONSÁVEL ================= -->
+      <h5 class="titulo">
+        2️⃣ Responsável Legal
+        <i
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
+        ></i>
+      </h5>
+
+      <div class="row g-2">
+        <div class="col-md-6">
+          <input
+            name="nome_mae"
+            class="form-control"
+            placeholder="Nome da mãe"
+          />
+        </div>
+        <div class="col-md-6">
+          <input
+            name="nome_pai"
+            class="form-control"
+            placeholder="Nome do pai"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <input name="cpf_mae" class="form-control" placeholder="CPF da mãe" />
+        </div>
+        <div class="col-md-3">
+          <input name="rg_mae" class="form-control" placeholder="RG da mãe" />
+        </div>
+        <div class="col-md-3">
+          <input name="cpf_pai" class="form-control" placeholder="CPF do pai" />
+        </div>
+        <div class="col-md-3">
+          <input name="rg_pai" class="form-control" placeholder="RG do pai" />
+        </div>
+
+        <div class="col-md-3">
+          <input
+            name="uf_rg_mae"
+            class="form-control"
+            placeholder="UF RG da mãe"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="expedicao_rg_mae"
+            class="form-control"
+            placeholder="Expedição RG da mãe"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <input
+            name="responsavel_matricula"
+            class="form-control"
+            placeholder="Nome e parentesco do responsável pela matrícula"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <input
+            name="estado_civil_mae"
+            class="form-control"
+            placeholder="Estado Civil"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <input
+            name="profissao_mae"
+            class="form-control"
+            placeholder="Profissão da mãe e local"
+          />
+        </div>
+        <div class="col-md-6">
+          <input
+            name="profissao_pai"
+            class="form-control"
+            placeholder="Profissão do pai e local"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <input
+            name="telefone1"
+            class="form-control"
+            placeholder="Telefone 1"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="telefone2"
+            class="form-control"
+            placeholder="Telefone 2"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="telefone3"
+            class="form-control"
+            placeholder="Telefone 3"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="telefone4"
+            class="form-control"
+            placeholder="Telefone 4"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="bolsa_familia"
+            class="form-control"
+            placeholder="Programa Bolsa Família?"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="nis"
+            class="form-control"
+            placeholder="Número do NIS (para famílias do Bolsa Família)"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="gemeo"
+            class="form-control"
+            placeholder="Possuí irmão gêmeo?"
+          />
+        </div>
+        <div class="col-md-3">
+          <input name="rne" class="form-control" placeholder="Número do RNE (aluno estrangeiro)" />
+        </div>
+      </div>
+
+      <p class="mt-2"><strong>📎 Uploads</strong></p>
+      <div class="row g-2">
+        <div class="col-md-6">
+          <label>Anexo documento de identidade da mãe:</label>
+          <input type="file" name="doc_cpf_mae" class="form-control" />
+        </div>
+        <div class="col-md-6">
+          <label>Anexo documento de identidade do pai:</label>
+          <input type="file" name="doc_cpf_pai" class="form-control" />
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- ================= 3️⃣ ESCOLAR ================= -->
+      <h5 class="titulo">
+        3️⃣ Informações Escolares
+        <i
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
+        ></i>
+      </h5>
+
+      <div class="row g-2">
+        <div class="col-md-6">
+          <input
+            name="pessoa1"
+            class="form-control"
+            placeholder="Pessoa autorizada 1 + telefone"
+          />
+        </div>
+        <div class="col-md-6">
+          <input
+            name="pessoa2"
+            class="form-control"
+            placeholder="Pessoa autorizada 2 + telefone"
+          />
+        </div>
+        <div class="col-md-6">
+          <input
+            name="pessoa3"
+            class="form-control"
+            placeholder="Pessoa autorizada 3 + telefone"
+          />
+        </div>
+        <div class="col-md-6">
+          <input
+            name="escola_anterior"
+            class="form-control"
+            placeholder="Escola anterior"
+          />
+        </div>
+      </div>
+      <div class="mt-2">
+        <label>PRÁTICA DE EDUCAÇÃO FÍSICA OU AÇÕES ESPORTIVAS DIVERSAS</label
+        ><br />
+        <input type="radio" name="permite_edfisica" value="Sim" /> Sim, autorizo a
+        prática esportiva<br />
+        <input type="radio" name="permite_edfisica" value="Não" /> Não autorizo.
+      </div>
+      <div class="mt-2">
+        <label
+          >USO DE IMAGENS E DIVULGAÇÃO DE DEPOIMENTOS, EM REDES SOCIAIS E
+          JORNAIS</label
+        ><br />
+        <input type="radio" name="permite_fotos" value="Sim" /> Sim, autorizo o
+        uso de imagens e depoimentos do meu filho(a) para divulgação da escola
+        em redes sociais, site e jornais.<br />
+        <input type="radio" name="permite_fotos" value="Não" /> Não autorizo.
+      </div>
+
+      <div class="mt-2">
+        <label
+          >PASSEIOS E ATIVIDADES EXTRA-CLASSE (previamente avisados durante o
+          ano letivo):</label
+        ><br />
+        <input type="radio" name="permite_passeios" value="Sim" /> Sim,
+        autorizo passeios e ações extra-classe.<br />
+        <input type="radio" name="permite_passeios" value="Não" /> Não
+        autorizo
+      </div>
+
+      <hr />
+
+      <!-- ================= 4️⃣ ENDEREÇO ================= -->
+      <h5 class="titulo">
+        4️⃣ Endereço
+        <i
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
+        ></i>
+      </h5>
+
+      <div class="row g-2">
+        <div class="col-md-4">
+          <input
+            name="logradouro"
+            class="form-control"
+            placeholder="Logradouro"
+          />
+        </div>
+        <div class="col-md-2">
+          <input name="numero" class="form-control" placeholder="Número" />
+        </div>
+        <div class="col-md-3">
+          <input name="bairro" class="form-control" placeholder="Bairro" />
+        </div>
+        <div class="col-md-3">
+          <input name="cidade" class="form-control" placeholder="Cidade" />
+        </div>
+        <div class="col-md-3">
+          <input name="cep" class="form-control" placeholder="CEP" />
+        </div>
+      </div>
+
+      <p class="mt-2"><strong>📎 Upload</strong></p>
+      <label
+        >Anexo comprovante de endereço (conta de luz, água, internet,
+        etc):</label
+      >
+      <input type="file" name="doc_cep" class="form-control w-50" />
+
+      <hr />
+
+      <!-- ================= 5️⃣ SAÚDE ================= -->
+      <h5 class="titulo">
+        5️⃣ Saúde do Aluno
+        <i
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
+        ></i>
+      </h5>
+
+      <div class="row g-2">
+        <div class="col-md-3">
+          <input name="uniforme" class="form-control" placeholder="Uniforme" />
+        </div>
+        <div class="col-md-3">
+          <input name="calcado" class="form-control" placeholder="Calçado" />
+        </div>
+        <div class="col-md-3">
+          <input name="alergico" class="form-control" placeholder="Alérgico" />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="diabetico"
+            class="form-control"
+            placeholder="Diabético"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="lactose"
+            class="form-control"
+            placeholder="Intolerante à lactose"
+          />
+        </div>
+        <div class="col-md-3">
+          <input name="aplv" class="form-control" placeholder="APLV" />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="tipo_sanguineo"
+            class="form-control"
+            placeholder="Tipo Sanguíneo"
+          />
+        </div>
+        <div class="col-md-3">
+          <input
+            name="plano"
+            class="form-control"
+            placeholder="Plano de Saúde"
+          />
+        </div>
+      </div>
+
+      <textarea
+        name="observacoes"
+        class="form-control mt-2"
+        placeholder="Observações adicionais sobre saúde ou necessidades especiais"
+      ></textarea>
+
+      <p class="mt-2"><strong>📎 Uploads</strong></p>
+      <div class="row g-2">
+        <div class="col-md-4">
+          <label>Anexo laudo médico do aluno (se houver):</label>
+          <input type="file" name="doc_laudo" class="form-control" />
+        </div>
+        <div class="col-md-4">
+          <label>Anexo carteira de vacinação do aluno:</label>
+          <input
+            type="file"
+            name="doc_carteira_vacinacao"
+            class="form-control"
+          />
+        </div>
+        <div class="col-md-4">
+          <label>Anexo comprovante de vacinação do aluno:</label>
+          <input
+            type="file"
+            name="doc_comprovante_vacinacao"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- ================= 6️⃣ FINANCEIRO ================= -->
+      <h5 class="titulo">
+        6️⃣ Financeiro
+        <i
+          class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"
+        ></i>
+      </h5>
+
+      <div class="row g-2">
+        <div class="col-md-4">
+          <input
+            name="contribuicao"
+            class="form-control"
+            placeholder="Quantia da contribuição"
+          />
+        </div>
+      </div>
+
+      <div class="mt-2">
+        Tipo da contribuição:
+        <input type="radio" name="tipo_contribuicao" value="Dinheiro" />
+        Dinheiro <input type="radio" name="tipo_contribuicao" value="Pix" /> Pix
+      </div>
+
+      <hr />
+
+      <button type="submit" class="btn btn-success mt-3">
+        <i class="bi bi-save"></i> Salvar
+      </button>
+    </form>
+
+  <button class="btn btn-success mt-3">
+    Salvar alterações
+  </button>
+
+</form>
+
+</body>
+</html>
